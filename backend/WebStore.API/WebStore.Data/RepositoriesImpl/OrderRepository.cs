@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebStore.Domain.Entities.OrderAggregate;
+using WebStore.Domain.Pagination;
 using WebStore.Domain.Repositories;
 using WebStore.Infra.Context;
-
 namespace WebStore.Data.RepositoriesImpl;
 
 public class OrderRepository : IOrderRepository
 {
     private readonly AppDbContext _context;
-
     public OrderRepository(AppDbContext context)
     {
         _context = context;
@@ -41,13 +40,49 @@ public class OrderRepository : IOrderRepository
         return order;
     }
 
-    public Task<Order> Update(Guid? id, Order order)
+    public async Task<Order> Update(Guid? id, Order order)
     {
-        throw new NotImplementedException();
+        var orderToUpdate = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+        order.UpdateOrder(orderToUpdate);
+        return order;
     }
 
-    public Task<Order> Delete(Guid? id)
+    public async Task<Order> Delete(Guid? id)
     {
-        throw new NotImplementedException();
+        var orderToDelete = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+        _context.Remove(orderToDelete);
+        await _context.SaveChangesAsync();
+        return orderToDelete;
+    }
+
+    public async Task<IEnumerable<Order>> GetWithPagination(OrderParams orderParams)
+    {
+        var orders = await GetAll();
+        var queryOrders = orders.AsQueryable().OrderBy(o => o.Id);
+        var paginatedOrders = PagedList<Order>.ToPagedList(queryOrders, orderParams.PageNumber, orderParams.PageSize);
+        return paginatedOrders;
+    }
+
+    public async Task<IEnumerable<Order>> GetByBuyerEmail(OrdersEmailFilter emailFilter)
+    {
+        
+        var orders = await GetAll();
+        if (orders == null)
+        {
+            throw new Exception("No orders were found");
+        }
+        var queryOrders = orders.AsQueryable();
+        var filteredOrders = queryOrders.Where(o => o.BuyerEmail == emailFilter.BuyerEmail);
+        var paginatedOrders = PagedList<Order>.ToPagedList(filteredOrders, emailFilter.PageNumber, emailFilter.PageSize);
+        return paginatedOrders;
+    }
+
+    public async Task<IEnumerable<Order>> GetByOrderDate(OrdersDateFilter dateFilter)
+    {
+        var orders = await GetAll();
+        var queryOrders = orders.AsQueryable();
+        var filteredOrders = queryOrders.Where(o => o.OrderDate == dateFilter.OrderDate);
+        var paginatedOrders = PagedList<Order>.ToPagedList(filteredOrders, dateFilter.PageNumber, dateFilter.PageSize);
+        return paginatedOrders;
     }
 }

@@ -1,15 +1,19 @@
-﻿using WebStore.Domain.Validation;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+using WebStore.Domain.Validation;
 
 namespace WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 
+[Keyless]
+[ComplexType]
 public class OrderItemVO
 {
     public int Quantity { get; private set; }
-    
     public decimal Price { get; private set; }
 
     public string ProductName { get; private set; } = "";
-    
+
+    public OrderItemVO() { }
 
     public OrderItemVO(int quantity, decimal price)
     {
@@ -21,7 +25,6 @@ public class OrderItemVO
         ValidateQuantity(quantity);
         ValidatePrice(price);
     }
-
     
     private void ValidateQuantity(int quantity)
     {

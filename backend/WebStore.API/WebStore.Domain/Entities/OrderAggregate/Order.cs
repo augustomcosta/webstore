@@ -37,7 +37,8 @@ public sealed class Order : BaseEntity
     
     [Required]
     public User User { get; private set; }
-    
+
+    public Order() { }
     public Order(Guid id, decimal subTotal, IReadOnlyList<OrderItemVO> orderItems, DeliveryMethod deliveryMethod, AddressVO shippingAddress) : base(id)
     {
         DeliveryMethod = deliveryMethod;
@@ -60,5 +61,19 @@ public sealed class Order : BaseEntity
             throw new Exception("Order total should be positive.");
         }
         return total;
+    }
+
+    public void UpdateOrder(Order order)
+    {
+        Total = order.Total;
+        SubTotal = order.SubTotal;
+        ShippingAddress = order.ShippingAddress;
+        BuyerEmail = order.BuyerEmail;
+        OrderItems = order.OrderItems;
+        OrderDate = order.OrderDate;
+        DeliveryMethod = order.DeliveryMethod;
+        DeliveryMethodId = order.DeliveryMethodId;
+        User = order.User;
+        UserId = order.UserId;
     }
 }

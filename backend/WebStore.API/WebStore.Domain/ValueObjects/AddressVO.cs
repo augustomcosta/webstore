@@ -1,8 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 using WebStore.Domain.Validation;
 
 namespace WebStore.Domain.ValueObjects;
 
+[Keyless]
+[ComplexType]
 public class AddressVO
 {
     [Required]

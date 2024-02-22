@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using WebStore.API.DTOs;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Entities.OrderAggregate;
 
 namespace WebStore.API.Mappings;
 
@@ -21,5 +22,6 @@ public class DomainToDtoMappingProfiles : Profile
         CreateMap<ProductBrand, BrandDto>().ReverseMap();
         CreateMap<ProductCategory, CategoryDto>().ReverseMap();
         CreateMap<User, UserDto>().ReverseMap();
+        CreateMap<Order, UserDto>().ReverseMap();
     }
 }
