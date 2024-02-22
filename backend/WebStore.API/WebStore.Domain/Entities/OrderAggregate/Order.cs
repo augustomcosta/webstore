@@ -3,7 +3,6 @@ using WebStore.Domain.Entities.Base;
 using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 using WebStore.Domain.Validation;
 using WebStore.Domain.ValueObjects;
-
 namespace WebStore.Domain.Entities.OrderAggregate;
 
 public sealed class Order : BaseEntity
@@ -21,10 +20,8 @@ public sealed class Order : BaseEntity
     public DateTime OrderDate { get; private set; } = DateTime.Now;
     
     [Required]
-    public DeliveryMethod DeliveryMethod { get; private set; }
-    
-    [Required]
     public AddressVO ShippingAddress { get; private set; }
+    public DeliveryMethod DeliveryMethod { get; private set; }
     
     [Required]
     public Guid DeliveryMethodId { get; private set; }
@@ -34,8 +31,6 @@ public sealed class Order : BaseEntity
     
     [Required]
     public Guid UserId { get; private set; } 
-    
-    [Required]
     public User User { get; private set; }
 
     public Order() { }

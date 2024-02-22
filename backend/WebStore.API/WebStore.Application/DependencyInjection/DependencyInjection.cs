@@ -28,7 +28,7 @@ public class DependencyInjection : IDependencyInjection
                 b => b.MigrationsAssembly("WebStore.Application")
             ));
         }
-
+        
         private static void AddRepositories(IServiceCollection services)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
