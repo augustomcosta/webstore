@@ -11,11 +11,11 @@ COPY ["WebStore.API/WebStore.API.csproj", "WebStore.API/"]
 RUN dotnet restore "WebStore.API/WebStore.API.csproj"
 COPY . .
 WORKDIR "/src/WebStore.API"
-RUN dotnet build "WebStore.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "WebStore.API.csproj" -c $BUILD_CONFIGURATION -o /config/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "WebStore.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "WebStore.API.csproj" -c $BUILD_CONFIGURATION -o /config/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
