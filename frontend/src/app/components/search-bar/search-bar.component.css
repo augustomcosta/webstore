@@ -1,3 +1,14 @@
 .search-form-field {
-  width: 200px;
+  width: 300px;
+  border-radius: 0;
 }
+
+.search-form-field .mat-form-field-wrapper {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.search-form-field .mat-form-field-flex {
+  border-radius: 20px;
+}
+

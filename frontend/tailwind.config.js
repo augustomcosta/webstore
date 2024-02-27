@@ -1,9 +1,11 @@
 module.exports = {
   content: [
-    "./frontend/src/components/**/*.{html,ts}",
+    "'./src/**/*.{html,js,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: ['Montserrat','sans-serif']
+    },
   },
   plugins: [],
 }

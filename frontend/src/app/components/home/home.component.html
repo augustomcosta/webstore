@@ -1,34 +1,5 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item href="#">Products</a>
-      <a mat-list-item href="#">Basket</a>
-      <a mat-list-item href="#">Orders</a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-        <button
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()">
-          <mat-icon aria-label="Side nav toggle icon">
-            <span class="material-icons-round">home</span>
-          </mat-icon>
-        </button>
-    </mat-toolbar>
-    <app-search-bar/>
-    <div class="card-container">
-      <!--placeholder items-->
-      <item-card-app/>
-      <item-card-app/>
-      <item-card-app/>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-
+<main>
+  <div class="card-container">
+    <item-card-app/>
+  </div>
+</main>
