@@ -1,8 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using WebStore.API.Interfaces;
 using WebStore.API.Mappings;
 using WebStore.API.Services;
 using WebStore.Data.RepositoriesImpl;
+using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Repositories;
 using WebStore.Infra.Context;
 using WebStore.IoC.Interfaces;
@@ -15,9 +20,11 @@ public class DependencyInjection : IDependencyInjection
         public IServiceCollection AddInfrastructure(IServiceCollection services, IConfiguration configuration)
         {
             AddDbContext(services, configuration);
+            AddJwtAuthentication(services,configuration);
             AddRepositories(services);
             AddServices(services);
             AddAutoMapper(services);
+            AddUserIdentity(services);
             return services;
         }
 
@@ -27,6 +34,39 @@ public class DependencyInjection : IDependencyInjection
                 configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly("WebStore.Application")
             ));
+        }
+
+        private static void AddJwtAuthentication(IServiceCollection services, IConfiguration configuration)
+        {
+            var secretKey = configuration["JWT:SecretKey"] ?? throw new ArgumentException("Invalid secret key.");
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ClockSkew = TimeSpan.Zero,
+                    ValidAudience = configuration["JWT:ValidAudience"],
+                    ValidIssuer = configuration["JWT:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+                };
+            });
+        }
+        
+        private static void AddUserIdentity(IServiceCollection services)
+        {
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
         }
         
         private static void AddRepositories(IServiceCollection services)
