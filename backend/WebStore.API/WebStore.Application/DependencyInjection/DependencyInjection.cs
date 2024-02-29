@@ -11,7 +11,6 @@ using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Repositories;
 using WebStore.Infra.Context;
 using WebStore.IoC.Interfaces;
-
 namespace WebStore.API.DependencyInjection;
 
 
@@ -81,6 +80,7 @@ public class DependencyInjection : IDependencyInjection
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ITokenService, TokenService>();
         }
 
         private static void AddAutoMapper(IServiceCollection services)
