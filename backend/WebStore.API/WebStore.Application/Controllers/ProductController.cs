@@ -85,7 +85,7 @@ public class ProductController : ControllerBase
         Response.Headers.Append("X-pagination", JsonConvert.SerializeObject(metadata));
         return Ok(products);
     }
-
+    
     [HttpGet("filter/price/pagination")]
     public async Task<IActionResult> GetWithPriceFilter([FromQuery] ProductsPriceFilter priceFilter)
     {

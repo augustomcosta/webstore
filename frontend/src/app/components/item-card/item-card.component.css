@@ -1,11 +1,22 @@
 .item-card {
   @apply
   bg-white
-  shadow-md
-  rounded-lg
+  shadow-lg
+  transition
+  hover:scale-110;
 }
 
 .card-info {
   @apply
-  p-6;
+  p-6
+  text-teal-800;
 }
+
+.card-buttons {
+  @apply
+  flex
+  flex-row
+  gap-5;
+}
+
+

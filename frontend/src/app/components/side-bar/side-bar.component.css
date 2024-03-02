@@ -1,1 +1,83 @@
+.sidebar-container {
+  @apply
+  bg-teal-700
+  h-screen
+  w-full
+    sticky
+    top-0
+  flex
+  flex-row;
+}
+
+.sidebar-content {
+  @apply
+  ml-5
+  mt-5
+  flex
+  flex-col
+  justify-between;
+}
+
+.home-button {
+  @apply
+  flex
+  items-center
+  gap-3
+  px-3
+  py-0
+  rounded-lg
+  transition
+  hover:scale-110
+  hover:bg-teal-800;
+}
+
+.basket-button {
+  @apply
+  flex
+  items-center
+  gap-3
+  px-3
+  py-0
+  rounded-lg
+  transition
+  hover:scale-110
+  hover:bg-teal-800;
+}
+
+.wishlist-button {
+  @apply
+  flex
+  items-center
+  gap-3
+  px-3
+  py-0
+  rounded-lg
+  transition
+  hover:scale-110
+  hover:bg-teal-800;
+}
+
+.button-container {
+  @apply
+  flex
+  flex-col
+  gap-4;
+}
+
+.login-button {
+  @apply
+  text-lg
+  text-white
+  flex
+  flex-row
+  gap-3
+  items-center
+  mb-8
+  px-3
+  py-0
+  rounded-lg
+  transition
+  hover:scale-110
+  hover:bg-teal-800;
+}
 
