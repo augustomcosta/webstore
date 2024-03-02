@@ -2,6 +2,7 @@
   @apply
   bg-white
   shadow-lg
+  overflow-hidden
   transition
   hover:scale-110;
 }

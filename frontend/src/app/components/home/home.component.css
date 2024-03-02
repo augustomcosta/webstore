@@ -3,16 +3,26 @@
   flex
   flex-row
   justify-center
-  gap-16;
+  min-h-screen
+  flex-wrap
+  container
+  mx-auto
+  w-[80%]
+  self-center;
 }
 
-item-card-app {
- @apply
-  max-w-[25%]
-  min-w-[25%];
+.card-grid {
+  @apply
+  grid
+  gap-10
+  grid-cols-1
+  md:grid-cols-2
+  lg:grid-cols-3
 }
 
-.carousel-img {
- @apply
-  scale-90
+.main-content {
+  @apply
+  flex
+  flex-col
+  gap-24;
 }
