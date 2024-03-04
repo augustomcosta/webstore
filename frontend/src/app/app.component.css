@@ -2,5 +2,9 @@
   @apply
   flex
   min-h-screen
+}
 
+main {
+  max-width: 100%;
+  overflow-x: hidden;
 }

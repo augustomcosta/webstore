@@ -1,16 +1,16 @@
 .sidebar-container {
-  @apply bg-teal-700 h-screen w-full sticky top-0 flex-row hidden md:flex;
+  @apply bg-teal-700 h-screen w-full sticky absolute top-0 hidden md:flex md:flex-row;
 }
 
 .sidebar-content {
-  @apply ml-5 mt-5 flex flex-col justify-between text-lg text-white invisible md:visible;
+  @apply ml-5 mt-5 mb-5 flex flex-col justify-between text-lg text-white;
 }
 
 .home-button,
 .basket-button,
 .wishlist-button,
 .login-button {
-  @apply flex items-center gap-3 px-4 py-2 rounded-lg transition hover:scale-110 hover:bg-teal-800;
+  @apply flex items-center gap-3 px-3 py-1 rounded-lg transition hover:scale-110 hover:bg-teal-800;
 }
 
 .button-container {

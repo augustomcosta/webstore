@@ -22,3 +22,7 @@ swiper-slide img {
   object-fit: cover;
 }
 
+.category-tag {
+  @apply
+  absolute bg-white top-14 left-14 rounded-xl p-2 text-teal-800
+}

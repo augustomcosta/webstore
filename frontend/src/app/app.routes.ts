@@ -7,5 +7,5 @@ export const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
   {path: 'basket', component: BasketComponent},
-  {path: 'item-details', component:ItemDetailsComponent}
-];
+  {path: 'item-details', component: ItemDetailsComponent}
+]
