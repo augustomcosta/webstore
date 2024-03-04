@@ -1,5 +1,5 @@
 .sidebar-container {
-  @apply bg-teal-700 h-screen w-full sticky absolute top-0 hidden md:flex md:flex-row;
+  @apply bg-teal-700 h-screen w-full sticky top-0 hidden md:flex md:flex-row;
 }
 
 .sidebar-content {
