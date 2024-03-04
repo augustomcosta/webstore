@@ -71,7 +71,8 @@ p:not(.mat-icon):not(.icon):not(icon),
 span:not(.mat-icon):not(.icon):not(icon),
 div:not(.mat-icon):not(.icon):not(icon),
 h1:not(.mat-icon):not(.icon):not(icon),
-h2:not(.mat-icon):not(.icon):not(icon)
+h2:not(.mat-icon):not(.icon):not(icon),
+h3:not(.mat-icon):not(.icon):not(icon)
 {
   font-family: 'Montserrat', sans-serif !important;
 }

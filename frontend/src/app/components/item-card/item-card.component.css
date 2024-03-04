@@ -20,4 +20,22 @@
   gap-5;
 }
 
+.basket-button {
+@apply
+  bg-amber-500
+  transition
+  hover:opacity-70
+  hover:scale-105
+  p-2
+  rounded-md
+  text-white
+}
 
+.view-button {
+  @apply
+  transition
+  hover:bg-gray-200
+  hover:scale-105
+  rounded-md
+  p-2
+}
