@@ -1,6 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -147,9 +149,9 @@ public class AuthController : Controller
         {
             return BadRequest("Invalid client request");
         }
-
-        var accessToken = tokenModel.AccessToken;
-        var refreshToken = tokenModel.RefreshToken;
+        
+        var accessToken = tokenModel.AccessToken ?? throw new ArgumentNullException(nameof(tokenModel));
+        var refreshToken = tokenModel.RefreshToken ?? throw new ArgumentNullException(nameof(tokenModel));
 
         var principal = GetPrincipalFromExpiredToken(accessToken);
         if (principal == null)
@@ -159,13 +161,72 @@ public class AuthController : Controller
 
         var username = principal.Identity!.Name;
         var user = await _userManager.FindByNameAsync(username!);
-        //TODO: Finish auth controller
+        if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+        {
+            return BadRequest("Invalid access/refresh token");
+        }
+
+        var newAccessToken = _tokenService.GenerateAccessToken(principal.Claims.ToList(), _config);
+        var newRefreshToken = _tokenService.GenerateRefreshToken();
+        user.RefreshToken = newRefreshToken;
+
+        return new ObjectResult(new
+        {
+            accessToken = new JwtSecurityTokenHandler().WriteToken(newAccessToken),
+            refreshToken = newRefreshToken
+        });
         
-        
-        return Ok();
     }
 
+    [Authorize]
+    [HttpPost]
+    [Route("revoke/{username}")]
+    public async Task<IActionResult> Revoke(string username)
+    {
+       var user = await _userManager.FindByNameAsync(username);
+       if (user == null) return BadRequest("Invalid username");
 
+       user.RefreshToken = null;
+       return NoContent();
+    }
+
+    [Authorize]
+    [HttpPost]
+    [Route("revoke-all")]
+    public async Task<IActionResult> RevokeAll()
+    {
+        var users = _userManager.Users.ToList();
+        foreach (var user in users)
+        {
+            user.RefreshToken = null;
+            await _userManager.UpdateAsync(user);
+        }
+        return NoContent();
+    }
+    
+    private JwtSecurityToken CreateToken(List<Claim> authClaims)
+    {
+        var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SecretKey"]));
+        _ = int.TryParse(_config["JWT:TokenValidityInMinutes"], out var tokenValidityInMinutes);
+
+        var token = new JwtSecurityToken(
+            issuer: _config["JWT:ValidIssuer"],
+            audience: _config["JWT:ValidAudience"],
+            expires: DateTime.Now.AddMinutes(tokenValidityInMinutes),
+            claims: authClaims,
+            signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+            );
+        return token;
+    }
+
+    private static string GenerateRefreshToken()
+    {
+        var randomNumber = new byte[64];
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+        return Convert.ToBase64String(randomNumber);
+    }
+    
     private ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
     {
         var tokenValidationParameters = new TokenValidationParameters
