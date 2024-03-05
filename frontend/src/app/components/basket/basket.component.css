@@ -1,0 +1,9 @@
+.basket-container {
+  @apply
+  flex
+  flex-row
+  justify-between
+  mx-20
+}
+
+

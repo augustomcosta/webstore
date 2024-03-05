@@ -1,10 +1,20 @@
 :host {
   @apply
   flex
-  min-h-screen
+  min-h-screen;
 }
 
 main {
-  max-width: 100%;
-  overflow-x: hidden;
+  @apply
+  max-w-[100%]
+  overflow-x-hidden;
 }
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+

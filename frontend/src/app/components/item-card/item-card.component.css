@@ -4,7 +4,8 @@
   shadow-lg
   overflow-hidden
   transition
-  hover:scale-110;
+  hover:scale-110
+  hover:cursor-pointer;
 }
 
 .card-info {
@@ -21,7 +22,7 @@
 }
 
 .basket-button {
-@apply
+  @apply
   bg-amber-500
   transition
   hover:opacity-70

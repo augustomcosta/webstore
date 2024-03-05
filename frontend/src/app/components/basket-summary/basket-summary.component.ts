@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 
 @Component({
-  selector: 'app-footer',
+  selector: 'app-basket-summary',
   standalone: true,
   imports: [
     NgOptimizedImage
   ],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  templateUrl: './basket-summary.component.html',
+  styleUrl: './basket-summary.component.css'
 })
-export class FooterComponent {
+export class BasketSummaryComponent {
 
 }
