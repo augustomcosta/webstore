@@ -1,8 +1,9 @@
 swiper-container {
-  width: 80%;
-  max-width: 1400px;
-  height: 400px;
   --swiper-theme-color:#FB9E0B;
+  @apply
+  w-[80%]
+  max-w-[1400px]
+  h-[400px];
 }
 
 swiper-slide {
@@ -24,5 +25,5 @@ swiper-slide img {
 
 .category-tag {
   @apply
-  absolute bg-white top-10 md:left-10 rounded-xl p-2 text-teal-800
+  absolute bg-white top-10 md:left-10 rounded-xl p-2 text-teal-800 hover:cursor-pointer;
 }

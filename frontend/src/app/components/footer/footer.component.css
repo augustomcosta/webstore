@@ -9,6 +9,21 @@
 
 .footer-container {
   @apply
-  flex flex-row gap-5 items-center justify-center pt-5 bg-white overflow-hidden shadow-lg;
-  box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.05)
+  flex flex-row items-center justify-between pt-5 bg-white overflow-hidden shadow-lg px-10 pb-2;
+  box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.05);
 }
+
+.logo-img {
+  @apply
+  max-h-[50px]
+  max-w-[50px]
+}
+
+.footer-item {
+  h3{
+    @apply
+    m-0
+    p-0;
+  }
+}
+
