@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Pagination;
 using WebStore.Domain.Repositories;
@@ -17,13 +18,13 @@ public class CategoryRepository : ICategoryRepository
     
     public async Task<IEnumerable<ProductCategory>> GetAll()
     {
-        var categories = await _context.Categories.ToListAsync();
+        var categories = await _context.Categories!.ToListAsync();
         return categories;
     }
 
     public async Task<ProductCategory> GetById(Guid? id)
     {
-        var productById = await _context.Categories.FirstOrDefaultAsync(p => p.Id == id);
+        var productById = await _context.Categories!.FirstOrDefaultAsync(p => p.Id == id);
         
         if (productById == null)
         {
@@ -35,14 +36,14 @@ public class CategoryRepository : ICategoryRepository
 
     public async Task<ProductCategory> Create(ProductCategory category)
     {
-        _context.Categories.AddAsync(category);
+        await _context.Categories!.AddAsync(category);
         await _context.SaveChangesAsync();
         return category;
     }
 
     public async Task<ProductCategory> Update(Guid? id, ProductCategory category)
     {
-        var categoryById = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+        var categoryById = await _context.Categories!.FirstOrDefaultAsync(c => c.Id == id);
         
         if (categoryById == null)
         {
@@ -55,13 +56,17 @@ public class CategoryRepository : ICategoryRepository
 
     public async Task<ProductCategory> Delete(Guid? id)
     {
-        var categoryToDelete = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+        var categoryToDelete = await _context.Categories!.FirstOrDefaultAsync(c => c.Id == id);
+        if (categoryToDelete is null)
+        {
+            throw new Exception($"Category with Id {id} not found");
+        }
         _context.Remove(categoryToDelete);
         await _context.SaveChangesAsync();
         return categoryToDelete;
     }
 
-    public async Task<PagedList<ProductCategory>> GetWithPagination(CategoryParams categoryParams)
+    public async Task<PagedList<ProductCategory>> GetWithPagination([FromBody]CategoryParams categoryParams)
     {
         var getCategories = await GetAll();
         var categories = getCategories.OrderBy(c => c.Name).AsQueryable();
@@ -69,4 +74,5 @@ public class CategoryRepository : ICategoryRepository
             .ToPagedList(categories,categoryParams.PageNumber,categoryParams.PageSize);
         return orderedCategories;
     }
+    
 }

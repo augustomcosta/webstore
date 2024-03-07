@@ -16,7 +16,7 @@ public class BrandRepository : IBrandRepository
     }
     public async Task<IEnumerable<ProductBrand>> GetAll()
     {
-        var brands = await _context.Brands.ToListAsync();
+        var brands = await _context.Brands!.ToListAsync();
         if (brands == null)
         {
             throw new Exception("No Brands were found.");
@@ -26,7 +26,7 @@ public class BrandRepository : IBrandRepository
 
     public async Task<ProductBrand> GetById(Guid? id)
     {
-        var brandById = await _context.Brands.FirstOrDefaultAsync(b => b.Id == id);
+        var brandById = await _context.Brands!.FirstOrDefaultAsync(b => b.Id == id);
         if (brandById == null)
         {
             throw new Exception($"Brand with Id {id} not found.");
@@ -36,14 +36,14 @@ public class BrandRepository : IBrandRepository
 
     public async Task<ProductBrand> Create(ProductBrand brand)
     {
-       _context.Brands.AddAsync(brand);
+       await _context.Brands!.AddAsync(brand);
        await _context.SaveChangesAsync();
        return brand;
     }
 
     public async Task<ProductBrand> Update(Guid? id, ProductBrand brand)
     {
-        var brandToUpdate = await _context.Brands.FirstOrDefaultAsync(b => b.Id == id);
+        var brandToUpdate = await _context.Brands!.FirstOrDefaultAsync(b => b.Id == id);
         if (brandToUpdate == null)
         {
             throw new Exception($"Product with Id {id} not found.");
@@ -54,7 +54,11 @@ public class BrandRepository : IBrandRepository
 
     public async Task<ProductBrand> Delete(Guid? id)
     {
-        var brandToDelete = await _context.Brands.FirstOrDefaultAsync(b => b.Id == id);
+        var brandToDelete = await _context.Brands!.FirstOrDefaultAsync(b => b.Id == id);
+        if (brandToDelete is null)
+        {
+            throw new Exception($"Brand with Id {id} not found");
+        }
         _context.Remove(brandToDelete);
         await _context.SaveChangesAsync();
         return brandToDelete;
@@ -68,4 +72,5 @@ public class BrandRepository : IBrandRepository
             .ToPagedList(brands,brandParams.PageNumber,brandParams.PageSize);
         return orderedBrands;
     }
+    
 }
