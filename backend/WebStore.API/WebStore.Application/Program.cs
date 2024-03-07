@@ -33,7 +33,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
 builder.Services.AddControllers();
 var infra = new DependencyInjection();
 infra.AddInfrastructure(builder.Services,builder.Configuration);
@@ -46,7 +45,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 
 app.UseHttpsRedirection();
 app.MapControllers();

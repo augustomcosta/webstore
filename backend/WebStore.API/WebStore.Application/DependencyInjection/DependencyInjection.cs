@@ -20,6 +20,7 @@ public class DependencyInjection : IDependencyInjection
         {
             AddDbContext(services, configuration);
             AddJwtAuthentication(services,configuration);
+            AddAuthorization(services);
             AddRepositories(services);
             AddServices(services);
             AddAutoMapper(services);
@@ -33,6 +34,19 @@ public class DependencyInjection : IDependencyInjection
                 configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly("WebStore.Application")
             ));
+        }
+
+        private static void AddAuthorization(IServiceCollection services)
+        {
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("SuperAdminOnly", policy => policy.RequireRole("Admin").RequireClaim("id","augusto"));
+                options.AddPolicy("UserOnly", policy => policy.RequireRole("User"));
+                options.AddPolicy("ExclusiveOnly", policy => policy.RequireAssertion(context => 
+                    context.User.HasClaim(claim => claim.Type == "id" || claim.Value == "augusto" 
+                                                                      || context.User.IsInRole("SuperAdminOnly"))));
+            });
         }
 
         private static void AddJwtAuthentication(IServiceCollection services, IConfiguration configuration)

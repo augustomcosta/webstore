@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using WebStore.API.DTOs;
@@ -21,6 +22,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetAll()
     {
         var products = await _service.GetAll();
@@ -34,6 +36,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize("AdminOnly")]
     public async Task<IActionResult> Create([FromBody]ProductDto product)
     {
         await _service.Create(product);
@@ -41,6 +44,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
+    [Authorize]
     public async Task<IActionResult> GetById(Guid? id)
     {
         var product = await _service.GetById(id);
@@ -54,6 +58,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize("AdminOnly")]
     public async Task<IActionResult> Update(Guid id, ProductDto product)
     {
         await _service.Update(id, product);
@@ -61,6 +66,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize("SuperAdminOnly")]
     public async Task<IActionResult> Delete(Guid? id)
     {
         await _service.Delete(id);
@@ -68,6 +74,7 @@ public class ProductController : ControllerBase
     }
     
     [HttpGet("pagination")]
+    [Authorize]
     public async Task<IActionResult> GetWithPagination([FromQuery]ProductParams productParams)
     {
         var products = await _service.GetWithPagination(productParams);
@@ -87,6 +94,7 @@ public class ProductController : ControllerBase
     }
     
     [HttpGet("filter/price/pagination")]
+    [Authorize]
     public async Task<IActionResult> GetWithPriceFilter([FromQuery] ProductsPriceFilter priceFilter)
     {
         var products = await _service.GetWithPriceFilter(priceFilter);
@@ -106,6 +114,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("filter/brand/pagination")]
+    [Authorize]
     public async Task<IActionResult> GetProductsByBrandNameAsync([FromQuery]QueryStringParams query, [FromQuery]string brandName)
     {
         var products = await _service.GetProductsByBrandNameAsync(query,brandName);
@@ -113,6 +122,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("filter/category/pagination")]
+    [Authorize]
     public async Task<IActionResult> GetProductsByCategoryNameAsync([FromQuery] QueryStringParams query,
         [FromQuery] string categoryName)
     {

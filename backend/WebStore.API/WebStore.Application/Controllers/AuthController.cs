@@ -3,11 +3,9 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Expressions;
 using WebStore.API.Interfaces;
 using WebStore.Domain.Entities.Authentication;
 using WebStore.Domain.Entities.Identity;
@@ -23,10 +21,10 @@ public class AuthController : Controller
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IConfiguration _config;
-    private readonly ILogger _logger;
+    private readonly ILogger<AuthController> _logger;
 
     public AuthController(ITokenService tokenService, UserManager<ApplicationUser> userManager,
-        RoleManager<IdentityRole> roleManager, IConfiguration config, ILogger logger)
+        RoleManager<IdentityRole> roleManager, IConfiguration config, ILogger<AuthController> logger)
     {
         _tokenService = tokenService;
         _userManager = userManager;
@@ -48,6 +46,7 @@ public class AuthController : Controller
             {
                 new Claim(ClaimTypes.Name, user.UserName!),
                 new Claim(ClaimTypes.Email,user.Email!),
+                new Claim("id", user.UserName!),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
             authClaims.AddRange(userRoles.Select(userRole => new Claim(ClaimTypes.Role, userRole)));
@@ -181,7 +180,7 @@ public class AuthController : Controller
         
     }
 
-    [Authorize]
+    [Authorize("SuperAdminOnly")]
     [HttpPost]
     [Route("revoke/{username}")]
     public async Task<IActionResult> Revoke(string username)
@@ -193,7 +192,7 @@ public class AuthController : Controller
        return NoContent();
     }
 
-    [Authorize]
+    [Authorize("ExclusiveOnly")]
     [HttpPost]
     [Route("revoke-all")]
     public async Task<IActionResult> RevokeAll()
@@ -207,6 +206,7 @@ public class AuthController : Controller
         return NoContent();
     }
 
+    [Authorize("SuperAdminOnly")]
     [HttpPost]
     [Route("CreateRole")]
     public async Task<IActionResult> CreateRole(string roleName)
@@ -226,6 +226,27 @@ public class AuthController : Controller
         }
 
         return StatusCode(StatusCodes.Status400BadRequest, "Error. Role already exists");
+    }
+
+    [Authorize("SuperAdminOnly")]
+    [HttpPost]
+    [Route("AddUserToRole")]
+    public async Task<IActionResult> AddUserToRole(string email, string roleName)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+        if (user != null)
+        {
+            var result = await _userManager.AddToRoleAsync(user,roleName);
+            if (result.Succeeded)
+            {
+                _logger.LogInformation(1,$"User {user.Email} added to role {roleName}");
+                return StatusCode(StatusCodes.Status200OK, $"Success. User {user.Email} added to role {roleName}");
+            }
+            _logger.LogInformation($"Unable to add user {user.Email} to role {roleName}");
+            return StatusCode(StatusCodes.Status400BadRequest, $"Error. Unable to add user {user.Email} to role {roleName}");
+        }
+
+        return BadRequest(new {error = "Unable to find user"});
     }
     
     
