@@ -22,7 +22,8 @@
 }
 
 .item-price,
-.item-title
+.item-title,
+.item-quantity
 {
   @apply
   m-0;
@@ -33,7 +34,7 @@
   text-teal-800;
 }
 
-.item-price {
+.item-price{
   @apply
   text-teal-600;
 }
@@ -43,5 +44,12 @@
   flex
   flex-col;
 }
+
+.item-quantity {
+  @apply
+  text-amber-500
+  mt-4;
+}
+
 
 
