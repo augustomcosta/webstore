@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Expressions;
 using WebStore.API.Interfaces;
 using WebStore.Domain.Entities.Authentication;
 using WebStore.Domain.Entities.Identity;
@@ -22,14 +23,16 @@ public class AuthController : Controller
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IConfiguration _config;
+    private readonly ILogger _logger;
 
     public AuthController(ITokenService tokenService, UserManager<ApplicationUser> userManager,
-        RoleManager<IdentityRole> roleManager, IConfiguration config)
+        RoleManager<IdentityRole> roleManager, IConfiguration config, ILogger logger)
     {
         _tokenService = tokenService;
         _userManager = userManager;
         _roleManager = roleManager;
         _config = config;
+        _logger = logger;
     }
 
     [HttpPost]
@@ -203,10 +206,32 @@ public class AuthController : Controller
         }
         return NoContent();
     }
+
+    [HttpPost]
+    [Route("CreateRole")]
+    public async Task<IActionResult> CreateRole(string roleName)
+    {
+        var roleExists = await _roleManager.RoleExistsAsync(roleName);
+        if (!roleExists)
+        {
+            var roleResult = await _roleManager.CreateAsync(new IdentityRole(roleName));
+
+            if (roleResult.Succeeded)
+            {
+                _logger.LogInformation(1,"Roles Added");
+                return StatusCode(StatusCodes.Status200OK,$"Success. Role {roleName} added.");
+            }
+            _logger.LogInformation(2,"Error");
+            return StatusCode(StatusCodes.Status400BadRequest, $"Error.Issue adding the new {roleName} role");
+        }
+
+        return StatusCode(StatusCodes.Status400BadRequest, "Error. Role already exists");
+    }
+    
     
     private JwtSecurityToken CreateToken(List<Claim> authClaims)
     {
-        var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SecretKey"]));
+        var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SecretKey"]!));
         _ = int.TryParse(_config["JWT:TokenValidityInMinutes"], out var tokenValidityInMinutes);
 
         var token = new JwtSecurityToken(
@@ -234,7 +259,7 @@ public class AuthController : Controller
             ValidateIssuer = false,
             ValidateAudience = false,
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SecretKey"])),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SecretKey"]!)),
             ValidateLifetime = false
         };
         var tokenHandler = new JwtSecurityTokenHandler();
