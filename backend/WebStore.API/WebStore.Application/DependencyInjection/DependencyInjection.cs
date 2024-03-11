@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
 using WebStore.API.Interfaces;
 using WebStore.API.Mappings;
 using WebStore.API.Services;
@@ -43,15 +44,10 @@ public class DependencyInjection : IDependencyInjection
 
         private static void AddRedis(IServiceCollection services)
         {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
-            
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = configuration.GetValue<string>("CacheSettings:ConnectionString");
-            });
+           services.AddSingleton<IConnectionMultiplexer>(provider => {
+               var configuration = ConfigurationOptions.Parse("Redis");
+               return ConnectionMultiplexer.Connect(configuration);
+           });
         }
 
         private static void AddApiVersioning(IServiceCollection services)
@@ -147,6 +143,7 @@ public class DependencyInjection : IDependencyInjection
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<IBasketRepository, BasketRepository>();
         }
 
         private static void AddServices(IServiceCollection services)
@@ -155,6 +152,7 @@ public class DependencyInjection : IDependencyInjection
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IBasketService, BasketService>();
         }
 
         private static void AddAutoMapper(IServiceCollection services)

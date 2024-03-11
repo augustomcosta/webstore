@@ -7,7 +7,7 @@ namespace WebStore.Data.RepositoriesImpl;
 
 public class BasketRepository : IBasketRepository
 {
-    private readonly IDatabaseAsync _database;
+    private readonly IDatabase _database;
 
     public BasketRepository(IConnectionMultiplexer redis)
     {

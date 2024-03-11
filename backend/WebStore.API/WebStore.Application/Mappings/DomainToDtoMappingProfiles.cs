@@ -23,5 +23,6 @@ public class DomainToDtoMappingProfiles : Profile
         CreateMap<ProductCategory, CategoryDto>().ReverseMap();
         CreateMap<User, UserDto>().ReverseMap();
         CreateMap<Order, UserDto>().ReverseMap();
+        CreateMap<Basket, BasketDto>().ReverseMap();
     }
 }
