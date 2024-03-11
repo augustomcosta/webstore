@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using System.Threading.RateLimiting;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +15,6 @@ using WebStore.Infra.Context;
 using WebStore.IoC.Interfaces;
 namespace WebStore.API.DependencyInjection;
 
-
 public class DependencyInjection : IDependencyInjection
     {
         public IServiceCollection AddInfrastructure(IServiceCollection services, IConfiguration configuration)
@@ -25,6 +26,10 @@ public class DependencyInjection : IDependencyInjection
             AddServices(services);
             AddAutoMapper(services);
             AddUserIdentity(services);
+            AddCors(services);
+            AddRequestRateLimit(services);
+            AddApiVersioning(services);
+            AddRedis(services);
             return services;
         }
 
@@ -34,6 +39,61 @@ public class DependencyInjection : IDependencyInjection
                 configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly("WebStore.Application")
             ));
+        }
+
+        private static void AddRedis(IServiceCollection services)
+        {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+            
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = configuration.GetValue<string>("CacheSettings:ConnectionString");
+            });
+        }
+
+        private static void AddApiVersioning(IServiceCollection services)
+        {
+            services.AddApiVersioning(o =>
+            {
+                o.DefaultApiVersion = new ApiVersion(1, 0);
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.ReportApiVersions = true;
+            }).AddApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
+            });
+        }
+
+        private static void AddRequestRateLimit(IServiceCollection services)
+        {
+            services.AddRateLimiter(options =>
+            {
+                options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+                options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context => 
+                                        RateLimitPartition.GetSlidingWindowLimiter(
+                                            partitionKey: context.User.Identity?.Name ?? context.Request.Headers.Host.ToString(),
+                                            factory: partition => new SlidingWindowRateLimiterOptions
+                                            {
+                                                AutoReplenishment = true,
+                                                PermitLimit = 5,
+                                                QueueLimit = 0,
+                                                SegmentsPerWindow = 2,
+                                                Window = TimeSpan.FromSeconds(10)
+                                            }));
+            });
+        }
+        
+        private static void AddCors(IServiceCollection services)
+        {
+            services.AddCors(options =>
+                options.AddPolicy("AllowClient", policy =>
+                    policy.WithOrigins("http://localhost:4200")
+                        .WithMethods("GET","POST")
+                        .AllowAnyHeader()));
         }
 
         private static void AddAuthorization(IServiceCollection services)

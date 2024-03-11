@@ -46,6 +46,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors();
+app.UseRateLimiter();
 app.UseHttpsRedirection();
 app.MapControllers();
 

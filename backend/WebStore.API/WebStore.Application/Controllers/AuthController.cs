@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -13,6 +14,7 @@ using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegiste
 
 namespace WebStore.API.Controllers;
 
+[EnableCors("AllowClient")]
 [Route("api/[controller]")]
 [ApiController]
 public class AuthController : Controller
@@ -70,6 +72,7 @@ public class AuthController : Controller
         return Unauthorized();
     }
 
+    [DisableCors]
     [HttpPost]
     [Route("register-admin")]
     public async Task<IActionResult> RegisterAdmin([FromBody]RegisterModel registerModel)
