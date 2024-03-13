@@ -277,8 +277,9 @@ namespace WebStore.API.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("numeric");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.ComplexProperty<Dictionary<string, object>>("ShippingAddress", "WebStore.Domain.Entities.OrderAggregate.Order.ShippingAddress#AddressVO", b1 =>
                         {
@@ -406,9 +407,8 @@ namespace WebStore.API.Migrations
 
             modelBuilder.Entity("WebStore.Domain.Entities.User", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
