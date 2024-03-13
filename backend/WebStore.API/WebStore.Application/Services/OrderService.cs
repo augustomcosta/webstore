@@ -47,9 +47,8 @@ public class OrderService : IOrderService
         await _repository.Delete(id);
     }
 
-    public async Task AddItemToOrder(Guid id, OrderDto orderDto, OrderItemVO orderItem)
+    public async Task AddItemToOrder(Guid id, OrderItemVO orderItem)
     {
-        var order = _mapper.Map<Order>(orderDto);
-        await _repository.AddItemToOrder(id,order,orderItem);
+        await _repository.AddItemToOrder(id,orderItem);
     }
 }

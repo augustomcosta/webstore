@@ -3,8 +3,13 @@
   flex
   flex-row
   items-center
-  justify-center
-  gap-12;
+  justify-between;
+}
+
+.items-container {
+  @apply
+  w-full
+  px-10;
 }
 
 .item-img-container {
@@ -14,8 +19,8 @@
   img {
     @apply
     object-cover
-    h-[100px]
-    w-[100px]
+    h-[75px]
+    w-[75px]
     overflow-hidden
     rounded-md;
   }
@@ -48,8 +53,30 @@
 .item-quantity {
   @apply
   text-amber-500
-  mt-4;
+  mt-2;
 }
 
+.items-header {
+  h2 {
+    @apply
+    m-0
+  }
+  @apply
+  text-teal-800
+}
 
+.trash-bin {
+  @apply
+  scale-[180%]
+  text-red-700
+  hover:scale-[200%]
+  transition
+}
 
+.item-left {
+  @apply
+  flex
+  flex-row
+  gap-5
+  items-center
+}

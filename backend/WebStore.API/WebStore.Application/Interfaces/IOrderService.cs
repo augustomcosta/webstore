@@ -7,5 +7,5 @@ namespace WebStore.API.Interfaces;
 
 public interface IOrderService : IBaseService<OrderDto>
 {
-    Task AddItemToOrder(Guid id, OrderDto orderDto, OrderItemVO orderItem);
+    Task AddItemToOrder(Guid id, OrderItemVO orderItem);
 }

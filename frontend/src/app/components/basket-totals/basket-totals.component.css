@@ -1,0 +1,25 @@
+.basket-totals-container {
+  @apply
+  text-white
+  flex
+  flex-col
+  justify-between
+  h-full;
+}
+
+.subtotal-container, .shipping-container{
+  @apply
+  flex
+  flex-row
+  justify-between
+  text-white
+  w-full;
+}
+
+.basket-total {
+  @apply
+  flex
+  flex-col
+  gap-4;
+}
+

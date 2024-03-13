@@ -88,16 +88,16 @@ public class OrderRepository : IOrderRepository
         return paginatedOrders;
     }
 
-    public async Task<Order> AddItemToOrder(Guid id, Order order, OrderItemVO orderItem)
+    public async Task<Order> AddItemToOrder(Guid id, OrderItemVO orderItem)
     {
         var orderSelected = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
         if (orderSelected is null)
         {
             throw new Exception("Order does not exist");
         }
-        
         orderSelected!.OrderItems.Add(orderItem);
-        order.UpdateOrder(orderSelected);
-        return order;
+        await Update(id,orderSelected);
+        await _context.SaveChangesAsync();
+        return orderSelected;
     }
 }

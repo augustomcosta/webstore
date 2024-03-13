@@ -9,7 +9,7 @@
 
 .footer-container {
   @apply
-  flex flex-row items-center justify-between pt-5 bg-white overflow-hidden shadow-lg px-10 pb-2;
+  flex flex-row items-center justify-center lg:justify-between pt-5 bg-white overflow-hidden shadow-lg px-10 pb-2;
   box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.05);
 }
 
@@ -26,4 +26,12 @@
     p-0;
   }
 }
+
+.copyright-container,
+.image-container {
+  @apply
+  hidden
+  md:block;
+}
+
 

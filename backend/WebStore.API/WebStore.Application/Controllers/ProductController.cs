@@ -37,8 +37,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize("AdminOnly")]
-    [ApiConventionMethod(typeof(DefaultApiConventions),nameof(DefaultApiConventions.Post))]
+    [Authorize]
     public async Task<IActionResult> Create([FromBody]ProductDto product)
     {
         await _service.Create(product);

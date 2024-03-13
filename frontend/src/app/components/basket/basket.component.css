@@ -2,8 +2,33 @@
   @apply
   flex
   flex-row
-  justify-between
+  h-[70vh]
+  items-center
+  justify-center
   mx-20
+}
+
+.basket-summary {
+  @apply
+  flex
+  flex-row
+  items-start
+  h-[100%]
+  w-[160%]
+  rounded-lg
+  shadow-lg
+  p-10;
+}
+
+.basket-totals {
+  @apply
+  flex
+  flex-row
+  items-start
+  p-10
+  h-full w-[60%]
+  bg-teal-600;
+  border-radius: 0 0.5rem 0.5rem 0;
 }
 
 

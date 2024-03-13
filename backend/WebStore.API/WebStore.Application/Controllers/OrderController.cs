@@ -62,9 +62,9 @@ public class OrderController : ControllerBase
     }
 
     [HttpPut("add-item")]
-    public async Task<IActionResult> AddItemToOrder(Guid id, OrderDto orderDto, OrderItemVO orderItem)
+    public async Task<IActionResult> AddItemToOrder([FromQuery]Guid id, OrderItemVO orderItem)
     {
-        await _service.AddItemToOrder(id,orderDto,orderItem);
+        await _service.AddItemToOrder(id,orderItem);
         return Ok();
     }
 }
