@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebStore.API.DTOs;
 using WebStore.API.Interfaces;
+using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 
 namespace WebStore.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class OrderController : ControllerBase
 {
     private readonly IOrderService _service;
@@ -55,6 +58,13 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> Delete(Guid id)
     {
         await _service.Delete(id);
+        return Ok();
+    }
+
+    [HttpPut("add-item")]
+    public async Task<IActionResult> AddItemToOrder(Guid id, OrderDto orderDto, OrderItemVO orderItem)
+    {
+        await _service.AddItemToOrder(id,orderDto,orderItem);
         return Ok();
     }
 }

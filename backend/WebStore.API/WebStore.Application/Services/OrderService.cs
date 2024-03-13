@@ -2,6 +2,7 @@
 using WebStore.API.DTOs;
 using WebStore.API.Interfaces;
 using WebStore.Domain.Entities.OrderAggregate;
+using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 using WebStore.Domain.Repositories;
 
 namespace WebStore.API.Services;
@@ -44,5 +45,11 @@ public class OrderService : IOrderService
     public async Task Delete(Guid? id)
     {
         await _repository.Delete(id);
+    }
+
+    public async Task AddItemToOrder(Guid id, OrderDto orderDto, OrderItemVO orderItem)
+    {
+        var order = _mapper.Map<Order>(orderDto);
+        await _repository.AddItemToOrder(id,order,orderItem);
     }
 }

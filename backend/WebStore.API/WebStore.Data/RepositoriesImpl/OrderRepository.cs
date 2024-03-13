@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebStore.Domain.Entities.OrderAggregate;
+using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 using WebStore.Domain.Pagination;
 using WebStore.Domain.Repositories;
 using WebStore.Infra.Context;
@@ -65,7 +66,6 @@ public class OrderRepository : IOrderRepository
 
     public async Task<IEnumerable<Order>> GetByBuyerEmail(OrdersEmailFilter emailFilter)
     {
-        
         var orders = await GetAll();
         if (orders == null)
         {
@@ -76,6 +76,8 @@ public class OrderRepository : IOrderRepository
         var paginatedOrders = PagedList<Order>.ToPagedList(filteredOrders, emailFilter.PageNumber, emailFilter.PageSize);
         return paginatedOrders;
     }
+    
+    
 
     public async Task<IEnumerable<Order>> GetByOrderDate(OrdersDateFilter dateFilter)
     {
@@ -84,5 +86,18 @@ public class OrderRepository : IOrderRepository
         var filteredOrders = queryOrders.Where(o => o.OrderDate == dateFilter.OrderDate);
         var paginatedOrders = PagedList<Order>.ToPagedList(filteredOrders, dateFilter.PageNumber, dateFilter.PageSize);
         return paginatedOrders;
+    }
+
+    public async Task<Order> AddItemToOrder(Guid id, Order order, OrderItemVO orderItem)
+    {
+        var orderSelected = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+        if (orderSelected is null)
+        {
+            throw new Exception("Order does not exist");
+        }
+        
+        orderSelected!.OrderItems.Add(orderItem);
+        order.UpdateOrder(orderSelected);
+        return order;
     }
 }
