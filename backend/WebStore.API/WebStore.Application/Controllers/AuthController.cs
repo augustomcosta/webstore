@@ -2,14 +2,19 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using WebStore.API.DTOs;
 using WebStore.API.Interfaces;
+using WebStore.Data.RepositoriesImpl;
+using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Authentication;
 using WebStore.Domain.Entities.Identity;
+using WebStore.Domain.Repositories;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace WebStore.API.Controllers;
@@ -24,15 +29,17 @@ public class AuthController : Controller
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IConfiguration _config;
     private readonly ILogger<AuthController> _logger;
-
+    private readonly IUserRepository _userRepo;
     public AuthController(ITokenService tokenService, UserManager<ApplicationUser> userManager,
-        RoleManager<IdentityRole> roleManager, IConfiguration config, ILogger<AuthController> logger)
+        RoleManager<IdentityRole> roleManager, IConfiguration config, ILogger<AuthController> logger, IUserService userService,
+       IUserRepository userRepo)
     {
         _tokenService = tokenService;
         _userManager = userManager;
         _roleManager = roleManager;
         _config = config;
         _logger = logger;
+        _userRepo = userRepo;
     }
 
     [HttpPost]
@@ -121,23 +128,36 @@ public class AuthController : Controller
 
     [HttpPost]
     [Route("register")]
-    public async Task<IActionResult> Register([FromBody]RegisterModel registerModel)
+    public async Task<IActionResult> Register([FromBody]UserRegistrationModel model)
     {
-        var userExists = await _userManager.FindByNameAsync(registerModel.Username!);
-
+        var userExists = await _userManager.FindByNameAsync(model.Username!);
+        
         if (userExists is not null)
         {
             return StatusCode(StatusCodes.Status500InternalServerError, "User already exists");
         }
-
-        ApplicationUser user = new()
+        
+        User userEntity = new()
         {
-            Email = registerModel.Email,
-            SecurityStamp = Guid.NewGuid().ToString(),
-            UserName = registerModel.Username
+            Username = model.Username!,
+            Email = model.Email!,
+            Password = model.Password!,
+            Cpf = model.Cpf!,
+            FirstName = model.FirstName!,
+            LastName = model.LastName!
         };
         
-        var result = await _userManager.CreateAsync(user,registerModel.Password!);
+        ApplicationUser user = new()
+        {
+            Id = userEntity.Id,
+            Email = model.Email,
+            SecurityStamp = Guid.NewGuid().ToString(),
+            UserName = model.Username
+        };
+        
+        await _userRepo.Create(userEntity);
+        
+        var result = await _userManager.CreateAsync(user,model.Password!);
         if (!result.Succeeded)
         {
             return StatusCode(StatusCodes.Status500InternalServerError, "Error while creating user");
