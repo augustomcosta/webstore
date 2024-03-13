@@ -14,7 +14,7 @@ public sealed class Order : BaseEntity
     public string BuyerEmail { get; private set; }
     
     [Required]
-    public IReadOnlyList<OrderItemVO> OrderItems { get; private set; }
+    public ICollection<OrderItemVO> OrderItems { get; private set; }
 
     [Required] 
     public DateTime OrderDate { get; private set; } = DateTime.Now;
@@ -30,11 +30,11 @@ public sealed class Order : BaseEntity
     public decimal Total { get; private set; }
     
     [Required]
-    public Guid UserId { get; private set; } 
+    public string UserId { get; private set; } 
     public User User { get; private set; }
 
     public Order() { }
-    public Order(Guid id, decimal subTotal, IReadOnlyList<OrderItemVO> orderItems, DeliveryMethod deliveryMethod, AddressVO shippingAddress) : base(id)
+    public Order(Guid id, decimal subTotal,  ICollection<OrderItemVO> orderItems, DeliveryMethod deliveryMethod, AddressVO shippingAddress) : base(id)
     {
         DeliveryMethod = deliveryMethod;
         OrderItems = orderItems;
