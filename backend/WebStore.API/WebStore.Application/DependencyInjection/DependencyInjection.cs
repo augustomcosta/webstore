@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using StackExchange.Redis;
+using WebStore.API.Controllers;
 using WebStore.API.Interfaces;
 using WebStore.API.Mappings;
 using WebStore.API.Services;
@@ -144,6 +145,7 @@ public class DependencyInjection : IDependencyInjection
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         private static void AddServices(IServiceCollection services)
@@ -153,6 +155,9 @@ public class DependencyInjection : IDependencyInjection
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<AuthController>();
+            services.AddScoped<UserController>();
         }
 
         private static void AddAutoMapper(IServiceCollection services)
