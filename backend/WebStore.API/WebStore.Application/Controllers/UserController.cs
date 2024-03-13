@@ -33,7 +33,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> GetById(string id)
     {
         var user = await _service.GetById(id);
         if (user == null)
@@ -44,14 +44,14 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{int:guid}")]
-    public async Task<IActionResult> Update(Guid id, [FromBody]UserDto user)
+    public async Task<IActionResult> Update(string id, [FromBody]UserDto user)
     {
         await _service.Update(id, user);
         return Ok(user);
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> Delete(string id)
     {
         await _service.Delete(id);
         return Ok();

@@ -4,33 +4,36 @@ using System.Runtime.Serialization;
 namespace WebStore.API.DTOs;
 
 [DataContract]
-public record UserDto(
+public record UserDto 
+{
     [Required]
     [MinLength(3)]
     [StringLength(50)]
-    string FirstName,
+    public string FirstName { get; set; } = "";
+
     [Required]
     [MinLength(3)]
     [StringLength(50)]
-    string LastName,
-    
+    public string LastName { get; set; } = "";
+
     [Required]
     [MinLength(5)]
     [StringLength(20)]
-    string Username,
-    
+    public string Username { get; set; } = "";
+
     [Required]
     [MinLength(8)]
     [StringLength(200)]
-    string Password,
-    
+    public string Password { get; set; } = "";
+
     [Required]
     [MinLength(5)]
     [StringLength(100)]
-    string Email,
-    
+    public string Email { get; set; } = "";
+
     [Required]
     [MinLength(11)]
     [StringLength(11)]
-    string Cpf
-) {}
+    public string Cpf { get; set; } = "";
+}
+

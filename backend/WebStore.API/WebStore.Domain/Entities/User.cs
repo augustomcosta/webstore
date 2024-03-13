@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using WebStore.Domain.Entities.Base;
 using WebStore.Domain.Entities.OrderAggregate;
@@ -7,45 +8,51 @@ using WebStore.Domain.ValueObjects;
 
 namespace WebStore.Domain.Entities;
 
-public class User : BaseEntity
+public class User
 {
+    /// <summary>
+    /// ID field received from JWT Token. Please do not modify here.
+    /// </summary>
     [Required]
-    [MinLength(3)]
-    [StringLength(50)]
-    public string FirstName { get; private set; } = "";
+    [Key]
+    public string Id { get; set; } = Guid.NewGuid().ToString();
     
     [Required]
     [MinLength(3)]
     [StringLength(50)]
-    public string LastName { get; private set; } = "";
+    public string FirstName { get; set; } = "";
     
     [Required]
+    [MinLength(3)]
+    [StringLength(50)]
+    public string LastName { get; set; } = "";
+    
+    
     [MinLength(5)]
     [StringLength(20)]
-    public string Username { get; private set; } = "";
+    public string Username { get; set; } = "";
     
     [Required]
     [MinLength(8)]
     [StringLength(200)]
-    public string Password { get; private set; } = "";
+    public string Password { get; set; } = "";
     
-    [Required]
     [MinLength(5)]
     [StringLength(100)]
-    public string Email { get; private set; } = "";
+    public string Email { get; set; } = "";
     
     [Required]
     [MinLength(11)]
     [StringLength(11)]
-    public string Cpf { get; private set; } = "";
-    
-    public AddressVO Address { get; private set; } = new AddressVO();
-    
-    public ICollection<Order> Orders { get; private set; }
+    public string Cpf { get; set; } = "";
+
+    public AddressVO Address { get; set; } = new AddressVO();
+
+    public ICollection<Order> Orders { get; private set; } = new List<Order>();
 
     public User() {}
     
-    public User(Guid id, string firstName, string lastName, string username, string password, string email, string cpf) : base(id)
+    public User(string firstName, string lastName, string username, string password, string email, string cpf)
     {
         ValidateUser(firstName,lastName,username,password,email,cpf);
     }
@@ -84,6 +91,7 @@ public class User : BaseEntity
         DomainValidationException.When(string.IsNullOrWhiteSpace(userName),"Username is required");
         DomainValidationException.When(userName.Length < 3, "Invalid username. Username should have at least 3 characters");
         DomainValidationException.When(userName.Length > 20, "Invalid username. Username should have a maximum of 50 characters");
+        Username = userName;
     }
 
     private void ValidatePassword(string password)
@@ -182,5 +190,10 @@ public class User : BaseEntity
     public void UpdateUser(User user)
     {
         ValidateUser(user.FirstName,user.LastName,user.Username,user.Password,user.Email,user.Cpf);
+    }
+
+    public void UpdateId(string id)
+    {
+        Id = id;
     }
 }

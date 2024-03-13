@@ -49,8 +49,4 @@
       <Compile Remove="Migrations\20240228131147_add identity and auth.Designer.cs" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Migrations\" />
-    </ItemGroup>
-
 </Project>
