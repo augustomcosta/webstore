@@ -15,110 +15,145 @@ using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Repositories;
 using WebStore.Infra.Context;
 using WebStore.IoC.Interfaces;
+
 namespace WebStore.API.DependencyInjection;
 
 public class DependencyInjection : IDependencyInjection
+{
+    public IServiceCollection AddInfrastructure(
+        IServiceCollection services,
+        IConfiguration configuration
+    )
     {
-        public IServiceCollection AddInfrastructure(IServiceCollection services, IConfiguration configuration)
-        {
-            AddDbContext(services, configuration);
-            AddJwtAuthentication(services,configuration);
-            AddAuthorization(services);
-            AddRepositories(services);
-            AddServices(services);
-            AddAutoMapper(services);
-            AddUserIdentity(services);
-            AddCors(services);
-            AddRequestRateLimit(services);
-            AddApiVersioning(services);
-            AddRedis(services);
-            return services;
-        }
+        AddDbContext(services, configuration);
+        AddJwtAuthentication(services, configuration);
+        AddAuthorization(services);
+        AddRepositories(services);
+        AddServices(services);
+        AddAutoMapper(services);
+        AddUserIdentity(services);
+        AddCors(services);
+        AddRequestRateLimit(services);
+        AddApiVersioning(services);
+        AddRedis(services, configuration);
+        return services;
+    }
 
-        private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddDbContext<AppDbContext>(options => options.UseNpgsql(
+    private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(
                 configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly("WebStore.Application")
-            ));
-        }
+            )
+        );
+    }
 
-        private static void AddRedis(IServiceCollection services)
+    private static void AddRedis(IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddSingleton<IConnectionMultiplexer>(provider =>
         {
-           services.AddSingleton<IConnectionMultiplexer>(provider => {
-               var configuration = ConfigurationOptions.Parse("Redis");
-               return ConnectionMultiplexer.Connect(configuration);
-           });
-        }
+            var redisConfig = configuration.GetConnectionString("Redis");
+            var redisOptions = ConfigurationOptions.Parse(redisConfig);
+            return ConnectionMultiplexer.Connect(redisOptions);
+        });
+    }
 
-        private static void AddApiVersioning(IServiceCollection services)
-        {
-            services.AddApiVersioning(o =>
+    private static void AddApiVersioning(IServiceCollection services)
+    {
+        services
+            .AddApiVersioning(o =>
             {
                 o.DefaultApiVersion = new ApiVersion(1, 0);
                 o.AssumeDefaultVersionWhenUnspecified = true;
                 o.ReportApiVersions = true;
-            }).AddApiExplorer(options =>
+            })
+            .AddApiExplorer(options =>
             {
                 options.GroupNameFormat = "'v'VVV";
                 options.SubstituteApiVersionInUrl = true;
             });
-        }
+    }
 
-        private static void AddRequestRateLimit(IServiceCollection services)
+    private static void AddRequestRateLimit(IServiceCollection services)
+    {
+        services.AddRateLimiter(options =>
         {
-            services.AddRateLimiter(options =>
-            {
-                options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-                options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context => 
-                                        RateLimitPartition.GetSlidingWindowLimiter(
-                                            partitionKey: context.User.Identity?.Name ?? context.Request.Headers.Host.ToString(),
-                                            factory: partition => new SlidingWindowRateLimiterOptions
-                                            {
-                                                AutoReplenishment = true,
-                                                PermitLimit = 5,
-                                                QueueLimit = 0,
-                                                SegmentsPerWindow = 2,
-                                                Window = TimeSpan.FromSeconds(10)
-                                            }));
-            });
-        }
-        
-        private static void AddCors(IServiceCollection services)
-        {
-            services.AddCors(options =>
-                options.AddPolicy("AllowClient", policy =>
-                    policy.WithOrigins("http://localhost:4200")
-                        .WithMethods("GET","POST")
-                        .AllowAnyHeader()));
-        }
+            options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+            options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
+                RateLimitPartition.GetSlidingWindowLimiter(
+                    context.User.Identity?.Name
+                    ?? context.Request.Headers.Host.ToString(),
+                    partition => new SlidingWindowRateLimiterOptions
+                    {
+                        AutoReplenishment = true,
+                        PermitLimit = 5,
+                        QueueLimit = 0,
+                        SegmentsPerWindow = 2,
+                        Window = TimeSpan.FromSeconds(10)
+                    }
+                )
+            );
+        });
+    }
 
-        private static void AddAuthorization(IServiceCollection services)
-        {
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
-                options.AddPolicy("SuperAdminOnly", policy => policy.RequireRole("Admin").RequireClaim("id","augusto"));
-                options.AddPolicy("UserOnly", policy => policy.RequireRole("User"));
-                options.AddPolicy("ExclusiveOnly", policy => policy.RequireAssertion(context => 
-                    context.User.HasClaim(claim => claim.Type == "id" || claim.Value == "augusto" 
-                                                                      || context.User.IsInRole("SuperAdminOnly"))));
-            });
-        }
+    private static void AddCors(IServiceCollection services)
+    {
+        services.AddCors(options =>
+            options.AddPolicy(
+                "AllowClient",
+                policy =>
+                    policy
+                        .WithOrigins("http://localhost:4200")
+                        .WithMethods("GET", "POST")
+                        .AllowAnyHeader()
+            )
+        );
+    }
 
-        private static void AddJwtAuthentication(IServiceCollection services, IConfiguration configuration)
+    private static void AddAuthorization(IServiceCollection services)
+    {
+        services.AddAuthorization(options =>
         {
-            var secretKey = configuration["JWT:SecretKey"] ?? throw new ArgumentException("Invalid secret key.");
+            options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+            options.AddPolicy(
+                "SuperAdminOnly",
+                policy => policy.RequireRole("Admin").RequireClaim("id", "augusto")
+            );
+            options.AddPolicy("UserOnly", policy => policy.RequireRole("User"));
+            options.AddPolicy(
+                "ExclusiveOnly",
+                policy =>
+                    policy.RequireAssertion(context =>
+                        context.User.HasClaim(claim =>
+                            claim.Type == "id"
+                            || claim.Value == "augusto"
+                            || context.User.IsInRole("SuperAdminOnly")
+                        )
+                    )
+            );
+        });
+    }
 
-            services.AddAuthentication(options =>
+    private static void AddJwtAuthentication(
+        IServiceCollection services,
+        IConfiguration configuration
+    )
+    {
+        var secretKey =
+            configuration["JWT:SecretKey"] ?? throw new ArgumentException("Invalid secret key.");
+
+        services
+            .AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new TokenValidationParameters()
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
@@ -130,38 +165,39 @@ public class DependencyInjection : IDependencyInjection
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                 };
             });
-        }
-        
-        private static void AddUserIdentity(IServiceCollection services)
-        {
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
-        }
-        
-        private static void AddRepositories(IServiceCollection services)
-        {
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IBrandRepository, BrandRepository>();
-            services.AddScoped<IBasketRepository, BasketRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-        }
+    }
 
-        private static void AddServices(IServiceCollection services)
-        {
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IBrandService, BrandService>();
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IBasketService, BasketService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<AuthController>();
-            services.AddScoped<UserController>();
-        }
+    private static void AddUserIdentity(IServiceCollection services)
+    {
+        services
+            .AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
+    }
 
-        private static void AddAutoMapper(IServiceCollection services)
-        {
-            services.AddAutoMapper(typeof(DomainToDtoMappingProfiles));
-        }              
+    private static void AddRepositories(IServiceCollection services)
+    {
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IBrandRepository, BrandRepository>();
+        services.AddScoped<IBasketRepository, BasketRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+    }
+
+    private static void AddServices(IServiceCollection services)
+    {
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IBrandService, BrandService>();
+        services.AddScoped<ICategoryService, CategoryService>();
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IBasketService, BasketService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<AuthController>();
+        services.AddScoped<UserController>();
+    }
+
+    private static void AddAutoMapper(IServiceCollection services)
+    {
+        services.AddAutoMapper(typeof(DomainToDtoMappingProfiles));
+    }
 }

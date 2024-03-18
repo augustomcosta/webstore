@@ -9,14 +9,15 @@ namespace WebStore.API.Services;
 
 public class OrderService : IOrderService
 {
-    private readonly IOrderRepository _repository;
     private readonly IMapper _mapper;
+    private readonly IOrderRepository _repository;
 
     public OrderService(IOrderRepository repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
     }
+
     public async Task<IEnumerable<OrderDto>> GetAll()
     {
         var orders = await _repository.GetAll();
@@ -49,6 +50,13 @@ public class OrderService : IOrderService
 
     public async Task AddItemToOrder(Guid id, OrderItemVO orderItem)
     {
-        await _repository.AddItemToOrder(id,orderItem);
+        await _repository.AddItemToOrder(id, orderItem);
+    }
+
+    public async Task<OrderDto> CreateOrder(Guid orderId, string userId)
+    {
+        var order = await _repository.CreateOrder(orderId, userId);
+        if (string.IsNullOrEmpty(userId) || string.IsNullOrWhiteSpace(userId)) throw new Exception("User not found");
+        return _mapper.Map<OrderDto>(order);
     }
 }

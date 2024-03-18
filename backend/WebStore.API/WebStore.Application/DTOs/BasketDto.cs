@@ -5,16 +5,10 @@ using WebStore.Domain.Entities;
 namespace WebStore.API.DTOs;
 
 [DataContract]
-public record BasketDto (
-    [Required]
-    Guid Id,
-    
-    [Required]
-    List<BasketItem> BasketItems,
-    
-    [Required]
-    int DeliveryMethodId,
-    
-    [Required]
-    string PaymentIntentId
-    );
+public record BasketDto(
+    [Required] List<BasketItem> BasketItems,
+    [Required] string DeliveryMethodId,
+    [Required] string PaymentIntentId,
+    decimal ShippingPrice,
+    decimal TotalPrice
+);

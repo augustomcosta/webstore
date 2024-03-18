@@ -8,12 +8,15 @@ namespace WebStore.Infra.Context;
 
 public class AppDbContext : IdentityDbContext<ApplicationUser>
 {
-    public AppDbContext() {}
-    
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    public AppDbContext()
     {
     }
-    
+
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
+    {
+    }
+
     public DbSet<Product>? Products { get; set; }
     public DbSet<ProductBrand>? Brands { get; set; }
     public DbSet<ProductCategory>? Categories { get; set; }

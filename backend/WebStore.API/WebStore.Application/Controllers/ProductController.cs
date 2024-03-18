@@ -1,67 +1,53 @@
-﻿using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using WebStore.API.DTOs;
 using WebStore.API.Interfaces;
-using WebStore.Domain.Entities;
 using WebStore.Domain.Pagination;
 
 namespace WebStore.API.Controllers;
-
 
 [Route("api/[controller]")]
 [ApiController]
 public class ProductController : ControllerBase
 {
     private readonly IProductService _service;
-    
+
     public ProductController(IProductService service)
     {
         _service = service;
     }
 
     [HttpGet]
-    [Authorize]
-    [ApiConventionMethod(typeof(DefaultApiConventions),nameof(DefaultApiConventions.Get))]
+    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
     public async Task<IActionResult> GetAll()
     {
         var products = await _service.GetAll();
 
-        if (products == null)
-        {
-            return NotFound("No products were found");
-        }
+        if (products == null) return NotFound("No products were found");
 
         return Ok(products);
     }
 
     [HttpPost]
-    [Authorize]
-    public async Task<IActionResult> Create([FromBody]ProductDto product)
+    public async Task<IActionResult> Create([FromBody] ProductDto product)
     {
         await _service.Create(product);
         return Ok(product);
     }
 
     [HttpGet("{id:guid}")]
-    [Authorize]
-    [ApiConventionMethod(typeof(DefaultApiConventions),nameof(DefaultApiConventions.Get))]
+    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
     public async Task<IActionResult> GetById(Guid? id)
     {
         var product = await _service.GetById(id);
 
-        if (product == null)
-        {
-            throw new Exception($"Product with Id {id} not found.");
-        }
-        
+        if (product == null) throw new Exception($"Product with Id {id} not found.");
+
         return Ok(product);
     }
 
     [HttpPut("{id:guid}")]
-    [Authorize("AdminOnly")]
-    [ApiConventionMethod(typeof(DefaultApiConventions),nameof(DefaultApiConventions.Put))]
+    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Put))]
     public async Task<IActionResult> Update(Guid id, ProductDto product)
     {
         await _service.Update(id, product);
@@ -69,18 +55,16 @@ public class ProductController : ControllerBase
     }
 
     [HttpDelete]
-    [Authorize("SuperAdminOnly")]
-    [ApiConventionMethod(typeof(DefaultApiConventions),nameof(DefaultApiConventions.Delete))]
+    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Delete))]
     public async Task<IActionResult> Delete(Guid? id)
     {
         await _service.Delete(id);
         return Ok();
     }
-    
+
     [HttpGet("pagination")]
-    [Authorize]
-    [ApiConventionMethod(typeof(DefaultApiConventions),nameof(DefaultApiConventions.Get))]
-    public async Task<IActionResult> GetWithPagination([FromQuery]ProductParams productParams)
+    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
+    public async Task<IActionResult> GetWithPagination([FromQuery] ProductParams productParams)
     {
         var products = await _service.GetWithPagination(productParams);
 
@@ -97,14 +81,13 @@ public class ProductController : ControllerBase
         Response.Headers.Append("X-pagination", JsonConvert.SerializeObject(metadata));
         return Ok(products);
     }
-    
+
     [HttpGet("filter/price/pagination")]
-    [Authorize]
-    [ApiConventionMethod(typeof(DefaultApiConventions),nameof(DefaultApiConventions.Get))]
+    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
     public async Task<IActionResult> GetWithPriceFilter([FromQuery] ProductsPriceFilter priceFilter)
     {
         var products = await _service.GetWithPriceFilter(priceFilter);
-        
+
         var metadata = new
         {
             products.TotalCount,
@@ -120,17 +103,16 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("filter/brand/pagination")]
-    [Authorize]
-    [ApiConventionMethod(typeof(DefaultApiConventions),nameof(DefaultApiConventions.Get))]
-    public async Task<IActionResult> GetProductsByBrandNameAsync([FromQuery]QueryStringParams query, [FromQuery]string brandName)
+    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
+    public async Task<IActionResult> GetProductsByBrandNameAsync([FromQuery] QueryStringParams query,
+        [FromQuery] string brandName)
     {
-        var products = await _service.GetProductsByBrandNameAsync(query,brandName);
+        var products = await _service.GetProductsByBrandNameAsync(query, brandName);
         return Ok(products);
     }
 
     [HttpGet("filter/category/pagination")]
-    [Authorize]
-    [ApiConventionMethod(typeof(DefaultApiConventions),nameof(DefaultApiConventions.Get))]
+    [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
     public async Task<IActionResult> GetProductsByCategoryNameAsync([FromQuery] QueryStringParams query,
         [FromQuery] string categoryName)
     {

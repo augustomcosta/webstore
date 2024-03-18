@@ -3,38 +3,19 @@ using WebStore.Domain.Entities.Base;
 using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 using WebStore.Domain.Validation;
 using WebStore.Domain.ValueObjects;
+
 namespace WebStore.Domain.Entities.OrderAggregate;
 
 public sealed class Order : BaseEntity
 {
-    [Required]
-    public decimal SubTotal { get; private set; }
-    
-    [Required]
-    public string BuyerEmail { get; private set; }
-    
-    [Required]
-    public ICollection<OrderItemVO> OrderItems { get; private set; }
+    public Order(string userId, ICollection<OrderItemVO> orderItems)
+    {
+        OrderItems = orderItems;
+        UserId = userId;
+    }
 
-    [Required] 
-    public DateTime OrderDate { get; private set; } = DateTime.Now;
-    
-    [Required]
-    public AddressVO ShippingAddress { get; private set; }
-    public DeliveryMethod DeliveryMethod { get; private set; }
-    
-    [Required]
-    public Guid DeliveryMethodId { get; private set; }
-    
-    [Required]
-    public decimal Total { get; private set; }
-    
-    [Required]
-    public string UserId { get; private set; } 
-    public User User { get; private set; }
-
-    public Order() { }
-    public Order(Guid id, decimal subTotal,  ICollection<OrderItemVO> orderItems, DeliveryMethod deliveryMethod, AddressVO shippingAddress) : base(id)
+    public Order(Guid id, decimal subTotal, ICollection<OrderItemVO> orderItems, DeliveryMethod deliveryMethod,
+        AddressVO shippingAddress) : base(id)
     {
         DeliveryMethod = deliveryMethod;
         OrderItems = orderItems;
@@ -42,19 +23,36 @@ public sealed class Order : BaseEntity
         Total = GetTotal(subTotal);
     }
 
+    [Required] public decimal SubTotal { get; set; }
+
+    [Required] public string BuyerEmail { get; private set; }
+
+    [Required] public ICollection<OrderItemVO> OrderItems { get; private set; }
+
+    [Required] public DateTime OrderDate { get; private set; } = DateTime.Now;
+
+    [Required] public AddressVO ShippingAddress { get; private set; }
+
+    public DeliveryMethod DeliveryMethod { get; private set; }
+
+    [Required] public Guid DeliveryMethodId { get; private set; }
+
+    [Required] public decimal Total { get; private set; }
+
+    [Required] public string UserId { get; private set; }
+
+    public User User { get; private set; }
+
     private void ValidateSubTotal(decimal subTotal)
     {
-        DomainValidationException.When(decimal.IsNegative(subTotal),"Total order price should be positive.");
+        DomainValidationException.When(decimal.IsNegative(subTotal), "Total order price should be positive.");
         SubTotal = subTotal;
     }
 
     private decimal GetTotal(decimal subTotal)
     {
         var total = subTotal + DeliveryMethod.Price;
-        if (total < 0)
-        {
-            throw new Exception("Order total should be positive.");
-        }
+        if (total < 0) throw new Exception("Order total should be positive.");
         return total;
     }
 

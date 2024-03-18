@@ -22,10 +22,7 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var orders = await _service.GetAll();
-        if (orders == null)
-        {
-            return NotFound("No orders were found.");
-        }
+        if (orders == null) return NotFound("No orders were found.");
         return Ok(orders);
     }
 
@@ -33,10 +30,7 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> GetById(Guid id)
     {
         var order = await _service.GetById(id);
-        if (order == null)
-        {
-            return NotFound($"Order with Id {id} not found.");
-        }
+        if (order == null) return NotFound($"Order with Id {id} not found.");
         return Ok(order);
     }
 
@@ -62,9 +56,18 @@ public class OrderController : ControllerBase
     }
 
     [HttpPut("add-item")]
-    public async Task<IActionResult> AddItemToOrder([FromQuery]Guid id, OrderItemVO orderItem)
+    public async Task<IActionResult> AddItemToOrder([FromQuery] Guid id, OrderItemVO orderItem)
     {
-        await _service.AddItemToOrder(id,orderItem);
+        await _service.AddItemToOrder(id, orderItem);
         return Ok();
+    }
+
+    [HttpPost("create-order")]
+    public async Task<IActionResult> CreateOrder([FromQuery] Guid basketId, string userId)
+    {
+        var order = await _service.CreateOrder(basketId, userId);
+        if (order is null) throw new Exception("Error while creating order");
+
+        return Ok(order);
     }
 }
