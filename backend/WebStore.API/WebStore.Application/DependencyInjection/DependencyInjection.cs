@@ -15,6 +15,7 @@ using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Repositories;
 using WebStore.Infra.Context;
 using WebStore.IoC.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WebStore.API.DependencyInjection;
 
@@ -25,6 +26,7 @@ public class DependencyInjection : IDependencyInjection
         IConfiguration configuration
     )
     {
+       
         AddDbContext(services, configuration);
         AddJwtAuthentication(services, configuration);
         AddAuthorization(services);
@@ -38,6 +40,8 @@ public class DependencyInjection : IDependencyInjection
         AddRedis(services, configuration);
         return services;
     }
+    
+    
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
     {
@@ -96,7 +100,7 @@ public class DependencyInjection : IDependencyInjection
             );
         });
     }
-
+   
     private static void AddCors(IServiceCollection services)
     {
         services.AddCors(options =>

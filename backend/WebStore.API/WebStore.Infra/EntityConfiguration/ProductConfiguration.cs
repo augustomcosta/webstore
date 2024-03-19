@@ -13,6 +13,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Description).HasMaxLength(50).IsRequired();
         builder.Property(p => p.Price).HasPrecision(10,2).IsRequired();
         builder.Property(p => p.ImageUrl).HasMaxLength(300).IsRequired();
+        builder.Navigation(p => p.Brand).AutoInclude();
+        builder.Navigation(p => p.Category).AutoInclude();
         builder.HasOne(p => p.Brand)
                .WithMany(b => b.Products)
                .HasForeignKey(p => p.BrandId);

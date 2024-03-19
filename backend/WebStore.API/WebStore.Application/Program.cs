@@ -1,6 +1,7 @@
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using WebStore.API.DependencyInjection;
+using WebStore.Infra.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,14 +30,14 @@ builder.Services.AddSwaggerGen(c =>
                     Id = "Bearer"
                 }
             },
-            new string[] {}
+            new string[] { }
         }
     });
 });
 
 builder.Services.AddControllers();
 var infra = new DependencyInjection();
-infra.AddInfrastructure(builder.Services,builder.Configuration);
+infra.AddInfrastructure(builder.Services, builder.Configuration);
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -54,10 +55,14 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/images/products"
 });
 
+var brandsJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/brands.json");
+var categoriesJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/categories.json");
+var productsJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/products.json");
+SeedDataContext.SeedData(brandsJson, categoriesJson, productsJson, app.Services);
+
 app.UseCors();
 app.UseRateLimiter();
 app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();
-

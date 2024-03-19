@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Entities.OrderAggregate;
 
 namespace WebStore.Infra.Context;
 
-public class AppDbContext : IdentityDbContext<ApplicationUser>
+public sealed class AppDbContext : IdentityDbContext<ApplicationUser>
 {
     public AppDbContext()
     {

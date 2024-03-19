@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Ajazz AK820 Pro",
+    "description": "Mechanical keyboard with tft screen",
+    "price": 49.90,
+    "imageUrl": "http://localhost:5247/images/products/ak820.png",
+    "brandName": "Ajazz",
+    "brandId": "1023a3b7-db34-4c51-8480-54c6a34e3d3f",
+    "categoryId": "0f4d650f-3c08-4e0d-b556-cb46d3f224d4",
+    "categoryName": "Keyboards"
+  },
+  {
+    "name": "Iphone 15",
+    "description": "Iphone 15 cellphone",
+    "price": 990,
+    "imageUrl": "http://localhost:5247/images/products/iphone15.webp",
+    "brandName": "Apple",
+    "brandId": "f5ccb585-5d60-42d7-bb08-519489c57330",
+    "categoryId": "e792fd5c-05ec-4b97-a00c-d906a5f4ad0c",
+    "categoryName": "Cellphones"
+  }
+]

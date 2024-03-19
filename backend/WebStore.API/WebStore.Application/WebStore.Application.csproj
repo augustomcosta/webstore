@@ -23,8 +23,10 @@
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.2" />
         <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.2" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
+        <PackageReference Include="PrivateSetterContractResolver" Version="2.1.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
         <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
     </ItemGroup>
@@ -43,10 +45,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="Migrations\20240222142858_add order entity.cs" />
-      <Compile Remove="Migrations\20240222142858_add order entity.Designer.cs" />
-      <Compile Remove="Migrations\20240228131147_add identity and auth.cs" />
-      <Compile Remove="Migrations\20240228131147_add identity and auth.Designer.cs" />
     </ItemGroup>
 
 </Project>
