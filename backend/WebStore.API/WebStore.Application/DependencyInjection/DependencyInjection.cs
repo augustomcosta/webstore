@@ -186,6 +186,7 @@ public class DependencyInjection : IDependencyInjection
         services.AddScoped<IBrandRepository, BrandRepository>();
         services.AddScoped<IBasketRepository, BasketRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
     }
 
     private static void AddServices(IServiceCollection services)
@@ -198,6 +199,7 @@ public class DependencyInjection : IDependencyInjection
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<AuthController>();
         services.AddScoped<UserController>();
+        services.AddScoped<IOrderService, OrderService>();
     }
 
     private static void AddAutoMapper(IServiceCollection services)

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using WebStore.Domain.Entities.Base;
 using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 using WebStore.Domain.Validation;
@@ -14,24 +15,22 @@ public sealed class Order : BaseEntity
         UserId = userId;
     }
 
-    public Order(Guid id, decimal subTotal, ICollection<OrderItemVO> orderItems, DeliveryMethod deliveryMethod,
-        AddressVO shippingAddress) : base(id)
+    public Order(Guid id, decimal subTotal, ICollection<OrderItemVO> orderItems, DeliveryMethod deliveryMethod
+        ) : base(id)
     {
         DeliveryMethod = deliveryMethod;
         OrderItems = orderItems;
-        ShippingAddress = shippingAddress;
         Total = GetTotal(subTotal);
     }
 
     [Required] public decimal SubTotal { get; set; }
 
     [Required] public string BuyerEmail { get; private set; }
-
+    
     [Required] public ICollection<OrderItemVO> OrderItems { get; private set; }
-
+    
     [Required] public DateTime OrderDate { get; private set; } = DateTime.Now;
-
-    [Required] public AddressVO ShippingAddress { get; private set; }
+    public AddressVO ShippingAddress { get; private set; }
 
     public DeliveryMethod DeliveryMethod { get; private set; }
 
@@ -41,6 +40,7 @@ public sealed class Order : BaseEntity
 
     [Required] public string UserId { get; private set; }
 
+    [JsonIgnore]
     public User User { get; private set; }
 
     private void ValidateSubTotal(decimal subTotal)

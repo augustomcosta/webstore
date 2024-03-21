@@ -43,7 +43,7 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
-    [HttpPut("{int:guid}")]
+    [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(string id, [FromBody]UserDto user)
     {
         await _service.Update(id, user);

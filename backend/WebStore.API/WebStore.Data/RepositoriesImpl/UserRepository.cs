@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Identity;
@@ -36,7 +37,7 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    public async Task<User> Update(string? id, User user)
+    public async Task<User> Update([FromQuery]string? id, [FromBody]User user)
     {
         var userToUpdate = await _context.Users!.FirstOrDefaultAsync(u => u.Id == id);
         if (userToUpdate == null)
