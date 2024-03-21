@@ -1,4 +1,28 @@
-td {
+th, td {
   @apply
+  text-left
   align-middle
+  p-[10px]
+  bg-clip-padding
+  border-r-[150px]
+  border-solid
+  border-transparent;
+}
+
+.cart-button {
+  @apply
+  bg-teal-800
+  p-2
+  rounded-md
+  text-white
+  hover:scale-110
+  hover:bg-teal-700
+  transition
+}
+
+.product-title,
+.product-price {
+  @apply
+  text-teal-800
+  text-lg
 }

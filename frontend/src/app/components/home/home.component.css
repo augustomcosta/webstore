@@ -24,5 +24,6 @@
   @apply
   flex
   flex-col
-  gap-24;
+  gap-24
+  pb-12;
 }

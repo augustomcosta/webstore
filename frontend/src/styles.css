@@ -20,25 +20,31 @@ time, mark, audio, video {
   font: inherit;
   vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
+
 body {
   line-height: 1;
 }
+
 ol, ul {
   list-style: none;
 }
+
 blockquote, q {
   quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
   content: '';
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -58,13 +64,15 @@ table {
 @tailwind components;
 @tailwind utilities;
 
-html, body { height: 100%; }
+html, body {
+  height: 100%;
+}
+
 /* Global Styles Configuration */
 * {
   outline: 0px solid red;
   @apply
   list-none;
-
 }
 
 p:not(.mat-icon):not(.icon):not(icon),
@@ -72,8 +80,7 @@ span:not(.mat-icon):not(.icon):not(icon),
 div:not(.mat-icon):not(.icon):not(icon),
 h1:not(.mat-icon):not(.icon):not(icon),
 h2:not(.mat-icon):not(.icon):not(icon),
-h3:not(.mat-icon):not(.icon):not(icon)
-{
+h3:not(.mat-icon):not(.icon):not(icon) {
   font-family: 'Montserrat', sans-serif !important;
 }
 
