@@ -1,3 +1,12 @@
+:host {
+  @apply
+  grid
+  items-center
+  h-full
+  bg-login-bg
+  bg-cover
+}
+
 .email-input, .password-input {
   @apply
   shadow
@@ -22,18 +31,16 @@
   mb-10
 }
 
-:host {
-  @apply
-  grid
-  items-center
-  h-full
-  bg-login-bg
-  bg-cover
-}
-
 form {
   @apply
   bg-white shadow-md rounded-xl px-8 pt-10 pb-10 mb-4
+}
+
+.login-title {
+  @apply
+  mb-6
+  text-teal-900
+  text-center
 }
 
 .buttons-container {
@@ -43,13 +50,6 @@ form {
   items-center
   justify-between
   pt-8
-}
-
-.login-title {
-  @apply
-  mb-6
-  text-teal-900
-  text-center
 }
 
 .login-button {
