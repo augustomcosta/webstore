@@ -7,7 +7,7 @@
   bg-cover
 }
 
-.email-input, .password-input {
+.username-input, .password-input {
   @apply
   shadow
   appearance-none
@@ -61,6 +61,7 @@ form {
   rounded-md
   hover:bg-amber-700
   transition
+  disabled:bg-gray-400
 }
 
 .password-reset-button {

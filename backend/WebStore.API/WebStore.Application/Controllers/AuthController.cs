@@ -1,4 +1,5 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -45,7 +46,7 @@ public class AuthController : Controller
     [Route("login")]
     public async Task<IActionResult> Login([FromBody] LoginModel model)
     {
-        var user = await _userManager.FindByNameAsync(model.Name!);
+        var user = await _userManager.FindByNameAsync(model.UserName!);
 
         if (user is not null && await _userManager.CheckPasswordAsync(user, model.Password!))
         {
@@ -66,13 +67,15 @@ public class AuthController : Controller
 
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(refreshTokenValidityInMinutes);
+            const bool isSuccess = true;
             await _userManager.UpdateAsync(user);
 
             return Ok(new
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 RefreshToken = refreshToken,
-                Expiration = token.ValidTo
+                Expiration = token.ValidTo.ToString(CultureInfo.CurrentCulture),
+                IsSuccess = isSuccess
             });
         }
 
