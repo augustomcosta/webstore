@@ -1,23 +1,24 @@
-<swiper-container class="image-slider"
+<swiper-container autoplay-delay="3000"
+                  autoplay-disable-on-interaction="false"
+                  autoplay-pause-on-mouse-enter="true"
+                  centered-slides="true"
+                  class="image-slider"
+                  controller-control=".swiper-2"
+                  effect="cards"
+                  navigation="false"
                   pagination="true"
                   pagination-clickable="true"
-                  navigation="true"
-                  space-between="30"
-                  centered-slides="true"
-                  autoplay-delay="3000"
-                  effect="cards"
-                  autoplay-disable-on-interaction="true"
-                  autoplay-pause-on-mouse-enter="true">
+                  space-between="60">
   <swiper-slide>
-    <img ngSrc="./assets/images/airpods.jpg" alt="keyboard" height="3748" width="5622">
+    <img alt="keyboard" fill ngSrc="./assets/images/airpods.jpg" ngSrcset="100w, 200w, 300w" priority sizes="50vw">
     <h2 class="category-tag">Phones</h2>
   </swiper-slide>
   <swiper-slide>
-    <img ngSrc="./assets/images/keyboard.jpg" ngOptimizedImage priority alt="airpods" height="3840" width="5760">
+    <img alt="airpods" fill ngSrc="./assets/images/keyboard.jpg" ngSrcset="100w, 200w, 300w" sizes="50vw">
     <h2 class="category-tag">Keyboards</h2>
   </swiper-slide>
   <swiper-slide>
-    <img ngSrc="./assets/images/controller.jpg" alt="controller" height="4000" width="6000">
+    <img alt="controller" fill ngSrc="./assets/images/controller.jpg" ngSrcset="100w, 200w, 300w" sizes="50vw">
     <h2 class="category-tag">Gamepads</h2>
   </swiper-slide>
 </swiper-container>

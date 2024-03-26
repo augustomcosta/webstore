@@ -4,7 +4,7 @@ th, td {
   align-middle
   p-[10px]
   bg-clip-padding
-  border-r-[150px]
+  border-x-[2rem]
   border-solid
   border-transparent;
 }

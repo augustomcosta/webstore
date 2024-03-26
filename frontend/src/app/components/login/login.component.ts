@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'login',
@@ -20,18 +21,13 @@ export class LoginComponent implements OnInit {
   hide = true;
   form!: FormGroup;
   fb = inject(FormBuilder);
-  router = inject(Router);
 
   login() {
-    this.authService.login(this.form.value).subscribe((response) => {
-      console.log(response);
-      this.isLogged();
-    });
-  }
-
-  isLogged(): boolean {
-    this.router.navigate(['home']);
-    return true;
+    const loginSub = this.authService
+      .login(this.form.value)
+      .subscribe((response) => {
+        console.log(response);
+      });
   }
 
   ngOnInit(): void {

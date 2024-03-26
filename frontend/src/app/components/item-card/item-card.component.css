@@ -1,11 +1,12 @@
 .item-card {
   @apply
   bg-white
-  shadow-lg
+  shadow-md
   overflow-hidden
   transition
   hover:scale-110
-  hover:cursor-pointer;
+  hover:cursor-pointer
+  rounded-lg;
 }
 
 .card-info {

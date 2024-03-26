@@ -4,26 +4,37 @@
       <li class="my-3">
         <button class="home-button" routerLink="home">
           <i class="desktop-icon fa fa-shop fa-sm"></i>
-          <span>Products</span>
+          <span class="">Products</span>
         </button>
       </li>
       <li class="my-3">
-      <button class="basket-button" routerLink="basket">
-        <i class="desktop-icon fa-solid fa-bag-shopping fa-sm"></i>
-        <span>Basket</span>
-      </button>
+        <button class="basket-button" routerLink="basket">
+          <i class="desktop-icon fa-solid fa-bag-shopping fa-sm"></i>
+          <span class="text-teal-800">Basket</span>
+        </button>
       </li>
       <li class="my-3">
         <button class="wishlist-button" routerLink="wishlist">
           <i class="desktop-icon fa-solid fa-heart fa-sm"></i>
-          <span>Wishlist</span>
+          <span class="text-teal-800">Wishlist</span>
         </button>
       </li>
     </ul>
+    @if (isLoggedIn$ | async; as isLoggedIn) {
+      <button class="account-button">
+        <i class="fa-solid fa-user"></i>
+        <span class="text-teal-800">Username here</span>
+      </button>
+      <button class="login-button" (click)="logout()">
+        <i class="fa-solid fa-right-to-bracket"></i>
+        <p class="!my-3">Logout</p>
+      </button>
+    } @else {
       <button class="login-button" routerLink="login">
         <i class="fa-solid fa-right-to-bracket"></i>
-        <p class="!my-3">Login</p>
+        <span class="!my-3 text-teal-800">Login</span>
       </button>
+    }
   </div>
 </div>
 

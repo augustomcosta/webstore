@@ -1,9 +1,8 @@
 :host {
   @apply
-    flex
-    flex-col
-    p-[5rem];
-  height: calc(100vh - 40px);
+  flex
+  flex-col
+  min-h-screen;
 }
 
 

@@ -1,5 +1,7 @@
 swiper-container {
-  --swiper-theme-color:#FB9E0B;
+  --swiper-theme-color: #13beb2;
+  --swiper-navigation-sides-offset: 3rem;
+  --swiper-pagination-bottom: 1.5rem;
   @apply
   w-[80%]
   max-w-[1400px]
@@ -14,12 +16,16 @@ swiper-slide {
   align-items: center;
   height: 100%;
   @apply
-  rounded-md;
+  rounded-md
+  shadow-md
+  border
+  border-solid
+  border-slate-300;
 }
 
 swiper-slide img {
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
   object-fit: cover;
 }
 

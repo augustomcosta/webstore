@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -8,13 +8,19 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import {MatSlideToggle} from "@angular/material/slide-toggle";
-import {ItemCardComponent} from "../item-card/item-card.component";
-import {MatError, MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatInputModule} from "@angular/material/input";
-import {InputClearableExample} from "../search-bar/search-bar.component";
-import {RouterModule} from "@angular/router";
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { ItemCardComponent } from '../item-card/item-card.component';
+import {
+  MatError,
+  MatFormField,
+  MatFormFieldModule,
+  MatLabel,
+} from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { InputClearableExample } from '../search-bar/search-bar.component';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -39,15 +45,21 @@ import {RouterModule} from "@angular/router";
     MatInputModule,
     ReactiveFormsModule,
     InputClearableExample,
-    RouterModule
-  ]
+    RouterModule,
+    NgIf,
+  ],
 })
-export class SideBarComponent {
-  private breakpointObserver = inject(BreakpointObserver);
+export class SideBarComponent implements OnInit {
+  isLoggedIn$: Observable<boolean> | undefined;
+  authService = inject(AuthService);
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+  constructor() {}
+
+  logout() {
+    this.authService.logout();
+  }
+
+  ngOnInit(): void {
+    this.isLoggedIn$ = this.authService.loggedIn$;
+  }
 }

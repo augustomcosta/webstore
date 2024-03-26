@@ -26,9 +26,8 @@
   @apply
   w-full
   max-w-[400px]
-  h-[50%]
+
   grid
-  mb-10
 }
 
 form {

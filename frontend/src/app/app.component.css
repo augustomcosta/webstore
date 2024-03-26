@@ -1,6 +1,7 @@
 :host {
   @apply
   flex
+  flex-col
   min-h-screen;
 }
 
@@ -11,10 +12,19 @@ main {
 }
 
 .main-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 100vh;
+  @apply
+  max-w-full
+  min-w-full
+  flex
+  flex-col
+  justify-center
+
+  md:min-w-[80%]
+  md:max-w-[80%];
+}
+
+.sidebar {
+  height: 100vh;
 }
 
 
