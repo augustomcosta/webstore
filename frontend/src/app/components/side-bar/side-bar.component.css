@@ -3,7 +3,7 @@
 }
 
 .sidebar-content {
-  @apply w-full mx-4 my-4 flex flex-col justify-between text-lg text-white;
+  @apply w-full mx-5 my-5 flex flex-col justify-between text-lg text-white;
 }
 
 .home-button,
@@ -11,7 +11,7 @@
 .wishlist-button,
 .login-button,
 .account-button {
-  @apply flex items-center gap-3 px-3 h-[3rem] py-1 rounded-lg transition hover:scale-110 bg-gray-200 w-full text-teal-700;
+  @apply flex items-center gap-3 px-3 h-[3rem] rounded-lg transition hover:scale-105 bg-gray-200 w-full text-teal-700;
 
   span {
     @apply
@@ -25,4 +25,40 @@
   @apply flex flex-col gap-4;
 }
 
+.drop-up {
+  position: relative;
+  display: inline-block;
+}
 
+.drop-btn {
+  background-color: #ccc;
+  color: #333;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.drop-up-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0 -8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  top: -120%;
+}
+
+.drop-up-content a, .drop-up-content button {
+  padding: 12px 16px;
+  display: block;
+  color: #333;
+  text-decoration: none;
+}
+
+.drop-up-content a:hover, .drop-up-content button:hover {
+  background-color: #f9f9f9;
+}
+
+.drop-up:hover .drop-up-content {
+  display: block;
+}

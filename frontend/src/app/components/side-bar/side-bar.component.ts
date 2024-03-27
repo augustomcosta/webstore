@@ -52,6 +52,7 @@ import { AuthService } from '../../services/auth.service';
 export class SideBarComponent implements OnInit {
   isLoggedIn$: Observable<boolean> | undefined;
   authService = inject(AuthService);
+  userName: string | undefined;
 
   constructor() {}
 
@@ -59,7 +60,21 @@ export class SideBarComponent implements OnInit {
     this.authService.logout();
   }
 
+  toggleDropdown() {
+    var dropUp = document.getElementById('drop-up-content');
+    // @ts-ignore
+    if (dropUp.style.display === 'block') {
+      // @ts-ignore
+      dropUp.style.display = 'none';
+    }
+    // @ts-ignore
+    dropUp.style.display = 'block';
+  }
+
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.loggedIn$;
+    this.authService
+      .getLoggedUser()
+      .subscribe((userName) => (this.userName = userName));
   }
 }

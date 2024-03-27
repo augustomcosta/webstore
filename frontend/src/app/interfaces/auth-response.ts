@@ -3,4 +3,6 @@ export interface AuthResponse {
   refreshToken: string;
   expiration: string;
   isSuccess: true;
+  loggedUser: string;
+  userName: string;
 }

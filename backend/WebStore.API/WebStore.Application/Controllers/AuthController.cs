@@ -69,13 +69,18 @@ public class AuthController : Controller
             user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(refreshTokenValidityInMinutes);
             const bool isSuccess = true;
             await _userManager.UpdateAsync(user);
+            
+            var userModel = await _userRepo.GetById(user.Id);
+            var name = userModel.FirstName;
 
             return Ok(new
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 RefreshToken = refreshToken,
                 Expiration = token.ValidTo.ToString(CultureInfo.CurrentCulture),
-                IsSuccess = isSuccess
+                IsSuccess = isSuccess,
+                loggedUser = model.UserName,
+                userName = name
             });
         }
 

@@ -21,14 +21,17 @@
       </li>
     </ul>
     @if (isLoggedIn$ | async; as isLoggedIn) {
-      <button class="account-button">
-        <i class="fa-solid fa-user"></i>
-        <span class="text-teal-800">Username here</span>
-      </button>
-      <button class="login-button" (click)="logout()">
-        <i class="fa-solid fa-right-to-bracket"></i>
-        <p class="!my-3">Logout</p>
-      </button>
+      <div class="drop-up">
+        <button class="drop-btn" (click)="toggleDropdown()">
+          <i class="fa-solid fa-user"></i>
+          <span class="text-teal-800">{{ userName }}</span>
+        </button>
+        <div class="drop-up-content">
+          <a href="#">My Profile</a>
+          <a href="#">Link 2</a>
+          <button (click)="logout()">Logout</button>
+        </div>
+      </div>
     } @else {
       <button class="login-button" routerLink="login">
         <i class="fa-solid fa-right-to-bracket"></i>

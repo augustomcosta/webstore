@@ -1,18 +1,19 @@
 .basket-totals-container {
   @apply
-  text-white
+  text-gray-500
   flex
   flex-col
   justify-between
-  h-full;
+  h-full
+  border;
 }
 
-.subtotal-container, .shipping-container{
+.subtotal-container, .shipping-container {
   @apply
   flex
   flex-row
   justify-between
-  text-white
+  text-gray-500
   w-full;
 }
 

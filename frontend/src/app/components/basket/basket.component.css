@@ -6,6 +6,7 @@
   items-center
   justify-center
   mx-20
+  shadow-lg
 }
 
 .basket-summary {
@@ -15,9 +16,9 @@
   items-start
   h-[100%]
   w-[160%]
-  rounded-lg
-  shadow-lg
-  p-10;
+  rounded-l-lg
+  p-10
+  bg-white;
 }
 
 .basket-totals {
@@ -27,8 +28,16 @@
   items-start
   p-10
   h-full w-[60%]
-  bg-teal-600;
-  border-radius: 0 0.5rem 0.5rem 0;
+  bg-white
+  rounded-r-lg
+  border-l
+  border-solid
+  border-slate-200;
 }
 
-
+.basket {
+  @apply
+  flex
+  flex-col
+  mx-10;
+}
