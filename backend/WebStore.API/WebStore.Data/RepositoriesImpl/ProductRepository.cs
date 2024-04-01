@@ -70,12 +70,15 @@ public class ProductRepository : IProductRepository
     public async Task<PagedList<Product>> GetWithPagination(ProductParams productParams)
     {
         var products = await GetAll();
-        var queryableProducts = products.OrderBy(p => p.Id).AsQueryable();
+        
+        var queryableProducts = products.AsQueryable();
+        
         var orderedProducts = PagedList<Product>.ToPagedList(
             queryableProducts,
             productParams.PageNumber,
             productParams.PageSize
         );
+        
         return orderedProducts;
     }
 

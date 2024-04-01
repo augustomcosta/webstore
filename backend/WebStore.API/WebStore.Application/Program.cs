@@ -1,3 +1,4 @@
+using System.Web.Http;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using WebStore.API.DependencyInjection;
@@ -37,7 +38,8 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddControllers();
 var infra = new DependencyInjection();
-infra.AddInfrastructure(builder.Services, builder.Configuration);
+var httpConfig = new HttpConfiguration();
+infra.AddInfrastructure(builder.Services, builder.Configuration,httpConfig);
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -48,6 +50,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowClient");
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
@@ -60,7 +63,6 @@ var categoriesJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/categorie
 var productsJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/products.json");
 SeedDataContext.SeedData(brandsJson, categoriesJson, productsJson, app.Services);
 
-app.UseCors();
 app.UseRateLimiter();
 app.UseHttpsRedirection();
 app.MapControllers();

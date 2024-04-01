@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Web.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace WebStore.IoC.Interfaces;
 
 public interface IDependencyInjection
 {
-        IServiceCollection AddInfrastructure(IServiceCollection services, IConfiguration configuration);
+        IServiceCollection AddInfrastructure(IServiceCollection services, IConfiguration configuration, HttpConfiguration config);
 }

@@ -1,7 +1,9 @@
 ﻿using System.Text;
 using System.Threading.RateLimiting;
+using System.Web.Http;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -23,7 +25,8 @@ public class DependencyInjection : IDependencyInjection
 {
     public IServiceCollection AddInfrastructure(
         IServiceCollection services,
-        IConfiguration configuration
+        IConfiguration configuration,
+        HttpConfiguration config
     )
     {
        
@@ -34,7 +37,7 @@ public class DependencyInjection : IDependencyInjection
         AddServices(services);
         AddAutoMapper(services);
         AddUserIdentity(services);
-        AddCors(services);
+        AddCors(services,config);
         AddRequestRateLimit(services);
         AddApiVersioning(services);
         AddRedis(services, configuration);
@@ -101,18 +104,20 @@ public class DependencyInjection : IDependencyInjection
         });
     }
    
-    private static void AddCors(IServiceCollection services)
+    private static void AddCors(IServiceCollection services, HttpConfiguration config)
     {
         services.AddCors(options =>
             options.AddPolicy(
                 "AllowClient",
                 policy =>
                     policy
-                        .WithOrigins("http://localhost:4200")
+                        .AllowAnyOrigin()
                         .WithMethods("GET", "POST")
                         .AllowAnyHeader()
+                    
             )
         );
+        config.EnableCors();
     }
 
     private static void AddAuthorization(IServiceCollection services)

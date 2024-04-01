@@ -56,8 +56,8 @@ public class ProductService : IProductService
 
         var productsDtoPaged = new PagedList<ProductDto>(
             productsDto,
-            productsPaged.TotalCount,
             productsPaged.CurrentPage,
+            productsPaged.TotalCount,
             productsPaged.PageSize
         );
 

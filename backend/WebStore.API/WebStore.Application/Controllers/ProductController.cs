@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Web.Http.Cors;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using WebStore.API.DTOs;
 using WebStore.API.Interfaces;
 using WebStore.Domain.Pagination;
+using System.Web.Http.Cors;
 
 namespace WebStore.API.Controllers;
 
@@ -63,6 +66,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("pagination")]
+    [System.Web.Http.Cors.EnableCors(origins:"http://localhost:4200/",headers:"*",methods:"*")]
     [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
     public async Task<IActionResult> GetWithPagination([FromQuery] ProductParams productParams)
     {

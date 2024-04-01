@@ -46,7 +46,6 @@ public sealed class Product : BaseEntity
 
     public string? CategoryName { get; set; }
     
-    
 
     public void UpdateProduct(Product product)
     {

@@ -12,11 +12,12 @@ public class PagedList<T> : List<T> where T : class
 
     public PagedList() {}
     
-    public PagedList(List<T> items, int currentPage, int totalPages, int totalCount)
+    public PagedList(List<T> items, int currentPage, int totalCount, int pageSize)
     {
         TotalCount = totalCount;
         CurrentPage = currentPage;
-        TotalPages = (int)Math.Ceiling(totalCount / (double)PageSize);
+        PageSize = pageSize;
+        TotalPages = (int)Math.Ceiling((double)totalCount / pageSize);
         AddRange(items);
     }
 
@@ -24,6 +25,6 @@ public class PagedList<T> : List<T> where T : class
     {
         var totalCount = source.Count();
         var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-        return new PagedList<T>(items, totalCount, pageNumber, pageSize);
+        return new PagedList<T>(items, pageNumber, totalCount, pageSize);
     }
 }
