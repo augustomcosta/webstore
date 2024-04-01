@@ -1,14 +1,18 @@
-<div class="item-card">
-  <div class="item-img-container">
-    <img class="rounded-t-lg" src="./assets/images/iPhone-15-General-Feature-Black.webp" alt="Iphone 15">
-  </div>
-    <div class="card-info">
-      <h1 class="!mb-1">Product</h1>
-      <h2 class="!mb-7 !opacity-70 !text-base">Product Description</h2>
-      <div class="card-buttons">
-        <button class="basket-button">Add to Basket</button>
-        <button class="view-button" routerLink="/item-details">View</button>
+<div class="card-grid">
+  @for (product of products; track product) {
+    <div class="item-card">
+      <div class="img-container">
+        <img alt="{{product.name}}" class="overflow-hidden rounded-t-lg h-[200px] w-full" src="{{product.imageUrl}}">
+      </div>
+      <div class="card-info !mb-0">
+        <h1 class="!mb-1">{{ product.name }}</h1>
+        <h2 class="!mb-7 !opacity-70 !text-base">{{ product.description }}</h2>
+        <div class="card-buttons">
+          <button class="basket-button">Add to Basket</button>
+          <button class="view-button" routerLink="/item-details">View</button>
+        </div>
       </div>
     </div>
+  }
 </div>
 
