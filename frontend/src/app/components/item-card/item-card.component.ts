@@ -16,6 +16,7 @@ import { NgOptimizedImage } from '@angular/common';
 export class ItemCardComponent implements OnInit {
   productService = inject(ProductService);
   products: Product[] = [];
+  protected readonly Math = Math;
 
   getProducts() {
     this.productService.getProducts().subscribe((products) => {

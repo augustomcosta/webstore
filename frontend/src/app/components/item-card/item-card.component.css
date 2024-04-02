@@ -18,6 +18,12 @@
   text-teal-800
   flex flex-col justify-between
   flex-1;
+
+  p {
+    @apply
+    text-slate-500
+    text-base;
+  }
 }
 
 .card-buttons {
@@ -58,6 +64,7 @@
 
 .img-container {
   @apply
+  relative
   max-w-full
   max-h-[200px]
 }
@@ -70,4 +77,25 @@
   w-full
   object-cover
   object-center;
+}
+
+.card-text-container {
+  @apply
+  flex
+  justify-between
+}
+
+.card-price {
+  @apply
+  text-slate-500
+  text-base
+  absolute
+  top-5 right-5
+  z-10
+  bg-white rounded-md p-2;
+
+  p {
+    @apply
+    m-0;
+  }
 }

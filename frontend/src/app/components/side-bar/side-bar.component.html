@@ -4,19 +4,19 @@
       <li class="my-3">
         <button class="home-button" routerLink="home">
           <i class="desktop-icon fa fa-shop fa-sm"></i>
-          <span class="">Products</span>
+          <p>Products</p>
         </button>
       </li>
       <li class="my-3">
         <button class="basket-button" routerLink="basket">
           <i class="desktop-icon fa-solid fa-bag-shopping fa-sm"></i>
-          <span class="text-teal-800">Basket</span>
+          <p>Basket</p>
         </button>
       </li>
       <li class="my-3">
         <button class="wishlist-button" routerLink="wishlist">
           <i class="desktop-icon fa-solid fa-heart fa-sm"></i>
-          <span class="text-teal-800">Wishlist</span>
+          <p>Wishlist</p>
         </button>
       </li>
     </ul>
@@ -24,18 +24,27 @@
       <div class="drop-up">
         <button class="drop-btn" (click)="toggleDropdown()">
           <i class="fa-solid fa-user"></i>
-          <span class="text-teal-800">{{ userName }}</span>
+          <p>{{ userName }}</p>
         </button>
         <div class="drop-up-content">
-          <a href="#">My Profile</a>
-          <a href="#">Link 2</a>
-          <button (click)="logout()">Logout</button>
+          <button>
+            <i class="fa-solid fa-gear"></i>
+            <p>Account Settings</p>
+          </button>
+          <button>
+            <i class="fa-solid fa-boxes-stacked"></i>
+            <p>My Orders</p>
+          </button>
+          <button (click)="logout()">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <p>Logout</p>
+          </button>
         </div>
       </div>
     } @else {
       <button class="login-button" routerLink="login">
         <i class="fa-solid fa-right-to-bracket"></i>
-        <span class="!my-3 text-teal-800">Login</span>
+        <p>Login</p>
       </button>
     }
   </div>

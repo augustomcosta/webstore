@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { LoginRequest } from '../interfaces/login-request';
-import { BehaviorSubject, filter, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthResponse } from '../interfaces/auth-response';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -30,7 +30,7 @@ export class AuthService {
             localStorage.setItem(this.tokenKey, response.token);
             this.loggedInSource.next(true);
             this.router.navigate(['/']);
-            this.loggedUser.next(response.userName);
+            this.setCurrentUser(response.userName);
           }
           return response;
         }),
@@ -38,7 +38,19 @@ export class AuthService {
   }
 
   getLoggedUser(): Observable<string> {
+    const userName = localStorage.getItem('userName');
+    // @ts-ignore
+    this.loggedUser.next(userName);
     return this.loggedUser.asObservable();
+  }
+
+  isLoggedIn(): Observable<boolean> {
+    if (!localStorage.getItem('token')) {
+      this.loggedInSource.next(false);
+      return this.loggedInSource.asObservable();
+    }
+    this.loggedInSource.next(true);
+    return this.loggedInSource.asObservable();
   }
 
   logout(): void {
@@ -47,10 +59,8 @@ export class AuthService {
     this.router.navigateByUrl('/');
   }
 
-  private setCurrentUser(response: AuthResponse) {
-    localStorage.setItem('token', response.token);
-    localStorage.setItem('userName', response.userName);
-    this.loggedInSource.next(true);
-    this.loggedUser.next(response.userName);
+  setCurrentUser(userName: string) {
+    localStorage.setItem('userName', userName);
+    this.loggedUser.next(userName);
   }
 }

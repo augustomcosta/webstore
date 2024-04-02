@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { ItemCardComponent } from '../item-card/item-card.component';
@@ -52,6 +52,7 @@ import { AuthService } from '../../services/auth.service';
 export class SideBarComponent implements OnInit {
   isLoggedIn$: Observable<boolean> | undefined;
   authService = inject(AuthService);
+  loggedUser$: Observable<string> | undefined;
   userName: string | undefined;
 
   constructor() {}
@@ -60,8 +61,16 @@ export class SideBarComponent implements OnInit {
     this.authService.logout();
   }
 
+  isLoggedIn(): Observable<boolean> {
+    return this.authService.isLoggedIn();
+  }
+
+  getLoggedUser() {
+    return this.authService.getLoggedUser();
+  }
+
   toggleDropdown() {
-    var dropUp = document.getElementById('drop-up-content');
+    const dropUp = document.getElementById('drop-up-content');
     // @ts-ignore
     if (dropUp.style.display === 'block') {
       // @ts-ignore
@@ -72,9 +81,10 @@ export class SideBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoggedIn$ = this.authService.loggedIn$;
-    this.authService
-      .getLoggedUser()
-      .subscribe((userName) => (this.userName = userName));
+    this.isLoggedIn$ = this.isLoggedIn();
+    this.loggedUser$ = this.getLoggedUser();
+    this.loggedUser$.subscribe((userName) => {
+      this.userName = userName;
+    });
   }
 }

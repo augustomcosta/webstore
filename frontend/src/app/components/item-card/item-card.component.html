@@ -2,11 +2,18 @@
   @for (product of products; track product) {
     <div class="item-card">
       <div class="img-container">
+        <div class="card-price">
+          <span>${{ Math.round(product.price * 100 / 100).toFixed(2) }}</span>
+        </div>
         <img alt="{{product.name}}" class="overflow-hidden rounded-t-lg h-[200px] w-full" src="{{product.imageUrl}}">
       </div>
       <div class="card-info !mb-0">
-        <h1 class="!mb-1">{{ product.name }}</h1>
-        <h2 class="!mb-7 !opacity-70 !text-base">{{ product.description }}</h2>
+        <div class="card-text-container">
+          <div class="card-text">
+            <h1 class="!mb-1">{{ product.name }}</h1>
+            <p class="!mb-7 !opacity-70 !text-base">{{ product.description }}</p>
+          </div>
+        </div>
         <div class="card-buttons">
           <button class="basket-button">Add to Basket</button>
           <button class="view-button" routerLink="/item-details">View</button>

@@ -11,13 +11,23 @@
 .wishlist-button,
 .login-button,
 .account-button {
-  @apply flex items-center gap-3 px-3 h-[3rem] rounded-lg transition hover:scale-105 bg-gray-200 w-full text-teal-700;
+  @apply flex items-center
+  gap-3 px-3
+  h-[3rem] w-full
+  rounded-lg
+  transition
+  bg-slate-200
+  text-teal-700
 
-  span {
+  hover:scale-105
+  hover:bg-slate-300;
+
+  p {
     @apply
     text-gray-500
     text-base
     font-normal
+    m-0;
   }
 }
 
@@ -26,39 +36,56 @@
 }
 
 .drop-up {
-  position: relative;
-  display: inline-block;
+  @apply
+  inline-block
+  relative;
 }
 
 .drop-btn {
-  background-color: #ccc;
-  color: #333;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
+  @apply
+  flex items-center gap-3 px-3 h-[3rem] rounded-lg transition bg-slate-200 hover:bg-slate-300 w-full text-teal-800;
+
+  p {
+    @apply
+    text-slate-500
+    text-base
+    font-normal
+    m-0;
+  }
 }
 
 .drop-up-content {
-  display: none;
-  position: absolute;
-  background-color: #fff;
-  min-width: 160px;
-  box-shadow: 0 -8px 16px 0 rgba(0, 0, 0, 0.2);
+  @apply
+  hidden
+  absolute
+  bg-white
+  w-full
+  bottom-[100%]
+  rounded-lg
+  shadow-lg border-r border-solid border-slate-200;
   z-index: 1;
-  top: -120%;
 }
 
-.drop-up-content a, .drop-up-content button {
-  padding: 12px 16px;
-  display: block;
-  color: #333;
-  text-decoration: none;
+.drop-up-content button {
+  @apply
+  flex items-center gap-3 px-3 h-[3rem] rounded-lg transition bg-white hover:bg-slate-300 w-full text-teal-700;
+
+  p {
+    @apply
+    text-slate-500
+    text-base
+    font-normal
+    m-0;
+  }
 }
+
 
 .drop-up-content a:hover, .drop-up-content button:hover {
-  background-color: #f9f9f9;
+  @apply
+  bg-slate-200
 }
 
 .drop-up:hover .drop-up-content {
-  display: block;
+  @apply
+  block;
 }
