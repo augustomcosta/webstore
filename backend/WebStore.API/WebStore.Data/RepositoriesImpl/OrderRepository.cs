@@ -39,7 +39,7 @@ public class OrderRepository : IOrderRepository
         throw new NotImplementedException();
     }
 
-    public async Task<Order> CreateOrder(Guid basketId, string userId)
+    public async Task<Order> CreateOrder(string basketId, string userId)
     {
         var basket = await _basketRepo.GetBasketAsync(basketId);
 

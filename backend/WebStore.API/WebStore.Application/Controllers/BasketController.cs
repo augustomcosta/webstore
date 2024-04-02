@@ -16,30 +16,30 @@ public class BasketController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateBasketAsync(Guid userId)
+    public async Task<IActionResult> CreateBasketAsync(string basketId)
     {
-        var basket = await _service.CreateBasketAsync(userId);
+        var basket = await _service.CreateBasketAsync(basketId);
         return Ok(basket);
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetBasketAsync(Guid id)
+    public async Task<IActionResult> GetBasketAsync(string basketId)
     {
-        var basket = await _service.GetBasketAsync(id);
+        var basket = await _service.GetBasketAsync(basketId);
         return Ok(basket);
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateBasketAsync(Guid basketId, Basket basket)
+    public async Task<IActionResult> UpdateBasketAsync(string basketId, Basket basket)
     {
         var updatedBasket = await _service.UpdateBasketAsync(basketId, basket);
         return Ok(updatedBasket);
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteBasketAsync(Guid id)
+    public async Task<IActionResult> DeleteBasketAsync(string basketId)
     {
-        await _service.DeleteBasketAsync(id);
+        await _service.DeleteBasketAsync(basketId);
         return Ok();
     }
 }

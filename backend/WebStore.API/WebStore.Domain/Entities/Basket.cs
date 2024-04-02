@@ -8,10 +8,12 @@ public sealed class Basket : BaseEntity
     {
     }
 
-    public Basket(Guid id) : base(id)
+    public Basket(string id)
     {
+        Id = id;
     }
-
+    
+    public string Id { get; set; }
     public Guid DeliveryMethodId { get; set; }
     public string PaymentIntentId { get; set; }
     public decimal ShippingPrice { get; set; }

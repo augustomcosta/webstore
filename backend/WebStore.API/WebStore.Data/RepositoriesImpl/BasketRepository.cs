@@ -14,37 +14,37 @@ public class BasketRepository : IBasketRepository
         _database = redis.GetDatabase();
     }
 
-    public async Task<Basket> CreateBasketAsync(Guid userId)
+    public async Task<Basket> CreateBasketAsync(string basketId)
     {
-        var existingBasket = await GetBasketAsync(userId);
+        var existingBasket = await GetBasketAsync(basketId);
         if (existingBasket != null!) return existingBasket;
 
-        var newBasket = new Basket(userId);
+        var newBasket = new Basket(basketId);
 
-        await UpdateBasketAsync(userId, newBasket);
+        await UpdateBasketAsync(basketId, newBasket);
 
         return newBasket;
     }
 
-    public async Task<Basket> GetBasketAsync(Guid basketId)
+    public async Task<Basket> GetBasketAsync(string basketId)
     {
-        var data = await _database.StringGetAsync(basketId.ToString());
+        var data = await _database.StringGetAsync(basketId);
 
         return data.IsNullOrEmpty ? null : JsonSerializer.Deserialize<Basket>(data);
     }
 
-    public async Task<Basket> UpdateBasketAsync(Guid basketId, Basket basket)
+    public async Task<Basket> UpdateBasketAsync(string basketId, Basket basket)
     {
         var created =
-            await _database.StringSetAsync(basketId.ToString(), JsonSerializer.Serialize(basket),
+            await _database.StringSetAsync(basketId, JsonSerializer.Serialize(basket),
                 TimeSpan.FromDays(30));
         if (!created) throw new Exception("Couldn't find basket");
 
         return await GetBasketAsync(basketId);
     }
 
-    public async Task<bool> Delete(Guid basketId)
+    public async Task<bool> Delete(string basketId)
     {
-        return await _database.KeyDeleteAsync(basketId.ToString());
+        return await _database.KeyDeleteAsync(basketId);
     }
 }

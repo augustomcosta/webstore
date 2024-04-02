@@ -6,6 +6,6 @@ namespace WebStore.Domain.Repositories;
 
 public interface IOrderRepository : IBaseRepository<Order>
 {
-    Task<Order> CreateOrder(Guid basketId, string userId);
+    Task<Order> CreateOrder(string basketId, string userId);
     Task<Order> AddItemToOrder(Guid id, OrderItemVO orderItem);
 }

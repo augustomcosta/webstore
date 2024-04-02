@@ -2,7 +2,6 @@
 
 public class BasketItem
 {
-    
     public int Quantity { get; set; }
     public string ProductName { get; set; } = "";
     public string ProductId { get; set; } = "";
