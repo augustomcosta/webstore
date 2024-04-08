@@ -81,3 +81,10 @@
   gap-5
   items-center
 }
+
+.basket-item-container {
+  @apply
+  flex
+  flex-col
+  gap-10
+}

@@ -4,7 +4,7 @@
     <ul>
       <li class="subtotal-container">
         <p>Subtotal</p>
-        <p>$990.00</p>
+        <p>{{ subTotal | currency }}</p>
       </li>
       <li class="shipping-container">
         <p>Shipping</p>
@@ -15,7 +15,7 @@
   <div class="basket-total">
     <div class="flex flex-row justify-between">
       <p>Total</p>
-      <p>$1000.00</p>
+      <p>{{ totals | currency }}</p>
     </div>
     <button class="bg-amber-600 text-white p-2 rounded-md hover:bg-amber-700 hover:scale-105 transition">
       <h2 class="!m-0">Checkout</h2>

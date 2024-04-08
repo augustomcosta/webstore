@@ -6,9 +6,11 @@ namespace WebStore.API.DTOs;
 
 [DataContract]
 public record BasketDto(
-    [Required] List<BasketItem> BasketItems,
-    [Required] string DeliveryMethodId,
-    [Required] string PaymentIntentId,
+    string Id,
+    [Required] List<BasketItemDto> BasketItems,
+    string DeliveryMethodId,
+    string PaymentIntentId,
+    string UserId,
     decimal ShippingPrice,
     decimal TotalPrice
 );

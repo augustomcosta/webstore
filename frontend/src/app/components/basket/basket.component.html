@@ -9,10 +9,14 @@
   </div>
   <div class="basket-container">
     <div class="basket-summary">
-      <app-basket-summary class="w-full"/>
+      @if (basket) {
+        <app-basket-summary [basket]="basket" class="w-full"/>
+      }
     </div>
     <div class="basket-totals">
-      <app-basket-totals class="w-full h-full"/>
+      @if (basket) {
+        <app-basket-totals [basket]="basket" class="w-full h-full"/>
+      }
     </div>
   </div>
 </div>

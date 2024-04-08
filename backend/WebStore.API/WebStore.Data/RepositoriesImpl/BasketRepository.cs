@@ -1,50 +1,62 @@
-﻿using StackExchange.Redis;
+﻿using Microsoft.EntityFrameworkCore;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Repositories;
-using JsonSerializer = System.Text.Json.JsonSerializer;
+using WebStore.Infra.Context;
 
 namespace WebStore.Data.RepositoriesImpl;
 
 public class BasketRepository : IBasketRepository
 {
-    private readonly IDatabase _database;
+    private readonly AppDbContext _context;
 
-    public BasketRepository(IConnectionMultiplexer redis)
+    public BasketRepository(AppDbContext context)
     {
-        _database = redis.GetDatabase();
-    }
-
-    public async Task<Basket> CreateBasketAsync(string basketId)
-    {
-        var existingBasket = await GetBasketAsync(basketId);
-        if (existingBasket != null!) return existingBasket;
-
-        var newBasket = new Basket(basketId);
-
-        await UpdateBasketAsync(basketId, newBasket);
-
-        return newBasket;
+       
+        _context = context;
     }
 
     public async Task<Basket> GetBasketAsync(string basketId)
     {
-        var data = await _database.StringGetAsync(basketId);
+        var basket = await _context.Baskets.FirstOrDefaultAsync(b => b.Id == basketId);
+        if(basket is null)
+        {
+            throw new Exception($"Basket with Id {basketId} was not found");
+        }
 
-        return data.IsNullOrEmpty ? null : JsonSerializer.Deserialize<Basket>(data);
+        return basket;
     }
 
-    public async Task<Basket> UpdateBasketAsync(string basketId, Basket basket)
+    public async Task<Basket> UpdateBasketAsync(Basket basket)
     {
-        var created =
-            await _database.StringSetAsync(basketId, JsonSerializer.Serialize(basket),
-                TimeSpan.FromDays(30));
-        if (!created) throw new Exception("Couldn't find basket");
+        if (basket.Id == null)
+        {
+            throw new ArgumentException("Basket ID cannot be null", nameof(basket.Id));
+        }
 
-        return await GetBasketAsync(basketId);
+        var basketToUpdate = await _context.Baskets.FirstOrDefaultAsync(b => b.Id == basket.Id);
+        if (basketToUpdate is null)
+        {
+            basketToUpdate = new Basket();
+            basket.UpdateBasket(basketToUpdate);
+            _context.Add(basketToUpdate);
+            await _context.SaveChangesAsync();
+            return basketToUpdate;
+        }
+
+        basket.UpdateBasket(basketToUpdate);
+
+        await _context.SaveChangesAsync();
+
+        return basketToUpdate;
     }
 
-    public async Task<bool> Delete(string basketId)
+    public async Task<Basket> Delete(string basketId)
     {
-        return await _database.KeyDeleteAsync(basketId);
+        var basketToDelete = await GetBasketAsync(basketId);
+
+        _context.Baskets.Remove(basketToDelete);
+
+        await _context.SaveChangesAsync();
+        return basketToDelete;
     }
 }

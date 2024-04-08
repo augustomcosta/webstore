@@ -1,21 +1,26 @@
 <div class="items-container">
   <div class="items-header">
-
-    <h3>1 item</h3>
+    <h3>{{ basket.basketItems.length }}@if (basket.basketItems.length == 1) {
+      item
+    } items</h3>
   </div>
-  <div class="basket-item">
-    <div class="item-left">
-      <div class="item-img-container">
-        <img alt="" height="900" ngSrc="./assets/images/iPhone-15-General-Feature-Black.webp" priority width="1600">
+  <div class="basket-item-container">
+    @for (basketItem of basket.basketItems; track basketItem) {
+      <div class="basket-item">
+        <div class="item-left">
+          <div class="item-img-container">
+            <img alt="" height="900" ngSrc="{{basketItem.productImgUrl}}" priority width="1600">
+          </div>
+          <div class="item-info">
+            <h3 class="item-title">{{ basketItem.productName }}</h3>
+            <p class="item-price">{{ basketItem.price | currency }}</p>
+            <p class="item-quantity">Quantity: {{ basketItem.quantity }}</p>
+          </div>
+        </div>
+        <button>
+          <i class="trash-bin fa-solid fa-trash" (click)="removeItemFromBasket(basketItem)"></i>
+        </button>
       </div>
-      <div class="item-info">
-        <h3 class="item-title">Iphone 15</h3>
-        <p class="item-price">$990.00</p>
-        <p class="item-quantity">Quantity: 1</p>
-      </div>
-    </div>
-    <button>
-      <i class="trash-bin fa-solid fa-trash"></i>
-    </button>
+    }
   </div>
 </div>

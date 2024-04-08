@@ -5,4 +5,5 @@ export interface AuthResponse {
   isSuccess: true;
   loggedUser: string;
   userName: string;
+  userId: string;
 }

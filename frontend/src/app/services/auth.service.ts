@@ -28,6 +28,7 @@ export class AuthService {
         map((response) => {
           if (response.isSuccess) {
             localStorage.setItem(this.tokenKey, response.token);
+            localStorage.setItem('userId', response.userId);
             this.loggedInSource.next(true);
             this.router.navigate(['/']);
             this.setCurrentUser(response.userName);
@@ -55,6 +56,8 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
     this.loggedInSource.next(false);
     this.router.navigateByUrl('/');
   }

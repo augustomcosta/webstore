@@ -1,4 +1,4 @@
-import { Product } from '../../core/models/product';
+import { IProduct } from '../../core/models/IProduct';
 
 export interface IPagination<T> {
   pageNumber: number;

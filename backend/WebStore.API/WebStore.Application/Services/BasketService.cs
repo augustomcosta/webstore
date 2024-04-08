@@ -16,14 +16,7 @@ public class BasketService : IBasketService
         _basketRepo = basketRepo;
         _mapper = mapper;
     }
-
-    public async Task<BasketDto> CreateBasketAsync(string basketId)
-    {
-        var basket = await _basketRepo.CreateBasketAsync(basketId);
-
-        return _mapper.Map<BasketDto>(basket);
-    }
-
+    
     public async Task<BasketDto> GetBasketAsync(string basketId)
     {
         var basket = await _basketRepo.GetBasketAsync(basketId);
@@ -31,9 +24,9 @@ public class BasketService : IBasketService
         return _mapper.Map<BasketDto>(basket);
     }
 
-    public async Task<BasketDto> UpdateBasketAsync(string basketId, Basket basket)
+    public async Task<BasketDto> UpdateBasketAsync(Basket basket)
     {
-        var updatedBasket = await _basketRepo.UpdateBasketAsync(basketId, basket);
+        var updatedBasket = await _basketRepo.UpdateBasketAsync(basket);
         if (updatedBasket is null) throw new Exception("Basket not found");
         return _mapper.Map<BasketDto>(updatedBasket);
     }
