@@ -1,0 +1,45 @@
+.basket-container {
+  @apply
+  flex
+  flex-row
+  h-[70vh]
+  items-center
+  justify-center
+  mx-20
+  shadow-lg
+}
+
+.product-img-container {
+  @apply
+  flex
+  flex-row
+  items-start
+  h-[100%]
+  w-[160%]
+  rounded-l-lg
+  p-10
+  bg-white;
+}
+
+.basket-totals {
+  @apply
+  flex
+  flex-row
+  items-start
+  p-10
+  h-full w-[60%]
+  bg-white
+  rounded-r-lg
+  border-l
+  border-solid
+  border-slate-200;
+}
+
+.basket {
+  @apply
+  flex
+  flex-col
+  mx-10;
+}
+
+

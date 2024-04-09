@@ -19,6 +19,8 @@ import { MatInputModule } from '@angular/material/input';
 import { InputClearableExample } from '../search-bar/search-bar.component';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { BasketService } from '../../services/basket.service';
+import { IBasket } from '../../core/models/basket';
 
 @Component({
   selector: 'app-sidebar',
@@ -52,6 +54,11 @@ export class SideBarComponent implements OnInit {
   authService = inject(AuthService);
   loggedUser$: Observable<string> | undefined;
   userName: string | undefined;
+  basketService = inject(BasketService);
+  // @ts-ignore
+  basket$: Observable<IBasket>;
+  // @ts-ignore
+  basket: IBasket;
 
   constructor() {}
 
@@ -83,6 +90,10 @@ export class SideBarComponent implements OnInit {
     this.loggedUser$ = this.getLoggedUser();
     this.loggedUser$.subscribe((userName) => {
       this.userName = userName;
+    });
+    this.basket$ = this.basketService.basket$;
+    this.basket$.subscribe((basket) => {
+      this.basket = basket;
     });
   }
 }

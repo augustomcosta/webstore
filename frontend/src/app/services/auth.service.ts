@@ -6,6 +6,7 @@ import { AuthResponse } from '../interfaces/auth-response';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { BasketService } from './basket.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   apiUrl: string = environment.apiUrl;
   router = inject(Router);
+  basketService = inject(BasketService);
   private loggedUser = new BehaviorSubject<string>('');
   private loggedUser$ = this.loggedUser.asObservable();
   private tokenKey = 'token';
@@ -58,6 +60,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('userName');
+    localStorage.removeItem('basket_id');
     this.loggedInSource.next(false);
     this.router.navigateByUrl('/');
   }

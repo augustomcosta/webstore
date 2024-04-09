@@ -8,9 +8,16 @@
         </button>
       </li>
       <li class="my-3">
-        <button class="basket-button" routerLink="basket">
-          <i class="desktop-icon fa-solid fa-bag-shopping fa-sm"></i>
-          <p>Basket</p>
+        <button class="basket-button justify-between" routerLink="basket">
+          <div class="flex items-center justify-center gap-3">
+            <i class="desktop-icon fa-solid fa-bag-shopping fa-sm"></i>
+            <p>Basket</p>
+          </div>
+          @if (basket) {
+            <div class="flex items-center gap-2 bg-amber-700 text-white text-base rounded-full px-2">
+              <i>{{ basket.basketItems.length }}</i>
+            </div>
+          }
         </button>
       </li>
       <li class="my-3">
