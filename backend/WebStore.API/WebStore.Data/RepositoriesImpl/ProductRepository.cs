@@ -26,7 +26,7 @@ public class ProductRepository : IProductRepository
         var product = await _context.Products!.FirstOrDefaultAsync(p => p.Id == id);
         if (product is null)
         {
-            throw new Exception($"Product with Id {id} not found");
+            throw new Exception($"IProduct with Id {id} not found");
         }
         return product;
     }
@@ -48,7 +48,7 @@ public class ProductRepository : IProductRepository
         var productById = await _context.Products!.FirstOrDefaultAsync(p => p.Id == id);
         if (productById == null)
         {
-            throw new Exception($"Product with id: {id} not found.");
+            throw new Exception($"IProduct with id: {id} not found.");
         }
 
         product.UpdateProduct(productById);
@@ -60,7 +60,7 @@ public class ProductRepository : IProductRepository
         var productToDelete = await _context.Products!.FirstOrDefaultAsync(p => p.Id == id);
         if (productToDelete is null)
         {
-            throw new Exception($"Product with Id {id} not found");
+            throw new Exception($"IProduct with Id {id} not found");
         }
         _context.Products!.Remove(productToDelete);
         await _context.SaveChangesAsync();

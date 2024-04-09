@@ -46,6 +46,10 @@ public class User
     [StringLength(11)]
     public string Cpf { get; set; } = "";
 
+    public Basket? Basket {get; set;}
+
+    public string? BasketId {get; set;}
+
     public AddressVO Address { get; set; } = new AddressVO();
 
     public ICollection<Order> Orders { get; private set; } = new List<Order>();

@@ -46,8 +46,8 @@ public class OrderRepository : IOrderRepository
         var orderItems = new List<OrderItemVO>();
         foreach (var item in basket.BasketItems)
         {
-            var orderItem = new OrderItemVO(item.Quantity, item.Price, item.ProductName,
-                item.ProductId, item.ProductImgUrl, item.Brand, item.Category);
+            var orderItem = new OrderItemVO(item.Quantity, item.Price, item.ProductName, item.Id,
+                 item.ProductImgUrl, item.Brand, item.Category);
             orderItems.Add(orderItem);
         }
 
@@ -58,7 +58,7 @@ public class OrderRepository : IOrderRepository
             order.SubTotal = subTotal;
         }
 
-        await _context.Orders.AddAsync(order);
+        await _context.Orders!.AddAsync(order);
 
         await _context.SaveChangesAsync();
 

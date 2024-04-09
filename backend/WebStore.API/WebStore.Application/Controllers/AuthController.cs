@@ -80,7 +80,8 @@ public class AuthController : Controller
                 Expiration = token.ValidTo.ToString(CultureInfo.CurrentCulture),
                 IsSuccess = isSuccess,
                 loggedUser = model.UserName,
-                userName = name
+                userName = name,
+                userId = userModel.Id
             });
         }
 

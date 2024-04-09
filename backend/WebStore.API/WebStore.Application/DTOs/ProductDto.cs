@@ -7,6 +7,10 @@ namespace WebStore.API.DTOs;
 
 [DataContract]
 public record ProductDto(
+
+    [Required]
+    Guid Id,
+    
     [Required]
     [MinLength(5)]
     [StringLength(30)]

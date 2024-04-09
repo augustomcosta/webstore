@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 using WebStore.Domain.Entities.OrderAggregate;
 using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
-using WebStore.Domain.ValueObjects;
 namespace WebStore.Infra.EntityConfiguration;
 
 public class OrderConfiguration : IEntityTypeConfiguration<Order>

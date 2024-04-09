@@ -18,5 +18,15 @@
     "brandId": "f5ccb585-5d60-42d7-bb08-519489c57330",
     "categoryId": "e792fd5c-05ec-4b97-a00c-d906a5f4ad0c",
     "categoryName": "Cellphones"
+  },
+  {
+    "name": "Airpods",
+    "description": "Apple AirPods Ear Buds with USB-C Charging",
+    "price": 170,
+    "imageUrl": "http://localhost:5247/images/products/airpodpro.jpg",
+    "brandName": "Apple",
+    "brandId": "f5ccb585-5d60-42d7-bb08-519489c57330",
+    "categoryId": "08580ad5-ed8b-4043-a08c-584aa409979b",
+    "categoryName": "Headphones"
   }
 ]

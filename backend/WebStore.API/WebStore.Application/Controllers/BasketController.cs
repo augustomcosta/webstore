@@ -42,4 +42,10 @@ public class BasketController : ControllerBase
         await _service.DeleteBasketAsync(basketId);
         return Ok();
     }
+    
+    [HttpGet("get-by-user")]
+    public async Task<IActionResult> GetBasketByUserId(string userId){
+        var basket = await _service.GetBasketByUserId(userId);
+        return Ok(basket);
+    }
 }

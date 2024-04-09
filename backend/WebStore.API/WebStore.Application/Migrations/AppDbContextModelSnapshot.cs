@@ -155,6 +155,41 @@ namespace WebStore.API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("WebStore.Domain.Entities.Basket", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("BasketItems")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("DeliveryMethodId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("ShippingPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeliveryMethodId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Baskets");
+                });
+
             modelBuilder.Entity("WebStore.Domain.Entities.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -407,6 +442,9 @@ namespace WebStore.API.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<string>("BasketId")
+                        .HasColumnType("text");
+
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasMaxLength(11)
@@ -532,6 +570,23 @@ namespace WebStore.API.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("WebStore.Domain.Entities.Basket", b =>
+                {
+                    b.HasOne("WebStore.Domain.Entities.OrderAggregate.DeliveryMethod", "DeliveryMethod")
+                        .WithMany()
+                        .HasForeignKey("DeliveryMethodId");
+
+                    b.HasOne("WebStore.Domain.Entities.User", "User")
+                        .WithOne("Basket")
+                        .HasForeignKey("WebStore.Domain.Entities.Basket", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DeliveryMethod");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WebStore.Domain.Entities.OrderAggregate.Order", b =>
                 {
                     b.HasOne("WebStore.Domain.Entities.OrderAggregate.DeliveryMethod", "DeliveryMethod")
@@ -582,6 +637,8 @@ namespace WebStore.API.Migrations
 
             modelBuilder.Entity("WebStore.Domain.Entities.User", b =>
                 {
+                    b.Navigation("Basket");
+
                     b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618

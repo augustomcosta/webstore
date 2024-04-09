@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\WebStore.API",
+    "\\WebStore.API\\WebStore.Application",
+    "\\WebStore.API\\WebStore.Application\\DependencyInjection",
+    "\\WebStore.API\\WebStore.Application\\Mappings",
+    "\\WebStore.API\\WebStore.Domain",
+    "\\WebStore.API\\WebStore.Domain\\Entities",
+    "\\WebStore.API\\WebStore.Domain\\Repositories",
+    "\\WebStore.API\\WebStore.Infra",
+    "\\WebStore.API\\WebStore.Infra\\EntityConfiguration"
+  ],
+  "SelectedNode": "\\WebStore.API\\WebStore.Infra\\EntityConfiguration\\OrderConfiguration.cs",
+  "PreviewInSolutionExplorer": false
+}

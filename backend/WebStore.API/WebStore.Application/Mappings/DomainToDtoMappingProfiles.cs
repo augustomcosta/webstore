@@ -11,6 +11,7 @@ public class DomainToDtoMappingProfiles : Profile
     {
         CreateMap<Product, ProductDto>()
             .ConstructUsing(src => new ProductDto(
+                src.Id,
                 src.Name,
                 src.Description,
                 src.Price,
@@ -24,5 +25,14 @@ public class DomainToDtoMappingProfiles : Profile
         CreateMap<User, UserDto>().ReverseMap();
         CreateMap<Order, UserDto>().ReverseMap();
         CreateMap<Basket, BasketDto>().ReverseMap();
+        CreateMap<BasketItem, BasketItemDto>().ConstructUsing(src => new BasketItemDto(
+            src.Id,
+            src.Quantity,
+            src.ProductName,
+            src.ProductImgUrl,
+            src.Price,
+            src.Brand,
+            src.Category
+        )).ReverseMap();
     }
 }

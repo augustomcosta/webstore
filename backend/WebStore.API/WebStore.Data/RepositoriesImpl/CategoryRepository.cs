@@ -28,7 +28,7 @@ public class CategoryRepository : ICategoryRepository
         
         if (productById == null)
         {
-            throw new Exception($"Product with id {id} not found");
+            throw new Exception($"IProduct with id {id} not found");
         }
         
         return productById;

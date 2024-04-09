@@ -3,11 +3,9 @@ using System.Threading.RateLimiting;
 using System.Web.Http;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using StackExchange.Redis;
 using WebStore.API.Controllers;
 using WebStore.API.Interfaces;
 using WebStore.API.Mappings;
@@ -16,12 +14,10 @@ using WebStore.Data.RepositoriesImpl;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Repositories;
 using WebStore.Infra.Context;
-using WebStore.IoC.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace WebStore.API.DependencyInjection;
 
-public class DependencyInjection : IDependencyInjection
+public class DependencyInjection
 {
     public IServiceCollection AddInfrastructure(
         IServiceCollection services,
@@ -40,11 +36,9 @@ public class DependencyInjection : IDependencyInjection
         AddCors(services,config);
         AddRequestRateLimit(services);
         AddApiVersioning(services);
-        AddRedis(services, configuration);
         return services;
     }
-    
-    
+
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
     {
@@ -54,16 +48,6 @@ public class DependencyInjection : IDependencyInjection
                 b => b.MigrationsAssembly("WebStore.Application")
             )
         );
-    }
-
-    private static void AddRedis(IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddSingleton<IConnectionMultiplexer>(provider =>
-        {
-            var redisConfig = configuration.GetConnectionString("Redis");
-            var redisOptions = ConfigurationOptions.Parse(redisConfig);
-            return ConnectionMultiplexer.Connect(redisOptions);
-        });
     }
 
     private static void AddApiVersioning(IServiceCollection services)
@@ -112,7 +96,7 @@ public class DependencyInjection : IDependencyInjection
                 policy =>
                     policy
                         .AllowAnyOrigin()
-                        .WithMethods("GET", "POST")
+                        .WithMethods("GET", "POST","PUT","DELETE")
                         .AllowAnyHeader()
                     
             )

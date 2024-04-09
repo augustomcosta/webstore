@@ -7,7 +7,6 @@ public record BasketItemDto(
     string Id,
     int Quantity,
     string ProductName,
-    string ProductId,
     string ProductImgUrl,
     decimal Price,
     string Brand,

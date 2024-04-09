@@ -44,7 +44,7 @@ public class ProductController : ControllerBase
     {
         var product = await _service.GetById(id);
 
-        if (product == null) throw new Exception($"Product with Id {id} not found.");
+        if (product == null) throw new Exception($"IProduct with Id {id} not found.");
 
         return Ok(product);
     }

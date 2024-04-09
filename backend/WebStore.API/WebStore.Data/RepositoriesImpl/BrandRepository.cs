@@ -46,7 +46,7 @@ public class BrandRepository : IBrandRepository
         var brandToUpdate = await _context.Brands!.FirstOrDefaultAsync(b => b.Id == id);
         if (brandToUpdate == null)
         {
-            throw new Exception($"Product with Id {id} not found.");
+            throw new Exception($"IProduct with Id {id} not found.");
         }
         brandToUpdate.UpdateBrand(brand);
         return brandToUpdate;
