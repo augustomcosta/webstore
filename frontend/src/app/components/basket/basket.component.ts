@@ -5,11 +5,12 @@ import { IBasket, IBasketTotals } from '../../core/models/basket';
 import { async, Observable } from 'rxjs';
 import { BasketService } from '../../services/basket.service';
 import { IBasketItem } from '../../core/models/basketItem';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-basket',
   standalone: true,
-  imports: [BasketSummaryComponent, BasketTotalsComponent],
+  imports: [BasketSummaryComponent, BasketTotalsComponent, RouterLink],
   templateUrl: './basket.component.html',
   styleUrl: './basket.component.css',
 })
@@ -22,8 +23,8 @@ export class BasketComponent implements OnInit {
   // @ts-ignore
   basket: IBasket;
 
-  public getBasket() {
-    return this.basketService.getBasket(this.basketId).subscribe((basket) => {
+  public getBasketFromLoggedUser() {
+    return this.basketService.getBasketFromLoggedUser().subscribe((basket) => {
       this.basket = basket;
     });
   }
@@ -35,10 +36,6 @@ export class BasketComponent implements OnInit {
   ngOnInit(): void {
     this.basket$ = this.basketService.basket$;
     this.basketTotals$ = this.basketService.basketTotal$;
-    this.getBasket();
-  }
-
-  removeBasketItem(item: IBasketItem) {
-    return this.basketService.removeItemFromBasket(item);
+    this.getBasketFromLoggedUser();
   }
 }

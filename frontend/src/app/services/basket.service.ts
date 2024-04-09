@@ -5,7 +5,6 @@ import { Basket, IBasket, IBasketTotals } from '../core/models/basket';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { IProduct } from '../core/models/IProduct';
 import { IBasketItem } from '../core/models/basketItem';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +19,19 @@ export class BasketService {
   basketTotal$ = this.basketTotalSource.asObservable();
 
   constructor() {}
+
+  getBasketFromLoggedUser() {
+    const userId = localStorage.getItem('userId');
+    return this.http
+      .get<IBasket>(this.apiUrl + `/Basket/get-by-user?userId=${userId}`)
+      .pipe(
+        tap((basket: IBasket) => {
+          this.basketSource.next(basket);
+          this.shipping = basket.shippingPrice;
+          this.calculateTotals();
+        }),
+      );
+  }
 
   getBasket(id: string) {
     return this.http.get<IBasket>(this.apiUrl + `/Basket?basketId=${id}`).pipe(
@@ -61,13 +73,18 @@ export class BasketService {
       });
   }
 
-  removeItemFromBasket(item: IBasketItem) {
+  removeItemFromBasket(itemId: string, quantity = 1) {
     const basket = this.getCurrentBasketValue();
-    if (basket.basketItems.some((x) => x.id === item.id)) {
-      basket.basketItems = basket.basketItems.filter((x) => x.id !== item.id);
-      if (basket.basketItems.length > 0) {
-        this.setBasket(basket);
-      } else {
+    if (!basket) return;
+
+    const itemIndex = basket.basketItems.findIndex((b) => b.id === itemId);
+    if (itemIndex !== -1) {
+      basket.basketItems[itemIndex].quantity -= quantity;
+      if (basket.basketItems[itemIndex].quantity <= 0) {
+        basket.basketItems.splice(itemIndex, 1);
+      }
+      if (basket.basketItems.length > 0) this.setBasket(basket);
+      else {
         this.deleteBasket(basket);
       }
     }
@@ -80,6 +97,7 @@ export class BasketService {
         this.basketSource.next(null as any);
         this.basketTotalSource.next(null as any);
         localStorage.removeItem('basket_id');
+        window.location.reload();
       });
   }
 
@@ -125,8 +143,8 @@ export class BasketService {
       price: item.price,
       productImgUrl: item.imageUrl,
       quantity: 0,
-      brand: item.productBrand,
-      category: item.productCategory,
+      brand: item.brandName,
+      category: item.categoryName,
     };
   }
 }

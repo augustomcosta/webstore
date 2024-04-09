@@ -1,4 +1,4 @@
-<div class="basket ">
+<div class="basket">
   <div class="flex items-center align-middle pb-[2rem]">
     <div class="flex justify-center items-center bg-gradient-to-tr
   from-gradientColor-darkAugusteal
@@ -11,12 +11,17 @@
     <div class="basket-summary">
       @if (basket) {
         <app-basket-summary [basket]="basket" class="w-full"/>
+      } @else {
+        <div class="empty-basket-message">
+          <h2>Your Basket is Empty</h2>
+          <button class="shop-button" routerLink="/home">Go to the Shop</button>
+        </div>
       }
     </div>
-    <div class="basket-totals">
-      @if (basket) {
+    @if (basket) {
+      <div class="basket-totals">
         <app-basket-totals [basket]="basket" class="w-full h-full"/>
-      }
-    </div>
+      </div>
+    }
   </div>
 </div>
