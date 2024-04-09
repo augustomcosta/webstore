@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WebStore.API.Migrations
 {
     /// <inheritdoc />
-    public partial class addseeddata : Migration
+    public partial class addairpods : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -102,6 +102,7 @@ namespace WebStore.API.Migrations
                     Password = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Cpf = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: false),
+                    BasketId = table.Column<string>(type: "text", nullable: true),
                     Address_City = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Address_Country = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Address_Neighborhood = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
@@ -253,6 +254,34 @@ namespace WebStore.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Baskets",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    DeliveryMethodId = table.Column<Guid>(type: "uuid", nullable: true),
+                    PaymentIntentId = table.Column<string>(type: "text", nullable: true),
+                    ShippingPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    BasketItems = table.Column<string>(type: "text", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "numeric", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Baskets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Baskets_DeliveryMethod_DeliveryMethodId",
+                        column: x => x.DeliveryMethodId,
+                        principalTable: "DeliveryMethod",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Baskets_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -327,6 +356,17 @@ namespace WebStore.API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Baskets_DeliveryMethodId",
+                table: "Baskets",
+                column: "DeliveryMethodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Baskets_UserId",
+                table: "Baskets",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_DeliveryMethodId",
                 table: "Orders",
                 column: "DeliveryMethodId");
@@ -364,6 +404,9 @@ namespace WebStore.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Baskets");
 
             migrationBuilder.DropTable(
                 name: "Orders");
