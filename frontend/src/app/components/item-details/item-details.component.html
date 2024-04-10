@@ -1,11 +1,20 @@
-<div class="basket">
-  <div class="flex items-center align-middle pb-[2rem]">
-    <div class="flex justify-center items-center mr-2 min-h-[2rem] max-h-[2rem] min-w-[2rem] max-w-[2rem] rounded-md">
-    </div>
+<div class="item-container">
+  <div class="item-img-container">
+    <img alt="{{product.name}}" src="{{product.imageUrl}}">
   </div>
-  <div class="basket-container">
-    <div class="product-img-container">
-      <img alt="{{product.name}}" src="{{product.imageUrl}}">
+  <div class="item-info-container">
+    <div class="text-container">
+      <h2 class="text-2xl font-bold text-gradientColor-darkAugusteal">{{ product.name }}</h2>
+      <p class="text-slate-500">{{ product.description }}</p>
+      <p class="pt-3 text-slate-700">{{ product.price | currency }}</p>
+    </div>
+    <div class="basket-button-container">
+      <div class="basket-button">
+        <button (click)="addItemToBasket(product)">
+          Add to Cart
+        </button>
+      </div>
+      <i class="fa-regular fa-heart text-2xl text-slate-700 hover:cursor-pointer"></i>
     </div>
   </div>
 </div>

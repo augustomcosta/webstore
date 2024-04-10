@@ -27,7 +27,7 @@
         </button>
       </li>
     </ul>
-    @if (isLoggedIn$ | async; as isLoggedIn) {
+    @if (isLoggedIn$ | async) {
       <div class="drop-up">
         <button class="drop-btn" (click)="toggleDropdown()">
           <i class="fa-solid fa-user"></i>

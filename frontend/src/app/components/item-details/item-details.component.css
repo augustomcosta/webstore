@@ -1,45 +1,74 @@
-.basket-container {
+.item-container {
   @apply
   flex
   flex-row
   h-[70vh]
   items-center
   justify-center
-  mx-20
-  shadow-lg
-}
-
-.product-img-container {
-  @apply
-  flex
-  flex-row
-  items-start
-  h-[100%]
-  w-[160%]
-  rounded-l-lg
-  p-10
-  bg-white;
-}
-
-.basket-totals {
-  @apply
-  flex
-  flex-row
-  items-start
-  p-10
-  h-full w-[60%]
+  gap-20
+  mx-32
   bg-white
-  rounded-r-lg
-  border-l
-  border-solid
-  border-slate-200;
+  shadow-lg
+  border-r border-solid border-slate-200
+  rounded-lg
+  p-14;
 }
 
-.basket {
+.item-img-container {
+  @apply
+  flex
+  flex-row
+  items-start
+  h-full
+  w-[50%]
+  rounded-l-lg;
+
+  img {
+    @apply
+    object-cover
+    h-full
+    w-full
+    overflow-hidden
+    rounded-md;
+    aspect-ratio: 1 / 1;
+  }
+}
+
+.text-container {
+  @apply
+  self-start
+  text-left;
+}
+
+.item-info-container {
   @apply
   flex
   flex-col
-  mx-10;
+  justify-between
+  w-[50%]
+  h-full
+  self-start;
 }
 
+.basket-button {
+  @apply
+  text-center
+  bg-amber-700
+  py-4
+  rounded-md
+  text-white
+  transition
+  w-full
 
+  hover:scale-105
+  hover:bg-amber-800
+  hover:cursor-pointer;
+}
+
+.basket-button-container {
+  @apply
+  flex
+  justify-between
+  items-center
+  gap-5
+}
