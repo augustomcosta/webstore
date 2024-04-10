@@ -60,6 +60,13 @@ table {
   src: url('../src/assets/theme/fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../src/assets/theme/fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
