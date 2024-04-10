@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using System.Text.Json.Serialization;
 using WebStore.Domain.ValueObjects;
 
 namespace WebStore.API.DTOs;
@@ -33,10 +32,9 @@ public record UserDto
     [StringLength(100)]
     public string Email { get; set; } = "";
 
-    [Required]
     [MinLength(11)]
     [StringLength(11)]
-    public string Cpf { get; set; } = "";
+    public string? Cpf { get; set; } = "";
     
     public AddressVO Address { get; set; } = new AddressVO();
 }

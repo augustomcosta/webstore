@@ -6,13 +6,17 @@ namespace WebStore.Domain.Entities;
 public sealed class Basket
 {
     public Basket()
-    {}
+    {
+        CreatedAt = DateTime.Now;
+    }
 
     public string? Id { get; set; }
     public string? UserId { get; set; }
     public Guid? DeliveryMethodId { get; set; }
     public string? PaymentIntentId { get; set; }
     public decimal ShippingPrice { get; set; }
+    public DateTime? CreatedAt {get; set;}
+
     [JsonIgnore]
     public User? User {get; set;}
     public DeliveryMethod? DeliveryMethod {get; set;}
@@ -25,6 +29,7 @@ public sealed class Basket
         set {_totalPrice = value;} 
     }
 
+   
     public void UpdateTotalPrice(){
         _totalPrice = BasketItems.Sum(item => item.Price * item.Quantity + ShippingPrice);
     }

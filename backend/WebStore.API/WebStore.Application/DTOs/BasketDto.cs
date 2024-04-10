@@ -12,5 +12,6 @@ public record BasketDto(
     string PaymentIntentId,
     string UserId,
     decimal ShippingPrice,
-    decimal TotalPrice
+    decimal TotalPrice,
+    DateTime CreatedAt
 );

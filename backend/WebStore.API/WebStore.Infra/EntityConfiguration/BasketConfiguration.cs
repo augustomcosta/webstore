@@ -15,6 +15,7 @@ public class BasketConfiguration : IEntityTypeConfiguration<Basket>
             .IsRequired();
         builder.HasOne(b => b.DeliveryMethod).WithMany().HasForeignKey(b => b.DeliveryMethodId);
         builder.Property(b => b.ShippingPrice);
+        builder.Property(b => b.CreatedAt);
         builder.Property(b => b.PaymentIntentId); 
         builder.Property(b => b.TotalPrice).IsRequired();
         builder.Property(b => b.BasketItems)

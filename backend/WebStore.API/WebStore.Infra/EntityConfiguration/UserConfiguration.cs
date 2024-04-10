@@ -13,7 +13,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.Username).HasMaxLength(20).IsRequired();
         builder.Property(u => u.Password).HasMaxLength(200).IsRequired();
         builder.Property(u => u.Email).HasMaxLength(100).IsRequired();
-        builder.Property(u => u.Cpf).HasMaxLength(11).IsRequired();
+        builder.Property(u => u.Cpf).HasMaxLength(11);
         builder.HasOne(u => u.Basket).WithOne(b => b.User).HasForeignKey<Basket>(b => b.UserId);
     }
 }

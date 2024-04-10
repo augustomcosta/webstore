@@ -164,6 +164,9 @@ namespace WebStore.API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<Guid?>("DeliveryMethodId")
                         .HasColumnType("uuid");
 
@@ -446,7 +449,6 @@ namespace WebStore.API.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Cpf")
-                        .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("character varying(11)");
 

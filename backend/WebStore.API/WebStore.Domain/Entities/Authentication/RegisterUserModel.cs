@@ -29,7 +29,6 @@ public class UserRegistrationModel
     [StringLength(200, ErrorMessage = "Password must have a maximum of 200 characters")]
     public string Password { get; set; }
 
-    [Required(ErrorMessage = "CPF is required")]
     [MinLength(11, ErrorMessage = "CPF must have 11 characters")]
     [StringLength(11, ErrorMessage = "CPF must have 11 characters")]
     public string? Cpf { get; set; }

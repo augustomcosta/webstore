@@ -41,10 +41,7 @@ public class User
     [StringLength(100)]
     public string Email { get; set; } = "";
     
-    [Required]
-    [MinLength(11)]
-    [StringLength(11)]
-    public string Cpf { get; set; } = "";
+    public string? Cpf { get; set; }
 
     public Basket? Basket {get; set;}
 
