@@ -1,1 +1,40 @@
-<p>register works!</p>
+<body class="flex flex-row justify-center items-center backdrop-blur-sm">
+<div class="login-form-container">
+  <form (ngSubmit)="register()" [formGroup]="form">
+    <h1 class="login-title">Create Account</h1>
+    <div class="mb-6">
+      <label class="block text-teal-900 text-sm font-bold mb-2">
+        Name
+      </label>
+      <div class="name-input-container">
+        <input class="firstname-input" formControlName="firstname" id="firstname" placeholder="First Name" type="text">
+        <input class="lastname-input" formControlName="lastname" id="lastname" placeholder="Last Name" type="text">
+      </div>
+    </div>
+    <div class="mb-6">
+      <label class="block text-teal-900 text-sm font-bold mb-2">
+        Username
+      </label>
+      <input class="username-input" formControlName="username" id="username" placeholder="Username" type="text">
+    </div>
+    <div class="mb-4">
+      <label class="block text-teal-900 text-sm font-bold mb-2">
+        Email
+      </label>
+      <input class="password-input" formControlName="email" id="email" placeholder="augusto@gmail.com"
+             type="email">
+    </div>
+    <div class="mb-4">
+      <label class="block text-teal-900 text-sm font-bold mb-2">
+        Password
+      </label>
+      <input class="password-input" formControlName="password" id="password" placeholder="******************"
+             type="password">
+    </div>
+    <div class="buttons-container">
+      <button [disabled]="!form.valid" class="register-button" type="submit">Sign Up</button>
+    </div>
+  </form>
+</div>
+</body>
+

@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { BasketService } from './basket.service';
+import { RegisterRequest } from '../interfaces/register-request';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,10 @@ export class AuthService {
   loggedIn$ = this.loggedInSource.asObservable();
 
   constructor(private http: HttpClient) {}
+
+  register(data: RegisterRequest) {
+    return this.http.post(`${this.apiUrl}/Auth/register?api-version=1`, data);
+  }
 
   login(data: LoginRequest): Observable<AuthResponse> {
     return this.http

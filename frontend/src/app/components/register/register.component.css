@@ -1,0 +1,71 @@
+:host {
+  @apply
+  grid
+  items-center
+  h-full
+  bg-login-bg
+  bg-cover
+}
+
+.username-input, .firstname-input, .lastname-input, .password-input {
+  @apply
+  shadow
+  appearance-none
+  border
+  rounded-md
+  w-full
+  py-2 px-3
+  text-gray-700
+  leading-tight
+  focus:border-teal-700
+  focus:scale-[105%]
+  transition
+}
+
+.login-form-container {
+  @apply
+  w-full
+  max-w-[400px]
+
+  grid
+}
+
+form {
+  @apply
+  bg-white shadow-md rounded-xl px-8 pt-10 pb-10 mb-4
+}
+
+.login-title {
+  @apply
+  mb-6
+  text-teal-900
+  text-center
+}
+
+.buttons-container {
+  @apply
+  flex
+  flex-row
+  items-center
+  justify-end
+  pt-8
+}
+
+.register-button {
+  @apply
+  bg-amber-600
+  text-white
+  text-base
+  p-3
+  rounded-md
+  hover:bg-amber-700
+  transition
+  disabled:bg-gray-400
+}
+
+.name-input-container {
+  @apply
+  flex
+  flex-col
+  gap-1
+}
