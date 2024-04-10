@@ -6,6 +6,7 @@ export interface IBasket {
   id: string;
   userId: string;
   deliveryMethodId: string;
+  createdAt: Date;
   paymentIntentId: string;
   shippingPrice: number;
   basketItems: IBasketItem[];
@@ -22,12 +23,14 @@ export class Basket implements IBasket {
   shippingPrice: number;
   basketItems: IBasketItem[];
   userId: string;
+  createdAt: Date;
 
   constructor() {
     this.id = uuid();
     this.basketItems = [];
     // @ts-ignore
     this.userId = localStorage.getItem('userId') ?? '';
+    this.createdAt = new Date();
   }
 }
 

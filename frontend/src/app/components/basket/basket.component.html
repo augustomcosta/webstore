@@ -8,19 +8,33 @@
     <h2 class="text-start !m-0">Shopping Cart</h2>
   </div>
   <div class="basket-container">
-    <div class="basket-summary">
+    @if (isLoggedIn$ | async) {
+      <div class="basket-summary">
+        @if (basket) {
+          <app-basket-summary [basket]="basket" class="w-full"/>
+        } @else {
+          <div class="empty-basket-message">
+            <h2>Your Basket is Empty</h2>
+            <button class="shop-button" routerLink="/home">Go to the Shop</button>
+          </div>
+        }
+      </div>
       @if (basket) {
-        <app-basket-summary [basket]="basket" class="w-full"/>
-      } @else {
-        <div class="empty-basket-message">
-          <h2>Your Basket is Empty</h2>
-          <button class="shop-button" routerLink="/home">Go to the Shop</button>
+        <div class="basket-totals">
+          <app-basket-totals [basket]="basket" class="w-full h-full"/>
         </div>
       }
-    </div>
-    @if (basket) {
-      <div class="basket-totals">
-        <app-basket-totals [basket]="basket" class="w-full h-full"/>
+    } @else {
+      <div class="not-logged-container">
+        <h2 class="text-gray-600">You are not logged in</h2>
+        <div class="login-register-buttons">
+          <button class="bg-teal-800" routerLink="/login">
+            <p>Login</p>
+          </button>
+          <button class="bg-slate-200 !text-gray-500">
+            <p>Register</p>
+          </button>
+        </div>
       </div>
     }
   </div>

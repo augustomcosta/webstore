@@ -7,6 +7,8 @@
   justify-center
   mx-20
   shadow-lg
+  bg-white
+  rounded-lg
 }
 
 .basket-summary {
@@ -64,4 +66,30 @@
 
   hover:scale-105
   hover:bg-teal-900;
+}
+
+.not-logged-container {
+  @apply
+  flex
+  flex-col
+}
+
+.login-register-buttons {
+  @apply
+  flex
+  flex-col
+  justify-between
+  gap-3;
+
+  button {
+    @apply
+    p-2
+    rounded-lg
+    text-white;
+  }
+
+  p {
+    @apply
+    m-0;
+  }
 }
