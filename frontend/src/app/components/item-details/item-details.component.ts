@@ -2,8 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { IProduct } from '../../core/models/IProduct';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { BasketSummaryComponent } from '../basket-summary/basket-summary.component';
-import { BasketTotalsComponent } from '../basket-totals/basket-totals.component';
+import { BasketSummaryComponent } from '../basket/basket-summary/basket-summary.component';
+import { BasketTotalsComponent } from '../basket/basket-totals/basket-totals.component';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { BasketService } from '../../services/basket.service';
 

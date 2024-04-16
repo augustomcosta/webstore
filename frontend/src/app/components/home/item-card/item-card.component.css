@@ -10,7 +10,8 @@
   hover:scale-110
   hover:cursor-pointer
   rounded-lg
-  min-h-[400px];
+  min-h-[400px]
+  max-h-[400px];
 }
 
 .card-info {
@@ -78,7 +79,8 @@
   @apply
   flex
   justify-between
-  flex-wrap;
+  flex-wrap
+  overflow-hidden;
 }
 
 .card-price {
