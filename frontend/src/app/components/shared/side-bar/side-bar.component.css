@@ -24,7 +24,6 @@
 
   p {
     @apply
-    text-gray-500
     text-base
     font-normal
     m-0;
@@ -32,7 +31,7 @@
 }
 
 .button-container {
-  @apply flex flex-col gap-4;
+  @apply flex flex-col;
 }
 
 .drop-up {
@@ -88,4 +87,26 @@
 .drop-up:hover .drop-up-content {
   @apply
   block;
+}
+
+.active {
+  @apply
+  bg-teal-700
+  text-white;
+
+  .basket-count-icon {
+    @apply
+    bg-white
+    text-amber-500
+  }
+
+  &:hover {
+    @apply
+    bg-teal-800;
+  }
+
+  p {
+    @apply
+    text-white;
+  }
 }

@@ -7,7 +7,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { ItemCardComponent } from '../item-card/item-card.component';
+import { ItemCardComponent } from '../../home/item-card/item-card.component';
 import {
   MatError,
   MatFormField,
@@ -18,9 +18,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { InputClearableExample } from '../search-bar/search-bar.component';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { BasketService } from '../../services/basket.service';
-import { IBasket } from '../../core/models/basket';
+import { AuthService } from '../../../services/auth.service';
+import { BasketService } from '../../../services/basket.service';
+import { IBasket } from '../../../core/models/basket';
 
 @Component({
   selector: 'app-sidebar',

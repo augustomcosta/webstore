@@ -1,27 +1,33 @@
 <div class="sidebar-container">
   <div class="sidebar-content">
     <ul class="button-container ">
-      <li class="my-3">
-        <button class="home-button" routerLink="home">
+      <li class="my-2">
+        <button class="basket-button"  [routerLinkActiveOptions]="{ exact: true }"
+                [routerLink]="['home']"
+                routerLinkActive="active">
           <i class="desktop-icon fa fa-shop fa-sm"></i>
           <p>Products</p>
         </button>
       </li>
-      <li class="my-3">
-        <button class="basket-button justify-between" routerLink="basket">
+      <li class="my-2">
+        <button class="basket-button"  [routerLinkActiveOptions]="{ exact: true }"
+                [routerLink]="['/basket']"
+                routerLinkActive="active">
           <div class="flex items-center justify-center gap-3">
             <i class="desktop-icon fa-solid fa-bag-shopping fa-sm"></i>
             <p>Basket</p>
           </div>
           @if (basket) {
-            <div class="flex items-center gap-2 bg-amber-700 text-white text-base rounded-full px-2">
+            <div class="basket-count-icon flex items-center gap-2 bg-amber-700 text-white text-base rounded-full px-2">
               <i>{{ basket.basketItems.length }}</i>
             </div>
           }
         </button>
       </li>
-      <li class="my-3">
-        <button class="wishlist-button" routerLink="wishlist">
+      <li class="my-2">
+        <button class="basket-button"  [routerLinkActiveOptions]="{ exact: true }"
+                [routerLink]="['/wishlist']"
+                routerLinkActive="active">
           <i class="desktop-icon fa-solid fa-heart fa-sm"></i>
           <p>Wishlist</p>
         </button>
@@ -49,7 +55,9 @@
         </div>
       </div>
     } @else {
-      <button class="login-button" routerLink="login">
+      <button class="basket-button"  [routerLinkActiveOptions]="{ exact: true }"
+              [routerLink]="['login']"
+              routerLinkActive="active">
         <i class="fa-solid fa-right-to-bracket"></i>
         <p>Login</p>
       </button>
