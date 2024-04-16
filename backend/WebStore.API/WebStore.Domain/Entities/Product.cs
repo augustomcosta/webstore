@@ -24,7 +24,7 @@ public sealed class Product : BaseEntity
 
     [Required]
     [MinLength(5)]
-    [StringLength(50)]
+    [StringLength(300)]
     public string Description { get; set; }
 
     [Required] public decimal Price { get; set; }
@@ -95,7 +95,7 @@ public sealed class Product : BaseEntity
             "Invalid description. Description is required");
         DomainValidationException.When(description.Length < 5,
             "Invalid description. Description should have at least 5 characters");
-        DomainValidationException.When(description.Length > 50,
+        DomainValidationException.When(description.Length > 300,
             "Invalid description. Description should a maximum of 50 characters");
         Description = description;
     }
@@ -113,7 +113,7 @@ public sealed class Product : BaseEntity
         DomainValidationException.When(imageUrl.Length < 5,
             "Invalid image url. Image url should have at least 5 characters");
         DomainValidationException.When(imageUrl.Length > 300,
-            "Invalid image url. Image url should a maximum of 100 characters");
+            "Invalid image url. Image url should a maximum of 300 characters");
         ImageUrl = imageUrl;
     }
 }

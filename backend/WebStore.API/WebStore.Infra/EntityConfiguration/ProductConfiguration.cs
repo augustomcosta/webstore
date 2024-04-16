@@ -10,7 +10,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
         builder.HasKey(t => t.Id);
         builder.Property(p => p.Name).HasMaxLength(30).IsRequired();
-        builder.Property(p => p.Description).HasMaxLength(50).IsRequired();
+        builder.Property(p => p.Description).HasMaxLength(300).IsRequired();
         builder.Property(p => p.Price).HasPrecision(10,2).IsRequired();
         builder.Property(p => p.ImageUrl).HasMaxLength(300).IsRequired();
         builder.Navigation(p => p.Brand).AutoInclude();

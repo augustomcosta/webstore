@@ -18,7 +18,7 @@ public record ProductDto(
     
     [Required]
     [MinLength(5)]
-    [StringLength(50)]
+    [StringLength(300)]
     string Description, 
     
     [Required]
