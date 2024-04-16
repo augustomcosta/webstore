@@ -6,8 +6,8 @@ import {
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ItemCardComponent } from '../item-card/item-card.component';
-import { ImageSliderComponent } from '../image-slider/image-slider.component';
+import { ItemCardComponent } from './item-card/item-card.component';
+import { ImageSliderComponent } from './image-slider/image-slider.component';
 import { ProductService } from '../../services/product.service';
 import { BasketService } from '../../services/basket.service';
 import { IProduct } from '../../core/models/IProduct';

@@ -7,10 +7,8 @@ import {
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { AsyncPipe } from '@angular/common';
-import { SideBarComponent } from './components/side-bar/side-bar.component';
-import { FooterComponent } from './components/footer/footer.component';
+import { SideBarComponent } from './components/shared/side-bar/side-bar.component';
 import { AuthService } from './services/auth.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -20,8 +18,7 @@ import { Observable } from 'rxjs';
     HomeComponent,
     AsyncPipe,
     RouterLink,
-    SideBarComponent,
-    FooterComponent,
+    SideBarComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
