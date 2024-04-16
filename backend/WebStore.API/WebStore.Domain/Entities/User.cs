@@ -46,6 +46,10 @@ public class User
     public Basket? Basket {get; set;}
 
     public string? BasketId {get; set;}
+    
+    public Wishlist? Wishlist { get; set; }
+    
+    public string? WishlistId { get; set; }
 
     public AddressVO Address { get; set; } = new AddressVO();
 
