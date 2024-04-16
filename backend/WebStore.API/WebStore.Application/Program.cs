@@ -58,6 +58,13 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/images/products"
 });
 
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "categories")),
+    RequestPath = "/images/categories"
+});
+
 var brandsJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/brands.json");
 var categoriesJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/categories.json");
 var productsJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/products.json");
