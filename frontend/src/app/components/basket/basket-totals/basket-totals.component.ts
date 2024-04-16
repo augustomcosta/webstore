@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { IBasket } from '../../core/models/basket';
-import { BasketService } from '../../services/basket.service';
+import { IBasket } from '../../../core/models/basket';
+import { BasketService } from '../../../services/basket.service';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({

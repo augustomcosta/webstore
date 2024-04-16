@@ -20,7 +20,29 @@
   w-[160%]
   rounded-l-lg
   p-10
-  bg-white;
+  bg-white
+  overflow-y-scroll;
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    @apply
+    bg-gradientColor-darkAugusteal;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 }
 
 .basket-totals {
@@ -93,3 +115,5 @@
     m-0;
   }
 }
+
+

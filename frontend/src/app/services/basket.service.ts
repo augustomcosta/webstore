@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Basket, IBasket, IBasketTotals } from '../core/models/basket';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 import { IProduct } from '../core/models/IProduct';
 import { IBasketItem } from '../core/models/basketItem';
 
@@ -116,7 +116,7 @@ export class BasketService {
   private createBasket(): IBasket {
     const basket = new Basket();
     localStorage.setItem('basket_id', basket.id);
-    // @ts-ignore
+
     return basket;
   }
 

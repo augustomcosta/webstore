@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { BasketSummaryComponent } from '../basket-summary/basket-summary.component';
-import { BasketTotalsComponent } from '../basket-totals/basket-totals.component';
+import { BasketSummaryComponent } from './basket-summary/basket-summary.component';
+import { BasketTotalsComponent } from './basket-totals/basket-totals.component';
 import { IBasket, IBasketTotals } from '../../core/models/basket';
 import { async, BehaviorSubject, Observable } from 'rxjs';
 import { BasketService } from '../../services/basket.service';
