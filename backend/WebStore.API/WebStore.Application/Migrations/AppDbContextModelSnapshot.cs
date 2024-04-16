@@ -384,8 +384,8 @@ namespace WebStore.API.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -416,6 +416,10 @@ namespace WebStore.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -432,8 +436,14 @@ namespace WebStore.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
 
                     b.HasKey("Id");
 
@@ -477,6 +487,9 @@ namespace WebStore.API.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
+                    b.Property<string>("WishlistId")
+                        .HasColumnType("text");
+
                     b.ComplexProperty<Dictionary<string, object>>("Address", "WebStore.Domain.Entities.User.Address#AddressVO", b1 =>
                         {
                             b1.IsRequired();
@@ -519,6 +532,27 @@ namespace WebStore.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("WebStore.Domain.Entities.Wishlist", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Products")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Wishlists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -627,6 +661,17 @@ namespace WebStore.API.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("WebStore.Domain.Entities.Wishlist", b =>
+                {
+                    b.HasOne("WebStore.Domain.Entities.User", "User")
+                        .WithOne("Wishlist")
+                        .HasForeignKey("WebStore.Domain.Entities.Wishlist", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WebStore.Domain.Entities.ProductBrand", b =>
                 {
                     b.Navigation("Products");
@@ -642,6 +687,8 @@ namespace WebStore.API.Migrations
                     b.Navigation("Basket");
 
                     b.Navigation("Orders");
+
+                    b.Navigation("Wishlist");
                 });
 #pragma warning restore 612, 618
         }

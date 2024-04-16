@@ -11,5 +11,9 @@ public record BrandDto
     [StringLength(30)]
     public string? Name { get; set; }
     
+    [MinLength(5)]
+    [StringLength(300)]
+    public string? ImageUrl { get; set; }
+    
     public ICollection<Product>? Products { get; set; }
 }

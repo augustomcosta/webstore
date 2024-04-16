@@ -23,6 +23,7 @@ public sealed class AppDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<User>? Users { get; set; }
     public DbSet<Order>? Orders { get; set; }
     public DbSet<Basket>? Baskets { get; set; }
+    public DbSet<Wishlist>? Wishlists { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
