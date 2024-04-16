@@ -6,5 +6,17 @@
   {
     "Id": "1023a3b7-db34-4c51-8480-54c6a34e3d3f",
     "Name": "Ajazz"
+  },
+  {
+    "id": "3f6d35ac-cd49-4e45-8d3e-20f3949c4335",
+    "name": "SteelSeries"
+  },
+  {
+    "id": "d2793623-1234-4a95-8810-6c2ec1bc2f2f",
+    "name": "Razer"
+  },
+  {
+    "id": "fb7a6f08-383f-4b99-a8db-7aa8290e1de3",
+    "name": "Blue"
   }
 ]

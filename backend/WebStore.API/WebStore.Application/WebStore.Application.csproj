@@ -47,6 +47,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Migrations\" />
+      <Folder Include="wwwroot\images\brands\" />
+      <Folder Include="wwwroot\images\categories\" />
     </ItemGroup>
 
 </Project>

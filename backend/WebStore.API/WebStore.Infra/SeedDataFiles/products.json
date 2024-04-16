@@ -28,5 +28,36 @@
     "brandId": "f5ccb585-5d60-42d7-bb08-519489c57330",
     "categoryId": "08580ad5-ed8b-4043-a08c-584aa409979b",
     "categoryName": "Headphones"
+  },
+
+  {
+    "name": "SteelSeries QcK Prism",
+    "description": "SteelSeries RGB Gaming Mousepad with Dual-Surface Textured Cloth",
+    "price": 60,
+    "imageUrl": "http://localhost:5247/images/products/steelseriesqckprism.jpg",
+    "brandName": "SteelSeries",
+    "brandId": "3f6d35ac-cd49-4e45-8d3e-20f3949c4335",
+    "categoryId": "dd1c5830-2c58-4eaf-a5f8-d7ff924446b9",
+    "categoryName": "Mousepad"
+  },
+  {
+    "name": "Razer DeathAdder V2",
+    "description": "Gaming Mouse with Optical Mouse Switches",
+    "price": 80,
+    "imageUrl": "http://localhost:5247/images/products/razerdeathadderv2.jpg",
+    "brandName": "Razer",
+    "brandId": "d2793623-1234-4a95-8810-6c2ec1bc2f2f",
+    "categoryId": "2e45a52f-ae4b-4c3c-9b5c-364c2ad7a9ff",
+    "categoryName": "Mouse"
+  },
+  {
+    "name": "Blue Yeti",
+    "description": "USB Microphone for Recording, Streaming, and Podcasting",
+    "price": 120,
+    "imageUrl": "http://localhost:5247/images/products/blueyeti.jpg",
+    "brandName": "Blue",
+    "brandId": "fb7a6f08-383f-4b99-a8db-7aa8290e1de3",
+    "categoryId": "83112e8f-584b-4e28-937f-1b22e0e15787",
+    "categoryName": "Microphone"
   }
 ]
