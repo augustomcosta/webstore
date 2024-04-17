@@ -146,13 +146,18 @@ public class AuthController : Controller
             SecurityStamp = Guid.NewGuid().ToString(),
             UserName = model.Username
         };
+        
+        const bool isSuccess = true;
 
         await _userRepo.Create(userEntity);
 
         var result = await _userManager.CreateAsync(user, model.Password!);
         if (!result.Succeeded) return StatusCode(StatusCodes.Status500InternalServerError, "Error while creating user");
 
-        return Ok(StatusCode(StatusCodes.Status201Created, "User created sucessfully"));
+        return Ok(new
+        {
+            IsSuccess = isSuccess
+        });
     }
 
     [HttpPost]

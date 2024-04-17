@@ -17,6 +17,7 @@ public class DomainToDtoMappingProfiles : Profile
                 src.Price,
                 src.ImageUrl,
                 src.BrandName,
+                src.CategoryName,
                 src.BrandId,
                 src.CategoryId
             )).ReverseMap();
@@ -34,5 +35,6 @@ public class DomainToDtoMappingProfiles : Profile
             src.Brand,
             src.Category
         )).ReverseMap();
+        CreateMap<Wishlist, WishlistDto>().ReverseMap();
     }
 }

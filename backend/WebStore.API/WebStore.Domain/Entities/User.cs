@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using WebStore.Domain.Entities.Base;
@@ -47,6 +48,7 @@ public class User
 
     public string? BasketId {get; set;}
     
+    [ForeignKey("WishlistId")]
     public Wishlist? Wishlist { get; set; }
     
     public string? WishlistId { get; set; }

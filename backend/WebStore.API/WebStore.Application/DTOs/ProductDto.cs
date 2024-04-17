@@ -29,8 +29,9 @@ public record ProductDto(
     [StringLength(300)]
     string ImageUrl,
     
-    [property: JsonIgnore]
     string? BrandName,
+    
+    string? CategoryName,
     
     [Required]
     Guid BrandId,
