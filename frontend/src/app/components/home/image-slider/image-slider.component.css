@@ -1,53 +1,63 @@
-.image-container {
-  --swiper-theme-color: #13beb2;
-  --swiper-navigation-sides-offset: 3rem;
-  --swiper-pagination-bottom: 1.5rem;
-  @apply
-  w-full
-  mb-10;
-
-  img {
-    @apply
-    rounded-lg
-    min-h-[500px]
-    max-h-[500px]
-    min-w-[800px]
-    max-w-[800px]
-    object-fill
-    shadow-md
-    border
-    border-solid
-    border-slate-300;
-  }
+swiper-container {
+  width: 100%;
+  height: 100%;
 }
 
 swiper-slide {
   text-align: center;
-  font-size: 18px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
 }
 
 swiper-slide img {
-  width: auto;
-  height: auto;
+  display: block;
+  width: 100%;
+  height: 80%;
   object-fit: fill;
+  @apply
+  rounded-md
+  transition
+  hover:scale-105
 }
 
-.category-tag {
+.slide-button {
   @apply
-  absolute bg-white top-10 md:left-10 rounded-xl p-2 text-teal-800 hover:cursor-pointer;
+  h-full
+  w-full
+  text-slate-500 text-lg
+  transition
+  pt-5;
 }
 
-.thumb-container {
+.slide-container {
   @apply
+  h-[300px]
   w-full;
-  img {
+}
+
+.active {
+  @apply
+  text-teal-900;
+  p {
     @apply
-    rounded-lg
-    min-h-[170px]
-    max-h-[170px]
+    scale-105
   }
+}
+
+.swiper-container {
+  @apply
+  flex
+  flex-col
+  gap-6;
+}
+
+.all-products-button {
+  @apply
+  self-end
+  mr-6
+  bg-teal-800
+  text-white
+  p-3
+  rounded-lg
 }

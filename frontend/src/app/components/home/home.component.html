@@ -1,6 +1,6 @@
 <div class="main-content">
   <div class="slider-container">
-    <app-image-slider/>
+    <app-image-slider (categorySelected)="filterByCategory($event)"/>
   </div>
   <div class="card-container">
     <div class="card-grid">
@@ -10,7 +10,3 @@
     </div>
   </div>
 </div>
-
-
-
-

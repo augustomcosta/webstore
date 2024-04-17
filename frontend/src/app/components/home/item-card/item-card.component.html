@@ -1,22 +1,24 @@
 <div class="item-card">
-  <div class="img-container">
-    <div class="card-price">
-      <span>{{ Math.round(product.price * 100 / 100).toFixed(2) | currency }}</span>
+    <div class="img-container">
+      <div class="card-price">
+        <span>{{ Math.round(product.price * 100 / 100).toFixed(2) | currency }}</span>
+      </div>
+      <img alt="{{product.name}}" class="overflow-hidden rounded-t-lg h-[200px] w-full" src="{{product.imageUrl}}">
     </div>
-    <img alt="{{product.name}}" class="overflow-hidden rounded-t-lg h-[200px] w-full" src="{{product.imageUrl}}">
-  </div>
-  <div class="card-info !mb-0">
-    <div class="card-text-container">
-      <div class="card-text">
-        <h1 class="!mb-1">{{ product.name }}</h1>
-        <p class="!mb-7 !opacity-70 !text-base">{{ product.description }}</p>
+    <div class="card-info !mb-0">
+      <div class="card-text-container">
+        <div class="card-text">
+          <h1 class="!mb-1">{{ product.name }}</h1>
+          <p class="!mb-7 !opacity-70 !text-base">{{ product.description }}</p>
+        </div>
+      </div>
+      <div class="card-buttons">
+        <button (click)="addItemToBasket()" class="basket-button">Add to Basket</button>
+        <button [routerLink]="['/items', product.id]" class="view-button">View</button>
       </div>
     </div>
-    <div class="card-buttons">
-      <button (click)="addItemToBasket()" class="basket-button">Add to Basket</button>
-      <button [routerLink]="['/items', product.id]" class="view-button">View</button>
-    </div>
   </div>
-</div>
+
+
 
 

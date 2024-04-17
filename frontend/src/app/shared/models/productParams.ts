@@ -1,7 +1,8 @@
 export class ProductParams {
-  brandId = 0;
-  categoryId = 0;
+  brandName = "";
+  categoryName = "";
   pageNumber = 1;
   pageSize = 6;
   search: string | undefined;
 }
+

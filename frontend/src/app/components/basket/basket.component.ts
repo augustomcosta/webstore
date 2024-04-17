@@ -2,9 +2,9 @@ import { Component, inject, OnInit } from '@angular/core';
 import { BasketSummaryComponent } from './basket-summary/basket-summary.component';
 import { BasketTotalsComponent } from './basket-totals/basket-totals.component';
 import { IBasket, IBasketTotals } from '../../core/models/basket';
-import { async, BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { BasketService } from '../../services/basket.service';
-import { IBasketItem } from '../../core/models/basketItem';
+
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { AsyncPipe } from '@angular/common';

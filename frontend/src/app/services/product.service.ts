@@ -14,6 +14,7 @@ export class ProductService {
   products: IProduct[] = [];
   productParams = new ProductParams();
 
+
   constructor() {}
 
   getProducts() {
@@ -21,6 +22,11 @@ export class ProductService {
       this.apiUrl +
         `/Product/pagination?PageNumber=${this.productParams.pageNumber}&PageSize=${this.productParams.pageSize}&api-version=1`,
     );
+  }
+
+  filterByCategory(category:string){
+    return this.http
+      .get<IProduct[]>(`${this.apiUrl}/Product/filter/category/pagination?PageNumber=${this.productParams.pageNumber}&PageSize=${this.productParams.pageSize}&categoryName=${category}`);
   }
 
   getProductById(id: string | null) {

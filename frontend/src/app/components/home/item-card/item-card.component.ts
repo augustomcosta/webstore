@@ -1,14 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import {Router, RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { IProduct } from '../../../core/models/IProduct';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { BasketService } from '../../../services/basket.service';
 import { Input } from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { IBasket, IBasketTotals } from '../../../core/models/basket';
-import {AuthService} from "../../../services/auth.service";
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'item-card-app',
@@ -30,22 +30,21 @@ export class ItemCardComponent implements OnInit {
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean | undefined;
   protected authService = inject(AuthService);
-protected router = inject(Router)
+  protected router = inject(Router);
 
-  // @ts-ignore
-  @Input() product: IProduct;
+  @Input()
+  product!: IProduct;
   protected readonly Math = Math;
 
   constructor() {
-    this.isLoggedIn$?.subscribe(isLogged => {
-      this.isLoggedIn = isLogged
-    }
-    )
+    this.isLoggedIn$?.subscribe((isLogged) => {
+      this.isLoggedIn = isLogged;
+    });
   }
 
   addItemToBasket() {
-    if (!this.isLoggedIn) {
-      this.router.navigate(["/login"]).then()
+    if (!this.isLoggedIn$) {
+      this.router.navigate(['/login']).then();
       return;
     }
     this.basketService.addItemToBasket(this.product, 1);
@@ -54,6 +53,6 @@ protected router = inject(Router)
   ngOnInit(): void {
     this.basket$ = this.basketService.basket$;
     this.basketTotals$ = this.basketService.basketTotal$;
-    this.isLoggedIn$ = this.authService.isLoggedIn()
+    this.isLoggedIn$ = this.authService.isLoggedIn();
   }
 }

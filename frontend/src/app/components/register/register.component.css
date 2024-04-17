@@ -26,13 +26,13 @@
   @apply
   w-full
   max-w-[400px]
-
   grid
 }
 
 form {
   @apply
   bg-white shadow-md rounded-xl px-8 pt-10 pb-10 mb-4
+  border-r border-solid border-slate-100
 }
 
 .login-title {
@@ -68,4 +68,34 @@ form {
   flex
   flex-col
   gap-1
+}
+
+.success-container {
+  @apply
+  bg-white
+  shadow-md
+  rounded-xl
+  px-8
+  pt-10
+  pb-10
+  mb-4
+  flex
+  flex-col
+  items-center
+  gap-10
+  text-center
+  border-r border-solid border-slate-100
+}
+
+.login-button {
+  @apply
+  bg-slate-200
+  text-lg
+  p-3
+  rounded-md
+  text-teal-700
+  transition
+
+  hover:bg-slate-300
+  hover:scale-105
 }

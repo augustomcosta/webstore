@@ -18,7 +18,7 @@ import { AuthService } from './services/auth.service';
     HomeComponent,
     AsyncPipe,
     RouterLink,
-    SideBarComponent
+    SideBarComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

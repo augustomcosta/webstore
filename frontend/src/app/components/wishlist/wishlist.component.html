@@ -1,13 +1,30 @@
-<div class="items-container flex flex-col p-[2rem] ">
-  <div class="flex items-center align-middle">
+<div class="wishlist-container">
+  <div class="flex pb-[2rem]">
     <div class="flex justify-center items-center bg-gradient-to-tr
-  from-gradientColor-darkAugusteal
-  to-gradientColor-augusteal mr-2 min-h-[2rem] max-h-[2rem] min-w-[2rem] max-w-[2rem] rounded-md">
+    from-gradientColor-darkAugusteal
+    to-gradientColor-augusteal mr-2 min-h-[2rem] max-h-[2rem] min-w-[2rem] max-w-[2rem] rounded-md">
       <i class="fa-solid fa-heart text-white"></i>
     </div>
-    <h2 class="text-teal-800 !m-0">My Wishlist</h2>
-  </div>
-  <div class="flex justify-center items-center">
-    <app-wishlist-item/>
-  </div>
+      <h2 class="text-start !m-0">My Wishlist</h2>
+    </div>
+  <div class="wishlist-items-container">
+    @if(isLoggedIn$ | async){
+    <div class="flex justify-center items-center">
+      <app-wishlist-item/>
+    </div>
+    }
+    @else {
+      <div class="not-logged-container">
+        <h2 class="text-gray-600">You are not logged in</h2>
+        <div class="login-register-buttons">
+          <button class="bg-teal-800 hover:bg-teal-900 hover:scale-105 transition" routerLink="/login">
+            <p>Login</p>
+          </button>
+          <button class="bg-slate-200 hover:scale-105 hover:bg-slate-300 transition  !text-gray-500" routerLink="/register">
+            <p>Register</p>
+          </button>
+        </div>
+      </div>
+    }
+    </div>
 </div>

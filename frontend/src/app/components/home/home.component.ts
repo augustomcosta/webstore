@@ -9,8 +9,8 @@ import { RouterModule } from '@angular/router';
 import { ItemCardComponent } from './item-card/item-card.component';
 import { ImageSliderComponent } from './image-slider/image-slider.component';
 import { ProductService } from '../../services/product.service';
-import { BasketService } from '../../services/basket.service';
 import { IProduct } from '../../core/models/IProduct';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -22,17 +22,34 @@ import { IProduct } from '../../core/models/IProduct';
 })
 export class HomeComponent implements OnInit {
   productService = inject(ProductService);
-  basketService = inject(BasketService);
   products: IProduct[] = [];
-  protected readonly Math = Math;
+  originalProducts: IProduct[] = [];
+  filteredProducts: IProduct[] = [];
+  products$: BehaviorSubject<IProduct[]> = new BehaviorSubject<IProduct[]>([]);
 
   getProducts() {
     this.productService.getProducts().subscribe((products) => {
-      this.products = products;
+      this.originalProducts = products;
+      this.products$.next(products);
     });
+  }
+
+  filterByCategory(category: string) {
+    if (category === 'All Products') {
+      this.filteredProducts = this.originalProducts;
+    } else {
+      this.filteredProducts = this.originalProducts.filter(
+        (product) => product.categoryName === category,
+      );
+    }
+    this.products$.next(this.filteredProducts);
   }
 
   ngOnInit(): void {
     this.getProducts();
+    this.products$.subscribe((products) => {
+      this.products = products;
+      this.filteredProducts = [...this.products];
+    });
   }
 }

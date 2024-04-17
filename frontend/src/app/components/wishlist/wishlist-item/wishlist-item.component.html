@@ -8,17 +8,19 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td><img alt="keyboard-hyperx" class="h-[75px] w-[75px] rounded-md border border-solid border-slate-300 shadow-md"
-             height="1600" ngSrc="../../../../assets/images/keyboard-hyperx.webp"
-             width="1600"></td>
-    <td><a href="" routerLink="/item-details">HyperX Keyboard</a></td>
-    <td>$150.00</td>
-    <td>
-      <button class="cart-button">
-        <p class="!m-0">Add to cart</p>
-      </button>
-    </td>
-  </tr>
+  @for(){
+    <tr>
+      <td><img alt="keyboard-hyperx" class="h-[75px] w-[75px] rounded-md border border-solid border-slate-300 shadow-md"
+               height="1600" ngSrc="../../../../assets/images/keyboard-hyperx.webp"
+               width="1600"></td>
+      <td><a href="" routerLink="/item-details">HyperX Keyboard</a></td>
+      <td>$150.00</td>
+      <td>
+        <button class="cart-button">
+          <p class="!m-0">Add to cart</p>
+        </button>
+      </td>
+    </tr>
+  }
   </tbody>
 </table>

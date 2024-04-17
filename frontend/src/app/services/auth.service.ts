@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { BasketService } from './basket.service';
 import { RegisterRequest } from '../interfaces/register-request';
+import {RegisterResponse} from "../interfaces/register-response";
 
 @Injectable({
   providedIn: 'root',
@@ -21,11 +22,19 @@ export class AuthService {
   private tokenKey = 'token';
   private loggedInSource = new BehaviorSubject<boolean>(false);
   loggedIn$ = this.loggedInSource.asObservable();
+  registerSource = new BehaviorSubject<boolean>(false);
+  register$ = this.registerSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  register(data: RegisterRequest) {
-    return this.http.post(`${this.apiUrl}/Auth/register?api-version=1`, data);
+  register(data: RegisterRequest): Observable<RegisterResponse> {
+    return this.http.post<RegisterResponse>(`${this.apiUrl}/Auth/register?api-version=1`, data).pipe
+    (map((response)=>{
+      if(response.isSuccess){
+        this.registerSource.next(true);
+      }
+      return response;
+    }));
   }
 
   login(data: LoginRequest): Observable<AuthResponse> {

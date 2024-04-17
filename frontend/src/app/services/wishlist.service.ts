@@ -1,20 +1,19 @@
-import {inject, Injectable} from '@angular/core';
-import {IWishlist, Wishlist} from "../core/models/wishlist";
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../environments/environment";
-
+import { inject, Injectable } from '@angular/core';
+import { IWishlist, Wishlist } from '../core/models/wishlist';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WishlistService {
   http = inject(HttpClient);
   apiUrl = environment.apiUrl;
 
-  constructor() { }
+  constructor() {}
 
-  setWishlist(){
-
+  setWishlist() {
+    return this.http.post<IWishlist>(this.apiUrl + ``);
   }
 
   private createWishlist(): IWishlist {
@@ -24,5 +23,3 @@ export class WishlistService {
     return wishlist;
   }
 }
-
-

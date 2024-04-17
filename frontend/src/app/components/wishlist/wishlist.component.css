@@ -1,11 +1,54 @@
-:host {
+.wishlist-items-container {
+  @apply
+  flex
+  flex-row
+  h-[70vh]
+  items-start
+  justify-center
+  mx-20
+  pt-16
+  shadow-lg
+  bg-white
+  rounded-lg
+}
+
+.wishlist-container {
   @apply
   flex
   flex-col
-  min-h-screen;
+  mx-10;
 }
 
+.not-logged-container {
+  @apply
+  flex
+  flex-col
+}
 
+.login-register-buttons {
+  @apply
+  flex
+  flex-col
+  justify-between
+  gap-3;
 
+  button {
+    @apply
+    p-2
+    rounded-lg
+    text-white;
+  }
 
+  p {
+    @apply
+    m-0;
+  }
+}
+
+.product-title,
+.product-price {
+  @apply
+  text-teal-800
+  text-lg
+}
 
