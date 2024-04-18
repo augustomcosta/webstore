@@ -13,8 +13,8 @@ using WebStore.Infra.Context;
 namespace WebStore.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240415184732_add image url to brand and category")]
-    partial class addimageurltobrandandcategory
+    [Migration("20240418131550_products to wishlist items")]
+    partial class productstowishlistitems
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -542,11 +542,11 @@ namespace WebStore.API.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("Products")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("WishlistItems")
                         .IsRequired()
                         .HasColumnType("text");
 

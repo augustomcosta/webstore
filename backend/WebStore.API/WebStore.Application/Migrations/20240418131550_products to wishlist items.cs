@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WebStore.API.Migrations
 {
     /// <inheritdoc />
-    public partial class addimageurltobrandandcategory : Migration
+    public partial class productstowishlistitems : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -328,7 +328,7 @@ namespace WebStore.API.Migrations
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    Products = table.Column<string>(type: "text", nullable: false)
+                    WishlistItems = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

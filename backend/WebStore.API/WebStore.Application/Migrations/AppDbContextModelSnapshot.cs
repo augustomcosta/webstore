@@ -539,11 +539,11 @@ namespace WebStore.API.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("Products")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("WishlistItems")
                         .IsRequired()
                         .HasColumnType("text");
 
