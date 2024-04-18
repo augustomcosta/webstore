@@ -81,7 +81,8 @@ public class AuthController : Controller
                 IsSuccess = isSuccess,
                 loggedUser = model.UserName,
                 userName = name,
-                userId = userModel.Id
+                userId = userModel.Id,
+                wishlistId = userModel.WishlistId
             });
         }
 

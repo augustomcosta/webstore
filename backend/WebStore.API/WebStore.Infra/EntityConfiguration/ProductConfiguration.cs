@@ -15,8 +15,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.ImageUrl).HasMaxLength(300).IsRequired();
         builder.Property(p => p.CategoryName);
         builder.Property(p => p.BrandName);
-        builder.Navigation(p => p.Brand).AutoInclude();
-        builder.Navigation(p => p.Category).AutoInclude();
+        builder.Navigation(p => p.Brand);
+        builder.Navigation(p => p.Category);
         builder.HasOne(p => p.Brand)
                .WithMany(b => b.Products)
                .HasForeignKey(p => p.BrandId);

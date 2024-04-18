@@ -27,7 +27,7 @@ public class WishlistRepository : IWishlistRepository
     }
     
 
-    public async Task<Wishlist> UpdateWishlistAsync(Wishlist wishlist)
+    public async Task<Wishlist> UpdateWishlistAsync(Wishlist wishlist, string userId)
     {
         if (wishlist.Id is null)
         {
@@ -39,10 +39,20 @@ public class WishlistRepository : IWishlistRepository
         {
             wishlistToUpdate = new Wishlist();
             wishlist.UpdateWishlist(wishlistToUpdate);
+            
+            var user = await _context.Users!.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user != null)
+            {
+                user.WishlistId = wishlistToUpdate.Id; 
+            }
+
             _context.Add(wishlistToUpdate);
+            
             await _context.SaveChangesAsync();
+            
             return wishlistToUpdate;
         }
+        
         wishlist.UpdateWishlist(wishlistToUpdate);
 
         await _context.SaveChangesAsync();
@@ -58,5 +68,16 @@ public class WishlistRepository : IWishlistRepository
 
         await _context.SaveChangesAsync();
         return wishlistToDelete;
+    }
+
+    public async Task<Wishlist> GetWishlistByUserId(string? userId)
+    {
+        var wishlist = await _context.Wishlists!.FirstOrDefaultAsync(w => w.UserId == userId);
+        if (wishlist is null)
+        {
+            throw new Exception($"No wishlist for User Id {userId} was found.");
+        }
+        
+        return wishlist;
     }
 }

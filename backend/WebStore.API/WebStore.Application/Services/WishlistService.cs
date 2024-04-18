@@ -27,9 +27,9 @@ public class WishlistService : IWishlistService
         return _mapper.Map<WishlistDto>(wishlist);
     }
 
-    public async Task<WishlistDto> UpdateWishlistAsync(Wishlist wishlist)
+    public async Task<WishlistDto> UpdateWishlistAsync(Wishlist wishlist, string userId)
     {
-        var updatedWishlist = await _repository.UpdateWishlistAsync(wishlist);
+        var updatedWishlist = await _repository.UpdateWishlistAsync(wishlist, userId);
         
         if (updatedWishlist is null) throw new Exception("Wishlist not found");
 
@@ -40,5 +40,12 @@ public class WishlistService : IWishlistService
     public async Task DeleteWishlistAsync(string? id)
     {
         await _repository.Delete(id);
+    }
+
+    public async Task<WishlistDto> GetWishlistByUserIdAsync(string? userId)
+    {
+        var wishlist = await _repository.GetWishlistByUserId(userId);
+        
+        return _mapper.Map<WishlistDto>(wishlist);
     }
 }
