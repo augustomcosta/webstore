@@ -6,4 +6,5 @@ export interface AuthResponse {
   loggedUser: string;
   userName: string;
   userId: string;
+  wishlistId: string;
 }

@@ -1,5 +1,4 @@
 import { v4 as uuid } from 'uuid';
-// @ts-ignore
 import { IBasketItem } from './basketItem';
 
 export interface IBasket {
@@ -12,15 +11,11 @@ export interface IBasket {
   basketItems: IBasketItem[];
 }
 
-// @ts-ignore
 export class Basket implements IBasket {
   id: string;
-  // @ts-ignore
-  deliveryMethodId: string;
-  // @ts-ignore
-  paymentIntentId: string;
-  // @ts-ignore
-  shippingPrice: number;
+  deliveryMethodId!: string;
+  paymentIntentId!: string;
+  shippingPrice!: number;
   basketItems: IBasketItem[];
   userId: string;
   createdAt: Date;
@@ -28,7 +23,6 @@ export class Basket implements IBasket {
   constructor() {
     this.id = uuid();
     this.basketItems = [];
-    // @ts-ignore
     this.userId = localStorage.getItem('userId') ?? '';
     this.createdAt = new Date();
   }

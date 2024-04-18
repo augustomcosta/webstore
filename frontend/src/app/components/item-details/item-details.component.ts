@@ -6,6 +6,9 @@ import { BasketSummaryComponent } from '../basket/basket-summary/basket-summary.
 import { BasketTotalsComponent } from '../basket/basket-totals/basket-totals.component';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { BasketService } from '../../services/basket.service';
+import { WishlistService } from '../../services/wishlist.service';
+import { Observable } from 'rxjs';
+import { IWishlist } from '../../core/models/wishlist';
 
 @Component({
   selector: 'app-item-details',
@@ -22,10 +25,16 @@ import { BasketService } from '../../services/basket.service';
 })
 export class ItemDetailsComponent implements OnInit {
   productService = inject(ProductService);
-  // @ts-ignore
-  product: IProduct;
+  product!: IProduct;
+  wishlist!: IWishlist;
   activatedRoute = inject(ActivatedRoute);
   basketService = inject(BasketService);
+  wishlistService = inject(WishlistService);
+  wishlist$!: Observable<IWishlist>;
+
+  addItemToWishlist(item: IProduct) {
+    this.wishlistService.addItemToWishlist(item);
+  }
 
   addItemToBasket(item: IProduct) {
     this.basketService.addItemToBasket(item);
@@ -40,5 +49,7 @@ export class ItemDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProductById();
+    this.wishlistService.getWishlistFromLoggedUser();
+    this.wishlist$ = this.wishlistService.wishlist$;
   }
 }

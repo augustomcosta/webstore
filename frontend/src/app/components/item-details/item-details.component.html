@@ -1,21 +1,26 @@
-<div class="item-container">
-  <div class="item-img-container">
-    <img alt="{{product.name}}" src="{{product.imageUrl}}">
-  </div>
-  <div class="item-info-container">
-    <div class="text-container">
-      <h2 class="text-2xl font-bold text-gradientColor-darkAugusteal">{{ product.name }}</h2>
-      <p class="text-slate-500">{{ product.description }}</p>
-      <p class="pt-3 text-slate-700">{{ product.price | currency }}</p>
+@if(product) {
+  <div class="item-container">
+    <div class="item-img-container">
+      <img alt="{{product.name}}" src="{{product.imageUrl}}">
     </div>
-    <div class="basket-button-container">
-      <div class="basket-button">
-        <button (click)="addItemToBasket(product)">
-          Add to Cart
+    <div class="item-info-container">
+      <div class="text-container">
+        <h2 class="text-2xl font-bold text-gradientColor-darkAugusteal">{{ product.name }}</h2>
+        <p class="text-slate-500">{{ product.description }}</p>
+        <p class="pt-3 text-slate-700">{{ product.price | currency }}</p>
+      </div>
+      <div class="basket-button-container">
+        <div class="basket-button">
+          <button (click)="addItemToBasket(product)">
+            Add to Cart
+          </button>
+        </div>
+        <button (click)="addItemToWishlist(product)">
+          <i class="fa-regular fa-heart text-2xl text-slate-700 hover:cursor-pointer focus:fa-solid focus:text-teal-900"></i>
         </button>
       </div>
-      <i class="fa-regular fa-heart text-2xl text-slate-700 hover:cursor-pointer"></i>
     </div>
   </div>
-</div>
+}
+
 

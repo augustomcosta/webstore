@@ -25,10 +25,7 @@ export class BasketComponent implements OnInit {
   basket$: Observable<IBasket> | undefined;
   basketTotals$: Observable<IBasketTotals> | undefined;
   basketService = inject(BasketService);
-  // @ts-ignore
-  basketId: string = localStorage.getItem('basket_id');
-  // @ts-ignore
-  basket: IBasket;
+  basket!: IBasket;
   isLoggedIn$: Observable<boolean> | undefined;
   authService = inject(AuthService);
 

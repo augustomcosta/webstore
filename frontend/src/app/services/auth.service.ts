@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { BasketService } from './basket.service';
 import { RegisterRequest } from '../interfaces/register-request';
-import {RegisterResponse} from "../interfaces/register-response";
+import { RegisterResponse } from '../interfaces/register-response';
 
 @Injectable({
   providedIn: 'root',
@@ -28,13 +28,19 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   register(data: RegisterRequest): Observable<RegisterResponse> {
-    return this.http.post<RegisterResponse>(`${this.apiUrl}/Auth/register?api-version=1`, data).pipe
-    (map((response)=>{
-      if(response.isSuccess){
-        this.registerSource.next(true);
-      }
-      return response;
-    }));
+    return this.http
+      .post<RegisterResponse>(
+        `${this.apiUrl}/Auth/register?api-version=1`,
+        data,
+      )
+      .pipe(
+        map((response) => {
+          if (response.isSuccess) {
+            this.registerSource.next(true);
+          }
+          return response;
+        }),
+      );
   }
 
   login(data: LoginRequest): Observable<AuthResponse> {
@@ -44,9 +50,17 @@ export class AuthService {
         map((response) => {
           if (response.isSuccess) {
             localStorage.setItem(this.tokenKey, response.token);
+
             localStorage.setItem('userId', response.userId);
+
+            if (response.wishlistId) {
+              localStorage.setItem('wishlistId', response.wishlistId);
+            }
+
             this.loggedInSource.next(true);
+
             this.router.navigate(['/']);
+
             this.setCurrentUser(response.userName);
           }
           return response;
@@ -75,6 +89,7 @@ export class AuthService {
     localStorage.removeItem('userId');
     localStorage.removeItem('userName');
     localStorage.removeItem('basket_id');
+    localStorage.removeItem('wishlist_id');
     this.loggedInSource.next(false);
     this.router.navigateByUrl('/');
   }
