@@ -36,13 +36,13 @@ public sealed class Product : BaseEntity
 
     [Required] public Guid BrandId { get; set; }
 
-    public ProductBrand? Brand { get; set; }
+    public ProductBrand Brand { get; set; }
 
     public string? BrandName { get; set; }
 
     [Required] public Guid CategoryId { get; set; }
 
-    public ProductCategory? Category { get; set; }
+    public ProductCategory Category { get; set; }
 
     public string? CategoryName { get; set; }
     

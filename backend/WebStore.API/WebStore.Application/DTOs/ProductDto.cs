@@ -38,4 +38,5 @@ public record ProductDto(
     
     [Required]
     Guid CategoryId
+    
     );

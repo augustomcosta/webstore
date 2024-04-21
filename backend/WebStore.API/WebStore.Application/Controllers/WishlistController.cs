@@ -29,11 +29,11 @@ public class WishlistController : ControllerBase
         return Ok(wishlist ?? new Wishlist());
     }
 
-    [HttpPut("update-wishlist")]
-    public async Task<IActionResult> UpdateWishlistAsync(Wishlist wishlist, string userId)
+    [HttpPost("update-wishlist")]
+    public async Task<IActionResult> UpdateWishlistAsync(Wishlist wishlist)
     {
-        var updatedWishlist = await _service.UpdateWishlistAsync(wishlist, userId);
-        return Ok(updatedWishlist);
+        var updatedBasket = await _service.UpdateWishlistAsync(wishlist);
+        return Ok(updatedBasket);
     }
 
     [HttpDelete]
@@ -41,12 +41,5 @@ public class WishlistController : ControllerBase
     {
         await _service.DeleteWishlistAsync(wishlistId);
         return Ok();
-    }
-
-    [HttpGet("get-by-user")]
-    public async Task<IActionResult> GetWishlistByUserIdAsync(string userId)
-    {
-        var wishlist = await _service.GetWishlistByUserIdAsync(userId);
-        return Ok(wishlist);
     }
 }
