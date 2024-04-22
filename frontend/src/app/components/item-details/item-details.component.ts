@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { IProduct } from '../../core/models/IProduct';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -25,12 +25,16 @@ import { IWishlist } from '../../core/models/wishlist';
 })
 export class ItemDetailsComponent implements OnInit {
   productService = inject(ProductService);
-  product!: IProduct;
+  @Input() product!: IProduct;
   wishlist!: IWishlist;
   activatedRoute = inject(ActivatedRoute);
   basketService = inject(BasketService);
   wishlistService = inject(WishlistService);
   wishlist$!: Observable<IWishlist>;
+
+  constructor() {
+    this.wishlist$ = this.wishlistService.wishlist$;
+  }
 
   addItemToWishlist(item: IProduct) {
     this.wishlistService.addItemToWishlist(item);
@@ -38,6 +42,10 @@ export class ItemDetailsComponent implements OnInit {
 
   addItemToBasket(item: IProduct) {
     this.basketService.addItemToBasket(item);
+  }
+
+  isItemOnWishlist(product: IProduct): boolean {
+    return this.wishlistService.isItemOnWishlist(product);
   }
 
   getProductById() {
@@ -50,6 +58,5 @@ export class ItemDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.getProductById();
     this.wishlistService.getWishlistFromLoggedUser();
-    this.wishlist$ = this.wishlistService.wishlist$;
   }
 }

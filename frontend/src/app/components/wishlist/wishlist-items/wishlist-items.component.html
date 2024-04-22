@@ -1,4 +1,4 @@
-<table class="border border-separate">
+<table class="border border-separate mt-16">
   <thead>
   <tr>
     <td></td>
@@ -10,10 +10,10 @@
   <tbody>
   @for(item of wishlist.wishlistItems; track item){
     <tr>
-      <td><img alt="{{item.name}}" class="h-[75px] w-[75px] rounded-md border border-solid border-slate-300 shadow-md"
-               height="1600" ngSrc="{{item.imageUrl}}"
+      <td><img alt="{{item.productName}}" class="h-[75px] w-[75px] rounded-md object-contain  border-solid border-slate-300 shadow-md"
+               height="1600" ngSrc="{{item.productImgUrl}}"
                width="1600"></td>
-      <td><a href="" routerLink="/item-details">{{item.name}}</a></td>
+      <td><a [routerLink]="['/items', item.id]">{{item.productName}}</a></td>
       <td>{{item.price | currency}}</td>
       <td>
         <button class="cart-button">

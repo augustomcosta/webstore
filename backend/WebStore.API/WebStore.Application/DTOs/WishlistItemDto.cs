@@ -1,11 +1,10 @@
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace WebStore.API.DTOs;
 
 [DataContract]
-public record BasketItemDto(
+public record WishlistItemDto(
     string Id,
-    int Quantity,
     string ProductName,
     string ProductImgUrl,
     decimal Price,

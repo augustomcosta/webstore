@@ -36,5 +36,13 @@ public class DomainToDtoMappingProfiles : Profile
             src.Category
         )).ReverseMap();
         CreateMap<Wishlist, WishlistDto>().ReverseMap();
+        CreateMap<WishlistItem, WishlistItemDto>().ConstructUsing(src => new WishlistItemDto(
+            src.Id,
+            src.ProductName,
+            src.ProductImgUrl,
+            src.Price,
+            src.Brand,
+            src.Category
+        )).ReverseMap();
     }
 }

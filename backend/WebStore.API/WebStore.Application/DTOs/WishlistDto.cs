@@ -9,5 +9,5 @@ namespace WebStore.API.DTOs;
 public record WishlistDto(
     [Required] string Id,
     [Required] string UserId,
-    List<ProductDto>? WishlistItems
+    List<WishlistItemDto>? WishlistItems
     );

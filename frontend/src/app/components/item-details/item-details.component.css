@@ -72,3 +72,8 @@
   items-center
   gap-5
 }
+
+button.in-wishlist{
+  @apply
+  text-teal-800
+}

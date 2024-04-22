@@ -32,8 +32,8 @@ public class WishlistController : ControllerBase
     [HttpPut("update-wishlist")]
     public async Task<IActionResult> UpdateWishlistAsync(Wishlist wishlist)
     {
-        var updatedBasket = await _service.UpdateWishlistAsync(wishlist);
-        return Ok(updatedBasket);
+        var wishlistDto = await _service.UpdateWishlistAsync(wishlist);
+        return Ok(wishlistDto);
     }
 
     [HttpDelete]

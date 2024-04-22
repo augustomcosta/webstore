@@ -13,11 +13,12 @@
         <div class="flex justify-center items-center">
           <app-wishlist-items [wishlist]="wishlist"/>
         </div>
+      } @else {
+        <div class="empty-wishlist-message">
+          <h2>Your Wishlist is Empty</h2>
+          <button class="shop-button" routerLink="/home">Go to the Shop</button>
+        </div>
       }
-      <div class="empty-wishlist-message">
-        <h2>Your Wishlist is Empty</h2>
-        <button class="shop-button" routerLink="/home">Go to the Shop</button>
-      </div>
     }
     @else {
       <div class="not-logged-container">

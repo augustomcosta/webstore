@@ -3,7 +3,6 @@ import { AsyncPipe, CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { BasketService } from '../../../services/basket.service';
 import { IBasket } from '../../../core/models/basket';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-basket-summary',

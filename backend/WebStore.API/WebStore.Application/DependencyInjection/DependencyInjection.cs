@@ -98,7 +98,6 @@ public class DependencyInjection
                         .AllowAnyOrigin()
                         .WithMethods("GET", "POST","PUT","DELETE")
                         .AllowAnyHeader()
-                    
             )
         );
         config.EnableCors();

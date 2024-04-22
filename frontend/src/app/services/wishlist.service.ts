@@ -4,15 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { IProduct } from '../core/models/IProduct';
 import { BehaviorSubject, tap } from 'rxjs';
-import { IBasket } from '../core/models/basket';
 import { AuthService } from './auth.service';
+import { IWishlistItem } from '../core/models/wishlistItem';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WishlistService {
   http = inject(HttpClient);
-  authService = inject(AuthService);
   apiUrl = environment.apiUrl;
   wishlistSource = new BehaviorSubject<IWishlist>(null as any);
   wishlist$ = this.wishlistSource.asObservable();
@@ -21,6 +20,7 @@ export class WishlistService {
 
   getWishlistFromLoggedUser() {
     const userId = localStorage.getItem('userId');
+    console.log(userId);
     const wishlist = this.http
       .get<IWishlist>(this.apiUrl + `/Wishlist/get-by-userid?userId=${userId}`)
       .pipe(
@@ -34,33 +34,41 @@ export class WishlistService {
     return wishlist;
   }
 
+  isItemOnWishlist(product: IProduct): boolean {
+    const wishlist = this.wishlistSource.value;
+    return wishlist.wishlistItems.some((x) => x.id === product.id) ?? false;
+  }
+
   addItemToWishlist(item: IProduct) {
-    let wishlist = this.getCurrentWishlistValue();
+    let wishlist: IWishlist;
 
-    if (!wishlist) {
+    const itemToAdd = this.mapProductToWishlistItem(item);
+
+    const wishlistFromUser = this.getWishlistFromLoggedUser()?.subscribe(
+      (wishlist$) => {
+        wishlist = wishlist$;
+        wishlist.wishlistItems = this.addItem(
+          wishlist.wishlistItems,
+          itemToAdd,
+        );
+        this.setWishlist(wishlist);
+      },
+    );
+
+    if (!wishlistFromUser) {
       wishlist = this.createWishlist();
+
+      wishlist.wishlistItems = this.addItem(wishlist.wishlistItems, itemToAdd);
+
+      this.setWishlist(wishlist);
     }
-
-    if (this.isProductOnWishlist(item, wishlist)) {
-      console.log('Product is already on the wishlist');
-      return;
-    }
-
-    wishlist.wishlistItems.push(item);
-
-    this.setWishlist(wishlist);
   }
 
   getCurrentWishlistValue() {
     return this.wishlistSource.value;
   }
 
-  isProductOnWishlist(itemToAdd: IProduct, wishlist: IWishlist): boolean {
-    return wishlist.wishlistItems.some((i) => i.name === itemToAdd.name);
-  }
-
   setWishlist(wishlist: IWishlist) {
-    const loggedUser = this.authService;
     return this.http
       .put<IWishlist>(this.apiUrl + `/Wishlist/update-wishlist`, wishlist)
       .subscribe((updatedWishlist) =>
@@ -79,5 +87,35 @@ export class WishlistService {
     localStorage.setItem('wishlist_id', wishlist.id);
 
     return wishlist;
+  }
+
+  private addItem(
+    items: IWishlistItem[],
+    itemToAdd: IWishlistItem,
+  ): IWishlistItem[] {
+    const updatedItems = items;
+    const existingItemIndex = updatedItems.findIndex(
+      (x) => x.id === itemToAdd.id,
+    );
+
+    if (existingItemIndex !== -1) {
+      console.log('Item is already on the wishlist');
+      return items;
+    }
+
+    updatedItems.push(itemToAdd);
+
+    return updatedItems;
+  }
+
+  private mapProductToWishlistItem(item: IProduct): IWishlistItem {
+    return {
+      id: item.id,
+      productName: item.name,
+      price: item.price,
+      productImgUrl: item.imageUrl,
+      brand: item.brandName,
+      category: item.categoryName,
+    };
   }
 }

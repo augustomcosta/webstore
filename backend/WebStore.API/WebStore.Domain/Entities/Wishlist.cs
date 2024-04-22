@@ -9,7 +9,7 @@ public sealed class Wishlist
     
     [ForeignKey("UserId")]
     public User? User {get; set;}
-    public List<Product> WishlistItems { get; set; } = [];
+    public List<WishlistItem> WishlistItems { get; set; } = [];
 
     public void UpdateWishlist(Wishlist wishlist)
     {
