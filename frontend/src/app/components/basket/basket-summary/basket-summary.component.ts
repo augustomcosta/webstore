@@ -15,8 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class BasketSummaryComponent implements OnInit {
   basketService = inject(BasketService);
   @Input() basket!: IBasket;
-  // @ts-ignore
-  basket$: Observable<IBasket>;
+  basket$!: Observable<IBasket>;
 
   removeItemFromBasket(itemId: string) {
     return this.basketService.removeItemFromBasket(itemId);

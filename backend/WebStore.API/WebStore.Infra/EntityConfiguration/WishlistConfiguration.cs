@@ -10,7 +10,7 @@ public class WishlistConfiguration : IEntityTypeConfiguration<Wishlist>
     public void Configure(EntityTypeBuilder<Wishlist> builder)
     {
         builder.HasKey(w => w.Id);
-        builder.Property(w => w.Products).HasConversion(v => JsonConvert.SerializeObject(v),
+        builder.Property(w => w.WishlistItems).HasConversion(v => JsonConvert.SerializeObject(v),
             v => JsonConvert.DeserializeObject<List<Product>>(v));
         builder.HasOne(w => w.User)
             .WithOne(u => u.Wishlist)

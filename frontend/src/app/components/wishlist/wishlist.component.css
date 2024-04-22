@@ -6,7 +6,6 @@
   items-start
   justify-center
   mx-20
-  pt-16
   shadow-lg
   bg-white
   rounded-lg
@@ -52,3 +51,26 @@
   text-lg
 }
 
+.empty-wishlist-message {
+  @apply flex flex-col
+  items-center
+  justify-center
+  w-full h-full;
+
+  h2 {
+    @apply
+    text-slate-500
+  }
+}
+
+.shop-button {
+  @apply
+  bg-teal-800
+  text-white
+  p-3
+  rounded-md
+  transition
+
+  hover:scale-105
+  hover:bg-teal-900;
+}

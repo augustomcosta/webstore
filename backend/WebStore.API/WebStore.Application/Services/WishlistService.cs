@@ -41,4 +41,10 @@ public class WishlistService : IWishlistService
     {
         await _repository.Delete(id);
     }
+
+    public async Task<WishlistDto> GetByUserId(string userId)
+    {
+        var wishlist = await _repository.GetByUserId(userId);
+        return _mapper.Map<WishlistDto>(wishlist);
+    }
 }

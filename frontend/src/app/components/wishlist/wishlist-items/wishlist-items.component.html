@@ -8,17 +8,19 @@
   </tr>
   </thead>
   <tbody>
+  @for(item of wishlist.wishlistItems; track item){
     <tr>
-      <td><img alt="keyboard-hyperx" class="h-[75px] w-[75px] rounded-md border border-solid border-slate-300 shadow-md"
-               height="1600" ngSrc="../../../../assets/images/keyboard-hyperx.webp"
+      <td><img alt="{{item.name}}" class="h-[75px] w-[75px] rounded-md border border-solid border-slate-300 shadow-md"
+               height="1600" ngSrc="{{item.imageUrl}}"
                width="1600"></td>
-      <td><a href="" routerLink="/item-details">HyperX Keyboard</a></td>
-      <td>$150.00</td>
+      <td><a href="" routerLink="/item-details">{{item.name}}</a></td>
+      <td>{{item.price | currency}}</td>
       <td>
         <button class="cart-button">
           <p class="!m-0">Add to cart</p>
         </button>
       </td>
     </tr>
+  }
   </tbody>
 </table>

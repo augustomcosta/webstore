@@ -59,4 +59,14 @@ public class WishlistRepository : IWishlistRepository
         await _context.SaveChangesAsync();
         return wishlistToDelete;
     }
+
+    public async Task<Wishlist> GetByUserId(string userId)
+    {
+        var wishlist = await _context.Wishlists!.FirstOrDefaultAsync(w => w.UserId == userId);
+        if (wishlist is null)
+        {
+            throw new Exception($"No wishlist found for user with Id {userId}");
+        }
+        return wishlist;
+    }
 }

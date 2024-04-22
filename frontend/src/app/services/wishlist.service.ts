@@ -22,14 +22,14 @@ export class WishlistService {
   getWishlistFromLoggedUser() {
     const userId = localStorage.getItem('userId');
     const wishlist = this.http
-      .get<IWishlist>(this.apiUrl + `/Wishlist/get-by-user?userId=${userId}`)
+      .get<IWishlist>(this.apiUrl + `/Wishlist/get-by-userid?userId=${userId}`)
       .pipe(
         tap((wishlist: IWishlist) => {
           this.wishlistSource.next(wishlist);
         }),
       );
     if (!wishlist) {
-      return;
+      return null;
     }
     return wishlist;
   }

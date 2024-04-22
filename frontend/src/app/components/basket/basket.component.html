@@ -9,21 +9,19 @@
   </div>
   <div class="basket-container">
     @if (isLoggedIn$ | async) {
-      <div class="basket-summary">
         @if (basket) {
-          <app-basket-summary [basket]="basket" class="w-full"/>
+          <div class="basket-summary">
+           <app-basket-summary [basket]="basket" class="w-full"/>
+          </div>
+          <div class="basket-totals">
+            <app-basket-totals [basket]="basket" class="w-full h-full"/>
+          </div>
         } @else {
           <div class="empty-basket-message">
             <h2>Your Basket is Empty</h2>
             <button class="shop-button" routerLink="/home">Go to the Shop</button>
           </div>
         }
-      </div>
-      @if (basket) {
-        <div class="basket-totals">
-          <app-basket-totals [basket]="basket" class="w-full h-full"/>
-        </div>
-      }
     } @else {
       <div class="not-logged-container">
         <h2 class="text-gray-600">You are not logged in</h2>
