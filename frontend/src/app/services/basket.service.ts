@@ -13,7 +13,7 @@ export class BasketService {
   http = inject(HttpClient);
   apiUrl = environment.apiUrl;
   shipping: number = 0;
-  private basketSource = new BehaviorSubject<IBasket>(null as any);
+  basketSource = new BehaviorSubject<IBasket>(null as any);
   basket$ = this.basketSource.asObservable();
   private basketTotalSource = new BehaviorSubject<IBasketTotals>(null as any);
   basketTotal$ = this.basketTotalSource.asObservable();
@@ -33,26 +33,13 @@ export class BasketService {
       );
   }
 
-  getBasket(id: string) {
-    return this.http.get<IBasket>(this.apiUrl + `/Basket?basketId=${id}`).pipe(
-      tap((basket: IBasket) => {
-        this.basketSource.next(basket);
-        this.shipping = basket.shippingPrice;
-        this.calculateTotals();
-      }),
-    );
-  }
-
   getCurrentBasketValue() {
     return this.basketSource.value;
   }
 
   addItemToBasket(item: IProduct, quantity = 1) {
     let basket = this.getCurrentBasketValue();
-    if (!basket) {
-      basket = this.createBasket();
-    }
-
+    console.log(basket);
     const itemToAdd = this.mapProductToBasketItem(item);
 
     basket.basketItems = this.addOrUpdateItem(
@@ -66,7 +53,7 @@ export class BasketService {
 
   setBasket(basket: IBasket) {
     return this.http
-      .post<IBasket>(this.apiUrl + '/Basket/update-basket', basket)
+      .put<IBasket>(this.apiUrl + '/Basket/update-basket', basket)
       .subscribe((basket: IBasket) => {
         this.basketSource.next(basket);
         this.calculateTotals();
@@ -84,21 +71,7 @@ export class BasketService {
         basket.basketItems.splice(itemIndex, 1);
       }
       if (basket.basketItems.length > 0) this.setBasket(basket);
-      else {
-        this.deleteBasket(basket);
-      }
     }
-  }
-
-  deleteBasket(basket: IBasket) {
-    return this.http
-      .delete(this.apiUrl + `/Basket?basketId=${basket.id}`)
-      .subscribe(() => {
-        this.basketSource.next(null as any);
-        this.basketTotalSource.next(null as any);
-        localStorage.removeItem('basket_id');
-        window.location.reload();
-      });
   }
 
   calculateTotals() {
@@ -111,13 +84,6 @@ export class BasketService {
     const total = subTotal + shipping;
     this.basketTotalSource.next({ shipping, total, subTotal });
     return subTotal;
-  }
-
-  private createBasket(): IBasket {
-    const basket = new Basket();
-    localStorage.setItem('basket_id', basket.id);
-
-    return basket;
   }
 
   private addOrUpdateItem(

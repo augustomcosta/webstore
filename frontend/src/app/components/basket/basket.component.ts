@@ -35,10 +35,6 @@ export class BasketComponent implements OnInit {
     });
   }
 
-  public deleteBasket(basket: IBasket) {
-    this.basketService.deleteBasket(basket);
-  }
-
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn();
     this.basket$ = this.basketService.basket$;

@@ -16,14 +16,12 @@ import { RegisterResponse } from '../interfaces/register-response';
 export class AuthService {
   apiUrl: string = environment.apiUrl;
   router = inject(Router);
-  basketService = inject(BasketService);
   private loggedUser = new BehaviorSubject<string>('');
-  private loggedUser$ = this.loggedUser.asObservable();
   private tokenKey = 'token';
   private loggedInSource = new BehaviorSubject<boolean>(false);
-  loggedIn$ = this.loggedInSource.asObservable();
   registerSource = new BehaviorSubject<boolean>(false);
   register$ = this.registerSource.asObservable();
+  basketService = inject(BasketService);
 
   constructor(private http: HttpClient) {}
 
@@ -51,11 +49,11 @@ export class AuthService {
           if (response.isSuccess) {
             localStorage.setItem(this.tokenKey, response.token);
 
+            localStorage.setItem('basket_id', response.basketId);
+
             localStorage.setItem('userId', response.userId);
 
-            if (response.wishlistId) {
-              localStorage.setItem('wishlistId', response.wishlistId);
-            }
+            localStorage.setItem('wishlistId', response.wishlistId);
 
             this.loggedInSource.next(true);
 
@@ -70,17 +68,21 @@ export class AuthService {
 
   getLoggedUser(): Observable<string> {
     const userName = localStorage.getItem('userName');
-    // @ts-ignore
-    this.loggedUser.next(userName);
+
+    this.loggedUser.next(userName!);
+
     return this.loggedUser.asObservable();
   }
 
   isLoggedIn(): Observable<boolean> {
     if (!localStorage.getItem('token')) {
       this.loggedInSource.next(false);
+
       return this.loggedInSource.asObservable();
     }
+
     this.loggedInSource.next(true);
+
     return this.loggedInSource.asObservable();
   }
 

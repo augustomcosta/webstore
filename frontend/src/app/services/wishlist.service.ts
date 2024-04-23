@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { IProduct } from '../core/models/IProduct';
 import { BehaviorSubject, tap } from 'rxjs';
-import { AuthService } from './auth.service';
 import { IWishlistItem } from '../core/models/wishlistItem';
 
 @Injectable({
@@ -40,28 +39,24 @@ export class WishlistService {
   }
 
   addItemToWishlist(item: IProduct) {
-    let wishlist: IWishlist;
-
+    let wishlist = this.getCurrentWishlistValue();
     const itemToAdd = this.mapProductToWishlistItem(item);
 
-    const wishlistFromUser = this.getWishlistFromLoggedUser()?.subscribe(
-      (wishlist$) => {
-        wishlist = wishlist$;
-        wishlist.wishlistItems = this.addItem(
-          wishlist.wishlistItems,
-          itemToAdd,
-        );
-        this.setWishlist(wishlist);
-      },
-    );
-
-    if (!wishlistFromUser) {
-      wishlist = this.createWishlist();
-
+    this.getWishlistFromLoggedUser()?.subscribe((wishlist$) => {
+      wishlist = wishlist$;
       wishlist.wishlistItems = this.addItem(wishlist.wishlistItems, itemToAdd);
-
       this.setWishlist(wishlist);
-    }
+    });
+  }
+
+  removeItemFromWishlist(itemId: string) {
+    const wishlist = this.getCurrentWishlistValue();
+
+    const itemIndex = wishlist.wishlistItems.findIndex((b) => b.id === itemId);
+
+    wishlist.wishlistItems.splice(itemIndex, 1);
+
+    this.setWishlist(wishlist);
   }
 
   getCurrentWishlistValue() {
@@ -74,19 +69,6 @@ export class WishlistService {
       .subscribe((updatedWishlist) =>
         this.wishlistSource.next(updatedWishlist),
       );
-  }
-
-  private createWishlist(): IWishlist {
-    const existingWishlist = this.getCurrentWishlistValue();
-    if (existingWishlist) {
-      return existingWishlist;
-    }
-
-    const wishlist = new Wishlist();
-
-    localStorage.setItem('wishlist_id', wishlist.id);
-
-    return wishlist;
   }
 
   private addItem(

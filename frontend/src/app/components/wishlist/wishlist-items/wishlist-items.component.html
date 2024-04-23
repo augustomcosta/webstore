@@ -10,7 +10,7 @@
   <tbody>
   @for(item of wishlist.wishlistItems; track item){
     <tr>
-      <td><img alt="{{item.productName}}" class="h-[75px] w-[75px] rounded-md object-contain  border-solid border-slate-300 shadow-md"
+      <td><img alt="{{item.productName}}" class="h-[75px] w-[75px] rounded-md object-cover  border-solid border-slate-300 shadow-md"
                height="1600" ngSrc="{{item.productImgUrl}}"
                width="1600"></td>
       <td><a [routerLink]="['/items', item.id]">{{item.productName}}</a></td>
@@ -18,6 +18,11 @@
       <td>
         <button class="cart-button">
           <p class="!m-0">Add to cart</p>
+        </button>
+      </td>
+      <td>
+        <button >
+          <i class="fa-solid fa-circle-xmark text-amber-700 text-lg" (click)="removeItemFromWishlist(item.id)"></i>
         </button>
       </td>
     </tr>

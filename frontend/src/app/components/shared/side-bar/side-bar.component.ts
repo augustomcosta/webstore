@@ -55,10 +55,8 @@ export class SideBarComponent implements OnInit {
   loggedUser$: Observable<string> | undefined;
   userName: string | undefined;
   basketService = inject(BasketService);
-  // @ts-ignore
-  basket$: Observable<IBasket>;
-  // @ts-ignore
-  basket: IBasket;
+  basket$: Observable<IBasket> | undefined;
+  basket: IBasket | undefined;
 
   constructor() {}
 
@@ -76,13 +74,12 @@ export class SideBarComponent implements OnInit {
 
   toggleDropdown() {
     const dropUp = document.getElementById('drop-up-content');
-    // @ts-ignore
-    if (dropUp.style.display === 'block') {
-      // @ts-ignore
-      dropUp.style.display = 'none';
+
+    if (dropUp!.style.display === 'block') {
+      dropUp!.style.display = 'none';
     }
-    // @ts-ignore
-    dropUp.style.display = 'block';
+
+    dropUp!.style.display = 'block';
   }
 
   ngOnInit(): void {

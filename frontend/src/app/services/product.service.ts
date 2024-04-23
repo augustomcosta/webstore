@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { IProduct } from '../core/models/IProduct';
 import { ProductParams } from '../shared/models/productParams';
-import { of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,10 @@ export class ProductService {
       this.apiUrl +
         `/Product/pagination?PageNumber=${this.productParams.pageNumber}&PageSize=${this.productParams.pageSize}&api-version=1`,
     );
+  }
+
+  getAllProducts() {
+    return this.http.get<IProduct[]>(this.apiUrl + `/Product`);
   }
 
   filterByCategory(category: string) {

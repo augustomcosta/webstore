@@ -29,16 +29,22 @@ export class ItemCardComponent implements OnInit {
   basketTotals$: Observable<IBasketTotals> | undefined;
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean | undefined;
+  basket: IBasket | undefined;
   protected authService = inject(AuthService);
   protected router = inject(Router);
 
   @Input()
   product!: IProduct;
+
   protected readonly Math = Math;
 
   constructor() {
     this.isLoggedIn$?.subscribe((isLogged) => {
       this.isLoggedIn = isLogged;
+    });
+
+    this.basketService.getBasketFromLoggedUser().subscribe((basket) => {
+      this.basket = basket;
     });
   }
 

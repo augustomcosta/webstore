@@ -7,4 +7,5 @@ export interface AuthResponse {
   userName: string;
   userId: string;
   wishlistId: string;
+  basketId: string;
 }

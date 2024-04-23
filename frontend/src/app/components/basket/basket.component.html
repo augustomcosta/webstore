@@ -9,7 +9,7 @@
   </div>
   <div class="basket-container">
     @if (isLoggedIn$ | async) {
-        @if (basket) {
+        @if (basket.basketItems.length > 0) {
           <div class="basket-summary">
            <app-basket-summary [basket]="basket" class="w-full"/>
           </div>

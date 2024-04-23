@@ -18,6 +18,10 @@ export class WishlistItemsComponent implements OnInit {
   @Input() wishlist!: IWishlist;
   wishlist$!: Observable<IWishlist>;
 
+  removeItemFromWishlist(itemId: string) {
+    return this.wishlistService.removeItemFromWishlist(itemId);
+  }
+
   ngOnInit(): void {
     this.wishlist$ = this.wishlistService.wishlist$;
   }

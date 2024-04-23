@@ -9,7 +9,7 @@
     </div>
   <div class="wishlist-items-container">
     @if(isLoggedIn$ | async){
-      @if(wishlist){
+      @if(wishlist.wishlistItems.length > 0){
         <div class="flex justify-center items-center">
           <app-wishlist-items [wishlist]="wishlist"/>
         </div>
