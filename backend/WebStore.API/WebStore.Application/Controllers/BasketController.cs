@@ -29,7 +29,7 @@ public class BasketController : ControllerBase
         return Ok(basket ?? new Basket());
     }
 
-    [HttpPost("update-basket")]
+    [HttpPut("update-basket")]
     public async Task<IActionResult> UpdateBasketAsync(Basket basket)
     {
         var updatedBasket = await _service.UpdateBasketAsync(basket);
