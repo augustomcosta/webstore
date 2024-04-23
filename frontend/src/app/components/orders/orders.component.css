@@ -1,0 +1,74 @@
+.orders-container {
+  @apply
+  flex
+  flex-row
+  h-[70vh]
+  items-center
+  justify-center
+  mx-20
+  shadow-lg
+  bg-white
+  rounded-lg
+}
+
+.basket-summary {
+  @apply
+  flex
+  flex-row
+  items-start
+  h-[100%]
+  w-[160%]
+  rounded-l-lg
+  p-10
+  bg-white
+  overflow-y-scroll;
+
+}
+  .basket-totals {
+    @apply
+    flex
+    flex-row
+    items-start
+    p-10
+    h-full w-[60%]
+    bg-white
+    rounded-r-lg
+    border-l
+    border-solid
+    border-slate-200;
+  }
+
+  .orders {
+    @apply
+    flex
+    flex-col
+    mx-10;
+  }
+
+  .empty-orders-message {
+    @apply flex flex-col
+    items-center
+    justify-center
+    w-full h-full;
+
+    h2 {
+      @apply
+      text-slate-500
+    }
+  }
+
+  .shop-button {
+    @apply
+    bg-teal-800
+    text-white
+    p-3
+    rounded-md
+    transition
+
+    hover:scale-105
+    hover:bg-teal-900;
+  }
+
+
+
+

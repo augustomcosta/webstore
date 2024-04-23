@@ -58,7 +58,13 @@ export class SideBarComponent implements OnInit {
   basket$: Observable<IBasket> | undefined;
   basket: IBasket | undefined;
 
-  constructor() {}
+  constructor() {
+    this.basketService
+      .getBasketFromLoggedUser()
+      .subscribe((basket: IBasket) => {
+        this.basket = basket;
+      });
+  }
 
   logout() {
     this.authService.logout();
@@ -89,8 +95,5 @@ export class SideBarComponent implements OnInit {
       this.userName = userName;
     });
     this.basket$ = this.basketService.basket$;
-    this.basket$.subscribe((basket) => {
-      this.basket = basket;
-    });
   }
 }

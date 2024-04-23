@@ -38,7 +38,7 @@
     "brandName": "SteelSeries",
     "brandId": "3f6d35ac-cd49-4e45-8d3e-20f3949c4335",
     "categoryId": "dd1c5830-2c58-4eaf-a5f8-d7ff924446b9",
-    "categoryName": "Mousepad"
+    "categoryName": "Mousepads"
   },
   {
     "name": "Razer DeathAdder V2",
@@ -48,7 +48,7 @@
     "brandName": "Razer",
     "brandId": "d2793623-1234-4a95-8810-6c2ec1bc2f2f",
     "categoryId": "2e45a52f-ae4b-4c3c-9b5c-364c2ad7a9ff",
-    "categoryName": "Mouse"
+    "categoryName": "Mouses"
   },
   {
     "name": "Blue Yeti",
@@ -58,6 +58,6 @@
     "brandName": "Blue",
     "brandId": "fb7a6f08-383f-4b99-a8db-7aa8290e1de3",
     "categoryId": "83112e8f-584b-4e28-937f-1b22e0e15787",
-    "categoryName": "Microphone"
+    "categoryName": "Microphones"
   }
 ]

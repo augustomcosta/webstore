@@ -17,9 +17,9 @@
             <i class="desktop-icon fa-solid fa-bag-shopping fa-sm"></i>
             <p>Basket</p>
           </div>
-          @if (basket) {
+          @if (basket!.basketItems.length > 0) {
             <div class="basket-count-icon flex items-center gap-2 bg-amber-700 text-white text-base rounded-full px-2">
-              <i>{{ basket.basketItems.length }}</i>
+              <i>{{ basket!.basketItems.length }}</i>
             </div>
           }
         </button>
@@ -44,7 +44,7 @@
             <i class="fa-solid fa-gear"></i>
             <p>Account Settings</p>
           </button>
-          <button>
+          <button routerLink="/orders">
             <i class="fa-solid fa-boxes-stacked"></i>
             <p>My Orders</p>
           </button>

@@ -24,6 +24,8 @@ public sealed class AppDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Order>? Orders { get; set; }
     public DbSet<Basket>? Baskets { get; set; }
     public DbSet<Wishlist>? Wishlists { get; set; }
+    
+    public DbSet<DeliveryMethod>? DeliveryMethods { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

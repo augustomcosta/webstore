@@ -70,7 +70,7 @@ export class BasketService {
       if (basket.basketItems[itemIndex].quantity <= 0) {
         basket.basketItems.splice(itemIndex, 1);
       }
-      if (basket.basketItems.length > 0) this.setBasket(basket);
+      this.setBasket(basket);
     }
   }
 
