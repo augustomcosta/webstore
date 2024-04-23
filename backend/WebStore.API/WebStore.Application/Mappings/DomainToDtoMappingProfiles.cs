@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using WebStore.API.DTOs;
+using WebStore.API.DTOs.BasketDtoAggregate;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.OrderAggregate;
 
@@ -26,6 +27,17 @@ public class DomainToDtoMappingProfiles : Profile
         CreateMap<User, UserDto>().ReverseMap();
         CreateMap<Order, UserDto>().ReverseMap();
         CreateMap<Basket, BasketDto>().ReverseMap();
+        CreateMap<Basket, BasketUpdateDto>()
+            .ForMember(dest => dest.BasketItems, opt => opt.MapFrom(src => src.BasketItems))
+            .ConstructUsing(src => new BasketUpdateDto(
+                src.Id,
+                null,
+                src.DeliveryMethodId.ToString(),
+                src.PaymentIntentId,
+                src.ShippingPrice,
+                src.TotalPrice)
+            )
+            .ReverseMap();
         CreateMap<BasketItem, BasketItemDto>().ConstructUsing(src => new BasketItemDto(
             src.Id,
             src.Quantity,

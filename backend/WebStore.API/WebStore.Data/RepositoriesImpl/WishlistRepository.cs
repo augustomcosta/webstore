@@ -15,12 +15,12 @@ public class WishlistRepository : IWishlistRepository
     }
     
 
-    public async Task<Wishlist> GetWishlistAsync(string? id)
+    public async Task<Wishlist> GetWishlistAsync(string? userId)
     {
-        var wishlist = await _context.Wishlists!.FirstOrDefaultAsync(w => w.Id == id);
+        var wishlist = await _context.Wishlists!.FirstOrDefaultAsync(w => w.UserId == userId);
         if (wishlist is null)
         {
-            throw new Exception($"Wishlist with id {id} was not found.");
+            throw new Exception($"Wishlist with user {userId} was not found.");
         }
 
         return wishlist;
@@ -68,5 +68,20 @@ public class WishlistRepository : IWishlistRepository
             throw new Exception($"No wishlist found for user with Id {userId}");
         }
         return wishlist;
+    }
+
+    public async Task<Wishlist> CreateNewWishlist(string userId)
+    {
+        var wishlist = new Wishlist
+        {
+            UserId = userId
+        };
+
+        await _context.Wishlists!.AddAsync(wishlist);
+
+        await _context.SaveChangesAsync();
+
+        return wishlist;
+
     }
 }

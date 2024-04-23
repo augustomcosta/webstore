@@ -10,10 +10,10 @@ public sealed class Basket
         CreatedAt = DateTime.Now;
     }
 
-    public string? Id { get; set; }
+    public string? Id { get; set; } = Guid.NewGuid().ToString();
     public string? UserId { get; set; }
     public Guid? DeliveryMethodId { get; set; }
-    public string? PaymentIntentId { get; set; }
+    public string? PaymentIntentId { get; set; } 
     public decimal ShippingPrice { get; set; }
     public DateTime? CreatedAt {get; set;}
 
@@ -37,7 +37,6 @@ public sealed class Basket
     public void UpdateBasket(Basket basket)
     {
         basket.Id = Id;
-        basket.UserId = UserId;
         basket.DeliveryMethodId = DeliveryMethodId;
         basket.PaymentIntentId = PaymentIntentId;
         basket.ShippingPrice = ShippingPrice;

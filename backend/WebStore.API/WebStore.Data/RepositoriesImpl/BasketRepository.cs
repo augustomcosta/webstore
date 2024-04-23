@@ -8,12 +8,26 @@ namespace WebStore.Data.RepositoriesImpl;
 public class BasketRepository : IBasketRepository
 {
     private readonly AppDbContext _context;
-
     public BasketRepository(AppDbContext context)
     {
        
         _context = context;
     }
+
+    public async Task<Basket> CreateNewBasket(string userId)
+    {
+        var basket = new Basket
+        {
+            UserId = userId
+        };
+
+        await _context.Baskets!.AddAsync(basket);
+
+        await _context.SaveChangesAsync();
+        
+        return basket;
+    }
+    
 
     public async Task<Basket> GetBasketAsync(string basketId)
     {

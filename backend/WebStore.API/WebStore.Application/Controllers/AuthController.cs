@@ -28,11 +28,15 @@ public class AuthController : Controller
     private readonly ITokenService _tokenService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IUserRepository _userRepo;
+    private readonly IBasketRepository _basketRepo;
+    private readonly IWishlistRepository _wishlistRepo;
 
     public AuthController(ITokenService tokenService, UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager, IConfiguration config, ILogger<AuthController> logger,
         IUserService userService,
-        IUserRepository userRepo)
+        IUserRepository userRepo,
+        IBasketRepository basketRepo,
+        IWishlistRepository wishlistRepo)
     {
         _tokenService = tokenService;
         _userManager = userManager;
@@ -40,6 +44,8 @@ public class AuthController : Controller
         _config = config;
         _logger = logger;
         _userRepo = userRepo;
+        _basketRepo = basketRepo;
+        _wishlistRepo = wishlistRepo;
     }
 
     [HttpPost]
@@ -72,6 +78,8 @@ public class AuthController : Controller
             
             var userModel = await _userRepo.GetById(user.Id);
             var name = userModel.FirstName;
+            var userBasket = await _basketRepo.GetBasketByUserId(userModel.Id);
+            var userWishlist = await _wishlistRepo.GetWishlistAsync(userModel.Id);
 
             return Ok(new
             {
@@ -81,7 +89,9 @@ public class AuthController : Controller
                 IsSuccess = isSuccess,
                 loggedUser = model.UserName,
                 userName = name,
-                userId = userModel.Id
+                userId = userModel.Id,
+                basketId = userBasket.Id,
+                wishlistId = userWishlist.Id
             });
         }
 
@@ -150,6 +160,8 @@ public class AuthController : Controller
         const bool isSuccess = true;
 
         await _userRepo.Create(userEntity);
+        await _basketRepo.CreateNewBasket(userEntity.Id);
+        await _wishlistRepo.CreateNewWishlist(userEntity.Id);
 
         var result = await _userManager.CreateAsync(user, model.Password!);
         if (!result.Succeeded) return StatusCode(StatusCodes.Status500InternalServerError, "Error while creating user");

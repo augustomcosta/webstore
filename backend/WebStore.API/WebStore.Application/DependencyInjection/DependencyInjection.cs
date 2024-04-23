@@ -78,10 +78,10 @@ public class DependencyInjection
                     partition => new SlidingWindowRateLimiterOptions
                     {
                         AutoReplenishment = true,
-                        PermitLimit = 5,
+                        PermitLimit = 10,
                         QueueLimit = 0,
                         SegmentsPerWindow = 2,
-                        Window = TimeSpan.FromSeconds(10)
+                        Window = TimeSpan.FromSeconds(3)
                     }
                 )
             );

@@ -4,7 +4,7 @@ namespace WebStore.Domain.Entities;
 
 public sealed class Wishlist
 {
-    public string? Id { get; set; }
+    public string? Id { get; set; } = Guid.NewGuid().ToString();
     public string? UserId { get; set; }
     
     [ForeignKey("UserId")]
