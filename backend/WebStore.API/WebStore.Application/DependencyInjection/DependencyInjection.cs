@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using WebStore.API.Controllers;
+using WebStore.API.DTOs;
 using WebStore.API.Interfaces;
 using WebStore.API.Mappings;
 using WebStore.API.Services;
@@ -176,6 +177,7 @@ public class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IWishlistRepository, WishlistRepository>();
+        services.AddScoped<IDeliveryMethodRepository, DeliveryMethodRepository>();
     }
 
     private static void AddServices(IServiceCollection services)
@@ -191,6 +193,7 @@ public class DependencyInjection
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IWishlistService, WishlistService>();
         services.AddScoped<WishlistController>();
+        services.AddScoped<IDeliveryMethodService<DeliveryMethodDto>, DeliveryMethodService>();
     }
 
     private static void AddAutoMapper(IServiceCollection services)

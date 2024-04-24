@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace WebStore.API.DTOs;
+namespace WebStore.API.DTOs.BasketDtoAggregate;
 
 [DataContract]
 public record BasketItemDto(

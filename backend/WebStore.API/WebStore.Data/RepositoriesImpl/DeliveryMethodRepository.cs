@@ -24,9 +24,15 @@ public class DeliveryMethodRepository : IDeliveryMethodRepository
         return deliveryMethods;
     }
 
-    public Task<DeliveryMethod> GetById(Guid? id)
+    public async Task<DeliveryMethod> GetById(Guid? id)
     {
-        throw new NotImplementedException();
+        var deliveryMethod = await _context.DeliveryMethods!.FirstOrDefaultAsync(d => d.Id == id);
+        if (deliveryMethod is null)
+        {
+            throw new Exception($"Delivery Method with Id {id} was not found");
+        }
+
+        return deliveryMethod;
     }
 
 
@@ -39,8 +45,19 @@ public class DeliveryMethodRepository : IDeliveryMethodRepository
         return deliveryMethod;
     }
     
-    public Task<DeliveryMethod> Delete(Guid? id)
+    public async Task<DeliveryMethod> Delete(Guid? id)
     {
-        throw new NotImplementedException();
+       var deliveryMethod = await _context.DeliveryMethods!.FirstOrDefaultAsync(d => d.Id == id);
+       if (deliveryMethod is null)
+       {
+           throw new Exception($"Delivery method with Id {id} was not found");
+       }
+       
+       _context.DeliveryMethods!.Remove(deliveryMethod);
+       
+
+       await _context.SaveChangesAsync();
+
+       return deliveryMethod;
     }
 }

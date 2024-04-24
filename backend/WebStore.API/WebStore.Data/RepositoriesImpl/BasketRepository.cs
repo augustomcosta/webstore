@@ -36,6 +36,14 @@ public class BasketRepository : IBasketRepository
         {
             throw new Exception($"Basket with Id {basketId} was not found");
         }
+        
+        var deliveryMethod = await _context.DeliveryMethods!.FirstOrDefaultAsync(d => d.Id == basket!.DeliveryMethodId);
+        if(deliveryMethod is null)
+        {
+            return basket;
+        }
+
+        basket.ShippingPrice = deliveryMethod.Price;
 
         return basket;
     }

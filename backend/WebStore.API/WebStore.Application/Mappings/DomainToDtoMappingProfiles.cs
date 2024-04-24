@@ -56,5 +56,6 @@ public class DomainToDtoMappingProfiles : Profile
             src.Brand,
             src.Category
         )).ReverseMap();
+        CreateMap<DeliveryMethod, DeliveryMethodDto>().ReverseMap();
     }
 }
