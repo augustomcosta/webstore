@@ -7,8 +7,8 @@
         <p>{{ subTotal | currency }}</p>
       </li>
       <li class="shipping-container">
-        <p>Shipping</p>
-        <p>$10.00</p>
+        <p>Items</p>
+        <p>{{ basket.basketItems.length }}</p>
       </li>
     </ul>
   </div>
@@ -17,7 +17,7 @@
       <p>Total</p>
       <p>{{ totals | currency }}</p>
     </div>
-    <button class="bg-amber-600 text-white p-2 rounded-md hover:bg-amber-700 hover:scale-105 transition">
+    <button class="bg-amber-600 text-white p-2 rounded-md hover:bg-amber-700 hover:scale-105 transition" routerLink="/checkout">
       <h2 class="!m-0">Checkout</h2>
     </button>
   </div>

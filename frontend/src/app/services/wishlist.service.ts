@@ -33,11 +33,6 @@ export class WishlistService {
     return wishlist;
   }
 
-  isItemOnWishlist(product: IProduct): boolean {
-    const wishlist = this.wishlistSource.value;
-    return wishlist.wishlistItems.some((x) => x.id === product.id) ?? false;
-  }
-
   addItemToWishlist(item: IProduct) {
     let wishlist = this.getCurrentWishlistValue();
     const itemToAdd = this.mapProductToWishlistItem(item);
@@ -88,6 +83,18 @@ export class WishlistService {
     updatedItems.push(itemToAdd);
 
     return updatedItems;
+  }
+
+  mapWishlistItemToProduct(item: IWishlistItem): IProduct {
+    return {
+      id: item.id,
+      name: item.productName,
+      description: '',
+      price: item.price,
+      imageUrl: item.productImgUrl,
+      brandName: item.brand,
+      categoryName: item.category,
+    };
   }
 
   private mapProductToWishlistItem(item: IProduct): IWishlistItem {

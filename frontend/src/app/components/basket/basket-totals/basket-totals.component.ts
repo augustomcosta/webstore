@@ -2,11 +2,12 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { IBasket } from '../../../core/models/basket';
 import { BasketService } from '../../../services/basket.service';
 import { CurrencyPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-basket-totals',
   standalone: true,
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, RouterLink],
   templateUrl: './basket-totals.component.html',
   styleUrl: './basket-totals.component.css',
 })
@@ -21,7 +22,7 @@ export class BasketTotalsComponent implements OnInit {
   }
 
   calculateTotals(): number {
-    return this.subTotal + 10; //hardcoded for now
+    return this.subTotal;
   }
 
   ngOnInit(): void {

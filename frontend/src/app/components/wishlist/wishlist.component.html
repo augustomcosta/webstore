@@ -10,7 +10,7 @@
   <div class="wishlist-items-container">
     @if(isLoggedIn$ | async){
       @if(wishlist.wishlistItems.length > 0){
-        <div class="flex justify-center items-center">
+        <div class="flex justify-center items-center self-start">
           <app-wishlist-items [wishlist]="wishlist"/>
         </div>
       } @else {

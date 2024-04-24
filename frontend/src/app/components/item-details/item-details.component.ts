@@ -1,4 +1,10 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { IProduct } from '../../core/models/IProduct';
 import { Router, RouterLink } from '@angular/router';
 import { BasketSummaryComponent } from '../basket/basket-summary/basket-summary.component';
@@ -6,7 +12,7 @@ import { BasketTotalsComponent } from '../basket/basket-totals/basket-totals.com
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { BasketService } from '../../services/basket.service';
 import { WishlistService } from '../../services/wishlist.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IWishlist } from '../../core/models/wishlist';
 import { AuthService } from '../../services/auth.service';
 import { IBasket } from '../../core/models/basket';
@@ -32,10 +38,14 @@ export class ItemDetailsComponent implements OnInit {
   wishlist$!: Observable<IWishlist>;
   protected authService = inject(AuthService);
   protected router = inject(Router);
+  cdr = inject(ChangeDetectorRef);
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: Boolean | undefined;
   basket: IBasket | undefined;
   basket$: Observable<IBasket> | undefined;
+  isOnWishlist: boolean | undefined;
+  isOnWishlist$: Observable<boolean> | undefined;
+  isOnWishlistSource = new BehaviorSubject<boolean>(false);
 
   constructor() {
     this.isLoggedIn$?.subscribe((isLogged) => {
@@ -63,13 +73,19 @@ export class ItemDetailsComponent implements OnInit {
     this.basketService.addItemToBasket(this.product, 1);
   }
 
-  isItemOnWishlist(product: IProduct): boolean {
-    return this.wishlistService.isItemOnWishlist(product);
+  isItemOnWishlist() {
+    this.wishlistService.getWishlistFromLoggedUser()!.subscribe((wishlist) => {
+      this.isOnWishlist =
+        wishlist.wishlistItems.some((w) => w.id == this.product.id) ?? false;
+      this.isOnWishlistSource.next(this.isOnWishlist);
+    });
+    return this.isOnWishlistSource.asObservable();
   }
 
   ngOnInit(): void {
     this.basket$ = this.basketService.basket$;
     this.wishlist$ = this.wishlistService.wishlist$;
     this.isLoggedIn$ = this.authService.isLoggedIn();
+    this.isOnWishlist$ = this.isItemOnWishlist();
   }
 }

@@ -15,8 +15,8 @@
             Add to Cart
           </button>
         </div>
-        <button [class.is-in-wishlist]="isItemOnWishlist(product)" (click)="addItemToWishlist(product)">
-          <i class="fa-regular fa-heart text-2xl text-slate-700 hover:cursor-pointer focus:fa-solid focus:text-teal-900"></i>
+        <button class="wishlist-button" tabindex="1" (click)="addItemToWishlist(product)">
+          <i [class.is-in-wishlist]="isOnWishlist" [class.fa-solid]="isOnWishlist" class="fa-regular fa-heart text-2xl text-slate-700 hover:cursor-pointer"></i>
         </button>
       </div>
     </div>

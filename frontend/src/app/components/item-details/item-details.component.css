@@ -73,7 +73,13 @@
   gap-5
 }
 
-button.in-wishlist{
+.is-in-wishlist{
   @apply
-  text-teal-800
+  text-teal-800;
 }
+
+
+
+
+
+

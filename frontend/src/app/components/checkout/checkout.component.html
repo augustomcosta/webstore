@@ -1,0 +1,15 @@
+<div class="orders">
+  <div class="flex items-center align-middle pb-[2rem]">
+    <div class="flex justify-center items-center bg-gradient-to-tr
+  from-gradientColor-darkAugusteal
+  to-gradientColor-augusteal mr-2 min-h-[2rem] max-h-[2rem] min-w-[2rem] max-w-[2rem] rounded-md">
+      <i class="fa-solid fa-boxes-stacked text-white"></i>
+    </div>
+    <h2 class="text-start !m-0">Checkout</h2>
+  </div>
+    <div class="orders-container">
+      @for(item of basket?.basketItems; track item) {
+        <p>{{ item.productName }}</p>
+      }
+    </div>
+</div>

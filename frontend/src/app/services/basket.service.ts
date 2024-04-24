@@ -71,6 +71,7 @@ export class BasketService {
         basket.basketItems.splice(itemIndex, 1);
       }
       this.setBasket(basket);
+      window.location.reload();
     }
   }
 

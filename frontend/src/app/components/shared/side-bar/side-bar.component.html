@@ -17,7 +17,7 @@
             <i class="desktop-icon fa-solid fa-bag-shopping fa-sm"></i>
             <p>Basket</p>
           </div>
-          @if (basket!.basketItems.length > 0) {
+          @if (basket && basket!.basketItems.length > 0) {
             <div class="basket-count-icon flex items-center gap-2 bg-amber-700 text-white text-base rounded-full px-2">
               <i>{{ basket!.basketItems.length }}</i>
             </div>

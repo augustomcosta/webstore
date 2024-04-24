@@ -16,7 +16,7 @@
       <td><a [routerLink]="['/items', item.id]">{{item.productName}}</a></td>
       <td>{{item.price | currency}}</td>
       <td>
-        <button class="cart-button">
+        <button class="cart-button" (click)="addItemToBasket(item)">
           <p class="!m-0">Add to cart</p>
         </button>
       </td>

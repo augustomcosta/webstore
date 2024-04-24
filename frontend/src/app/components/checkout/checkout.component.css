@@ -1,4 +1,4 @@
-.wishlist-items-container {
+.orders-container {
   @apply
   flex
   flex-row
@@ -11,47 +11,41 @@
   rounded-lg
 }
 
-.wishlist-container {
+.basket-summary {
+  @apply
+  flex
+  flex-row
+  items-start
+  h-[100%]
+  w-[160%]
+  rounded-l-lg
+  p-10
+  bg-white
+  overflow-y-scroll;
+
+}
+.basket-totals {
+  @apply
+  flex
+  flex-row
+  items-start
+  p-10
+  h-full w-[60%]
+  bg-white
+  rounded-r-lg
+  border-l
+  border-solid
+  border-slate-200;
+}
+
+.orders {
   @apply
   flex
   flex-col
   mx-10;
 }
 
-.not-logged-container {
-  @apply
-  flex
-  flex-col
-}
-
-.login-register-buttons {
-  @apply
-  flex
-  flex-col
-  justify-between
-  gap-3;
-
-  button {
-    @apply
-    p-2
-    rounded-lg
-    text-white;
-  }
-
-  p {
-    @apply
-    m-0;
-  }
-}
-
-.product-title,
-.product-price {
-  @apply
-  text-teal-800
-  text-lg
-}
-
-.empty-wishlist-message {
+.empty-orders-message {
   @apply flex flex-col
   items-center
   justify-center
@@ -74,3 +68,7 @@
   hover:scale-105
   hover:bg-teal-900;
 }
+
+
+
+

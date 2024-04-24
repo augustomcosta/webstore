@@ -5,6 +5,8 @@ import { IWishlist } from '../../../core/models/wishlist';
 import { Observable } from 'rxjs';
 import { WishlistService } from '../../../services/wishlist.service';
 import { IProduct } from '../../../core/models/IProduct';
+import { BasketService } from '../../../services/basket.service';
+import { IWishlistItem } from '../../../core/models/wishlistItem';
 
 @Component({
   selector: 'app-wishlist-items',
@@ -17,9 +19,15 @@ export class WishlistItemsComponent implements OnInit {
   wishlistService = inject(WishlistService);
   @Input() wishlist!: IWishlist;
   wishlist$!: Observable<IWishlist>;
+  basketService = inject(BasketService);
 
   removeItemFromWishlist(itemId: string) {
     return this.wishlistService.removeItemFromWishlist(itemId);
+  }
+
+  addItemToBasket(product: IWishlistItem) {
+    const item = this.wishlistService.mapWishlistItemToProduct(product);
+    this.basketService.addItemToBasket(item);
   }
 
   ngOnInit(): void {

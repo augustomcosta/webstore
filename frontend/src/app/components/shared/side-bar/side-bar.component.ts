@@ -56,12 +56,15 @@ export class SideBarComponent implements OnInit {
   userName: string | undefined;
   basketService = inject(BasketService);
   basket$: Observable<IBasket> | undefined;
-  basket: IBasket | undefined;
+  basket!: IBasket | null;
 
   constructor() {
     this.basketService
       .getBasketFromLoggedUser()
       .subscribe((basket: IBasket) => {
+        if (!this.isLoggedIn$) {
+          this.basket = null;
+        }
         this.basket = basket;
       });
   }
