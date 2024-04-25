@@ -17,9 +17,9 @@
             <i class="desktop-icon fa-solid fa-bag-shopping fa-sm"></i>
             <p>Basket</p>
           </div>
-          @if (basket && basket!.basketItems.length > 0) {
+          @if ((basket$ | async); as basket) {
             <div class="basket-count-icon flex items-center gap-2 bg-amber-700 text-white text-base rounded-full px-2">
-              <i>{{ basket!.basketItems.length }}</i>
+              <i>{{ getCount(basket.basketItems) }}</i>
             </div>
           }
         </button>

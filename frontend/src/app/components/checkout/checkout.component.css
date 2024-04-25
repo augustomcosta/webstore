@@ -1,74 +1,120 @@
-.orders-container {
+.checkout-container {
   @apply
   flex
   flex-row
   h-[70vh]
-  items-center
-  justify-center
+  items-start
+  justify-between
+  gap-24
+  px-20
+  py-20
   mx-20
   shadow-lg
   bg-white
   rounded-lg
 }
 
-.basket-summary {
-  @apply
-  flex
-  flex-row
-  items-start
-  h-[100%]
-  w-[160%]
-  rounded-l-lg
-  p-10
-  bg-white
-  overflow-y-scroll;
-
-}
-.basket-totals {
-  @apply
-  flex
-  flex-row
-  items-start
-  p-10
-  h-full w-[60%]
-  bg-white
-  rounded-r-lg
-  border-l
-  border-solid
-  border-slate-200;
-}
-
-.orders {
+.checkout {
   @apply
   flex
   flex-col
   mx-10;
 }
 
-.empty-orders-message {
-  @apply flex flex-col
-  items-center
-  justify-center
-  w-full h-full;
+.cart-summary {
+  @apply
+  flex
+  flex-col
+  justify-between
+  min-w-[30%]
+  max-w-[30%]
+  h-full;
 
-  h2 {
+  h1 {
     @apply
-    text-slate-500
+    text-teal-800
   }
 }
 
-.shop-button {
+.stepper-container {
   @apply
-  bg-teal-800
-  text-white
-  p-3
-  rounded-md
-  transition
-
-  hover:scale-105
-  hover:bg-teal-900;
+  min-w-[60%]
+  max-w-[60%]
 }
 
+.form-input {
+  @apply
+  shadow
+  appearance-none
+  border
+  rounded-md
+  w-full
+  py-2 px-3
+  text-gray-700
+  leading-tight
+  focus:border-teal-700
+  focus:scale-[105%]
+  transition
+}
 
+.form-control {
+  @apply
+  shadow
+  rounded-md
+  border
+  transition
+  w-full
+  text-gray-700
+  py-2 px-3
+  focus:border-teal-700
+}
 
+.city, .state {
+  @apply
+  w-full
+}
 
+.cart-item {
+  @apply
+  flex
+  w-full
+  justify-between
+  text-slate-700
+}
+
+.payment-button {
+  @apply
+  mt-10
+  max-w-[10rem]
+  self-end
+  p-2
+  rounded-lg
+  text-white
+  bg-slate-300;
+
+  p {
+    @apply
+    m-0
+  }
+}
+
+.order-totals {
+  @apply
+  flex
+  flex-col
+  w-full
+  justify-self-end
+  justify-between
+  text-slate-700
+  border-t
+  border-solid
+  border-t-slate-300
+  pt-5
+}
+
+.total, .subtotal, .shipping {
+  @apply
+  flex
+  justify-between
+  w-full
+}

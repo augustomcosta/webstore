@@ -3,6 +3,7 @@ using WebStore.Domain.Entities.OrderAggregate;
 using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 using WebStore.Domain.Pagination;
 using WebStore.Domain.Repositories;
+using WebStore.Domain.ValueObjects;
 using WebStore.Infra.Context;
 
 namespace WebStore.Data.RepositoriesImpl;
@@ -39,7 +40,7 @@ public class OrderRepository : IOrderRepository
         throw new NotImplementedException();
     }
 
-    public async Task<Order> CreateOrder(string basketId, string userId)
+    public async Task<Order> CreateOrder(string basketId, string userId, AddressVO shippingAddress)
     {
         var basket = await _basketRepo.GetBasketAsync(basketId);
 
@@ -52,6 +53,8 @@ public class OrderRepository : IOrderRepository
         }
 
         var order = new Order(userId, orderItems);
+        order.ShippingAddress = shippingAddress;
+        
         foreach (var item in orderItems)
         {
             var subTotal = +item.Price;

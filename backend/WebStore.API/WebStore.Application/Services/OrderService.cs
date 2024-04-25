@@ -4,6 +4,7 @@ using WebStore.API.Interfaces;
 using WebStore.Domain.Entities.OrderAggregate;
 using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 using WebStore.Domain.Repositories;
+using WebStore.Domain.ValueObjects;
 
 namespace WebStore.API.Services;
 
@@ -53,9 +54,9 @@ public class OrderService : IOrderService
         await _repository.AddItemToOrder(id, orderItem);
     }
 
-    public async Task<OrderDto> CreateOrder(string basketId, string userId)
+    public async Task<OrderDto> CreateOrder(string basketId, string userId, AddressVO shippingAddress)
     {
-        var order = await _repository.CreateOrder(basketId, userId);
+        var order = await _repository.CreateOrder(basketId, userId, shippingAddress);
         if (string.IsNullOrEmpty(userId) || string.IsNullOrWhiteSpace(userId)) throw new Exception("User not found");
         return _mapper.Map<OrderDto>(order);
     }

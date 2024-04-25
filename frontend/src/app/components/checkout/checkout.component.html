@@ -1,4 +1,4 @@
-<div class="orders">
+<div class="checkout">
   <div class="flex items-center align-middle pb-[2rem]">
     <div class="flex justify-center items-center bg-gradient-to-tr
   from-gradientColor-darkAugusteal
@@ -7,9 +7,79 @@
     </div>
     <h2 class="text-start !m-0">Checkout</h2>
   </div>
-    <div class="orders-container">
-      @for(item of basket?.basketItems; track item) {
-        <p>{{ item.productName }}</p>
-      }
-    </div>
+    <div class="checkout-container">
+        <div class="stepper-container">
+          <form [formGroup]="form">
+            <h1 class="text-teal-800">Mailing Address</h1>
+            <div class="mb-6">
+              <label class="block text-teal-900 text-sm font-bold mb-2">
+                Country
+              </label>
+              <select #country class="form-control" name="country" id="country" (change)="onSelected(country.name)">
+                <option value="" disabled selected>Select Country</option>
+                @for(country of countriesData; track country.name){
+                  <option [value]="country.name">{{country.name}}</option>
+                }
+              </select>
+            </div>
+            <div class="flex flex-col">
+              <div class="flex justify-between items-center gap-3 w-full mb-4">
+                <div class="state">
+                  <label class="block text-teal-900 text-sm font-bold mb-2">
+                    State
+                  </label>
+                  <input class="form-input" id="state" type="text" placeholder="State"
+                         formControlName="state">
+                </div>
+                <div class="city">
+                  <label class="block text-teal-900 text-sm font-bold mb-2">
+                    City
+                  </label>
+                  <input class="form-input" id="city" type="text" placeholder="City"
+                         formControlName="city">
+                </div>
+              </div>
+              <div class="street">
+              <div>
+                  <label class="block text-teal-900 text-sm font-bold mb-2">
+                    Street
+                  </label>
+                  <input class="form-input" id="street" type="text" placeholder="Street"
+                         formControlName="street">
+                </div>
+              </div>
+              <button class="payment-button">
+                <p>Go to Payment -></p>
+              </button>
+          </div>
+          </form>
+        </div>
+        <div class="cart-summary">
+          <div class="cart-items-container">
+          <h1>Cart Summary</h1>
+            @for(item of basket?.basketItems; track $index) {
+              <div class="cart-item">
+                <p>{{ item.quantity }}x {{ item.productName }}</p>
+                <p>{{ item.price * item.quantity | currency}}</p>
+              </div>
+            }
+          </div>
+          <div class="order-totals">
+          @if((basketTotal$ | async); as basketTotal) {
+             <div class="subtotal">
+               <p>Subtotal:</p>
+               <p>{{ basketTotal.subTotal | currency }}</p>
+             </div>
+            <div class="shipping">
+              <p>Shipping:</p>
+              <p>{{ basketTotal.shipping | currency }}</p>
+            </div>
+            <div class="total">
+              <p class="!m-0">Total:</p>
+              <p class="!m-0">{{ basketTotal.total | currency }}</p>
+            </div>
+          }
+          </div>
+        </div>
+  </div>
 </div>

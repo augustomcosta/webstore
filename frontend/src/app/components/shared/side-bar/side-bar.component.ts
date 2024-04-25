@@ -21,6 +21,7 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { BasketService } from '../../../services/basket.service';
 import { IBasket } from '../../../core/models/basket';
+import { IBasketItem } from '../../../core/models/basketItem';
 
 @Component({
   selector: 'app-sidebar',
@@ -58,15 +59,10 @@ export class SideBarComponent implements OnInit {
   basket$: Observable<IBasket> | undefined;
   basket!: IBasket | null;
 
-  constructor() {
-    this.basketService
-      .getBasketFromLoggedUser()
-      .subscribe((basket: IBasket) => {
-        if (!this.isLoggedIn$) {
-          this.basket = null;
-        }
-        this.basket = basket;
-      });
+  constructor() {}
+
+  getCount(items: IBasketItem[]) {
+    return items.reduce((total, item) => total + item.quantity, 0);
   }
 
   logout() {

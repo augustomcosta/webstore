@@ -30,7 +30,7 @@ public sealed class Order : BaseEntity
     [Required] public ICollection<OrderItemVO> OrderItems { get; private set; }
     
     [Required] public DateTime OrderDate { get; private set; } = DateTime.Now;
-    public AddressVO ShippingAddress { get; private set; }
+    public AddressVO ShippingAddress { get; set; }
 
     public DeliveryMethod DeliveryMethod { get; private set; }
 
