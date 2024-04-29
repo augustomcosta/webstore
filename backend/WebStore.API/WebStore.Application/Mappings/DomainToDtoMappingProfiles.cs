@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using WebStore.API.DTOs;
 using WebStore.API.DTOs.BasketDtoAggregate;
+using WebStore.API.DTOs.UserDto;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.OrderAggregate;
+using WebStore.Domain.ValueObjects;
 
 namespace WebStore.API.Mappings;
 
@@ -57,5 +59,6 @@ public class DomainToDtoMappingProfiles : Profile
             src.Category
         )).ReverseMap();
         CreateMap<DeliveryMethod, DeliveryMethodDto>().ReverseMap();
+        CreateMap<AddressVO, AddressVoDto>().ReverseMap();
     }
 }

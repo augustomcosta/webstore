@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using WebStore.Domain.ValueObjects;
 
-namespace WebStore.API.DTOs;
+namespace WebStore.API.DTOs.UserDto;
 
 [DataContract]
 public record UserDto 

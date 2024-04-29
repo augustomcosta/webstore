@@ -52,4 +52,10 @@
       <Folder Include="wwwroot\images\categories\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Migrations\20240429163719_create update user address endpoint.cs" />
+      <Compile Remove="Migrations\20240429163719_create update user address endpoint.Designer.cs" />
+      <Compile Remove="Migrations\AppDbContextModelSnapshot.cs" />
+    </ItemGroup>
+
 </Project>

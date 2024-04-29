@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using WebStore.API.DTOs;
+using WebStore.API.DTOs.UserDto;
 using WebStore.API.Interfaces;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Repositories;
+using WebStore.Domain.ValueObjects;
 
 namespace WebStore.API.Services;
 
@@ -45,5 +47,14 @@ public class UserService : IUserService
     public async Task Delete(string? id)
     {
         await _repository.Delete(id);
+    }
+
+    public async Task<UserDto> UpdateUserAddress(string id, AddressVoDto addressVoDto)
+    {
+        var userAddress = _mapper.Map<AddressVO>(addressVoDto);
+        
+        var user = await _repository.UpdateUserAddress(id, userAddress);
+        
+        return _mapper.Map<UserDto>(user);
     }
 }

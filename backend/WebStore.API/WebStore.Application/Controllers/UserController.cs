@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebStore.API.DTOs;
+using WebStore.API.DTOs.UserDto;
 using WebStore.API.Interfaces;
 
 namespace WebStore.API.Controllers;
@@ -55,5 +56,12 @@ public class UserController : ControllerBase
     {
         await _service.Delete(id);
         return Ok();
+    }
+
+    [HttpPut("update-user-address")]
+    public async Task<IActionResult> UpdateUserAddress([FromQuery]string id, [FromBody]AddressVoDto addressVoDto)
+    {
+        var updatedUser = await _service.UpdateUserAddress(id, addressVoDto);
+        return Ok(updatedUser);
     }
 }

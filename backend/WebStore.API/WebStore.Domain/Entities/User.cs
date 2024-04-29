@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
-using WebStore.Domain.Entities.Base;
 using WebStore.Domain.Entities.OrderAggregate;
 using WebStore.Domain.Validation;
 using WebStore.Domain.ValueObjects;
