@@ -1,10 +1,8 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebStore.Domain.Entities;
-using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Repositories;
+using WebStore.Domain.ValueObjects;
 using WebStore.Infra.Context;
 
 namespace WebStore.Data.RepositoriesImpl;
@@ -27,6 +25,11 @@ public class UserRepository : IUserRepository
     public async Task<User> GetById(string? id)
     {
         var user = await _context.Users!.FirstOrDefaultAsync(u => u.Id == id);
+        if (user is null)
+        {
+            throw new Exception($"User with Id {id} was not found");
+        }
+        
         return user;
     }
 
@@ -52,8 +55,26 @@ public class UserRepository : IUserRepository
     public async Task<User> Delete(string? id)
     {
         var userToDelete = await _context.Users!.FirstOrDefaultAsync(u => u.Id == id);
+        if (userToDelete is null)
+        {
+            throw new Exception($"User with Id {id} was not found");
+        }
+        
         _context.Users!.Remove(userToDelete);
         await _context.SaveChangesAsync();
         return userToDelete;
+    }
+
+    public async Task<User> UpdateUserAddress([FromQuery]string? id, [FromBody]AddressVO? address)
+    {
+        var userToUpdate = await _context.Users!.FirstOrDefaultAsync(u => u.Id == id);
+        if (userToUpdate is null)
+        {
+            throw new Exception($"User with Id {id} was not found");
+        }
+        
+        userToUpdate.Address = address!;
+        
+        return userToUpdate;
     }
 }

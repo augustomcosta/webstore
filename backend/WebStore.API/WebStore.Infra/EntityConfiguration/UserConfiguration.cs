@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Newtonsoft.Json;
 using WebStore.Domain.Entities;
+using WebStore.Domain.ValueObjects;
+
 namespace WebStore.Infra.EntityConfiguration;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>

@@ -97,10 +97,10 @@ export class CheckoutComponent implements OnInit {
     this.address.neighborhood = response.bairro;
     this.address.zipCode = cep.value;
 
-    this.form.get('street')?.markAsTouched();
-    this.form.get('neighborhood')?.markAsTouched();
-    this.form.get('city')?.markAsTouched();
-    this.form.get('state')?.markAsTouched();
+    this.form.get('street')!.markAsTouched();
+    this.form.get('neighborhood')!.markAsTouched();
+    this.form.get('city')!.markAsTouched();
+    this.form.get('state')!.markAsTouched();
   }
 
   onCepBlur(event: any): void {
