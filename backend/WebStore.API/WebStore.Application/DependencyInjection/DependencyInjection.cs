@@ -188,8 +188,6 @@ public class DependencyInjection
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IBasketService, BasketService>();
         services.AddScoped<IUserService, UserService>();
-        services.AddScoped<AuthController>();
-        services.AddScoped<UserController>();
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IWishlistService, WishlistService>();
         services.AddScoped<WishlistController>();

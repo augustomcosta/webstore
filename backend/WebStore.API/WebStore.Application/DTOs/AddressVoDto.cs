@@ -25,7 +25,7 @@ public record AddressVoDto(
     string City,
     
     [Required]
-    [MinLength(3)]
+    [MinLength(2)]
     [StringLength(100)]
     string State,
     

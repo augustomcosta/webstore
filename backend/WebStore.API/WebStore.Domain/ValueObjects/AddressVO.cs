@@ -25,7 +25,7 @@ public class AddressVO
     public string City { get; private set; } = "";
     
     [Required]
-    [MinLength(3)]
+    [MinLength(2)]
     [StringLength(100)]
     public string State { get; private set; } = "";
     
@@ -66,7 +66,7 @@ public class AddressVO
     {
         DomainValidationException.When(string.IsNullOrEmpty(state),"State is required");
         DomainValidationException.When(string.IsNullOrWhiteSpace(state),"State is required");
-        DomainValidationException.When(state.Length < 3,"Invalid state. State should have at least 3 characters");
+        DomainValidationException.When(state.Length < 2,"Invalid state. State should have at least 3 characters");
         DomainValidationException.When(state.Length > 100,"Invalid state. State should have a maximum of 100 characters");
         State = state;
     }

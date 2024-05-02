@@ -9,6 +9,10 @@ import { HomeComponent } from './components/home/home.component';
 import { AsyncPipe } from '@angular/common';
 import { SideBarComponent } from './components/shared/side-bar/side-bar.component';
 import { AuthService } from './services/auth.service';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './index';
+import { environment } from './environments/environment';
 
 @Component({
   selector: 'app-root',

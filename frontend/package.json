@@ -28,6 +28,7 @@
     "@mui/icons-material": "^5.15.11",
     "@mui/material": "^5.15.11",
     "@ngrx/store": "^17.1.1",
+    "@ngrx/store-devtools": "^17.2.0",
     "ngx-pagination": "^6.0.3",
     "ngx-toastr": "^18.0.0",
     "prettier": "^3.2.5",

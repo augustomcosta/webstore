@@ -95,6 +95,12 @@
   text-white
   bg-slate-300;
 
+  &.active {
+   @apply
+   bg-teal-800
+   hover:bg-teal-900;
+  };
+
   p {
     @apply
     m-0

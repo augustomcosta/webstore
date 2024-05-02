@@ -13,7 +13,7 @@ export class UserService {
   constructor() {}
 
   updateUserAddress(id: string, address: AddressVO) {
-    this.http.put<AddressVO>(
+    return this.http.put<AddressVO>(
       this.apiUrl + `/User/update-user-address?id=${id}`,
       address,
     );

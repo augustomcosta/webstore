@@ -13,8 +13,8 @@ using WebStore.Infra.Context;
 namespace WebStore.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240429164619_create update user address endpoint")]
-    partial class createupdateuseraddressendpoint
+    [Migration("20240502134145_change adressVo state validation")]
+    partial class changeadressVostatevalidation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WebStore.API.Migrations
 {
     /// <inheritdoc />
-    public partial class createupdateuseraddressendpoint : Migration
+    public partial class changeadressVostatevalidation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
