@@ -63,9 +63,9 @@ public class OrderController : ControllerBase
     }
 
     [HttpPost("create-order")]
-    public async Task<IActionResult> CreateOrder([FromQuery] string basketId, string userId, [FromBody]AddressVO shippingAddress)
+    public async Task<IActionResult> CreateOrder([FromQuery] string basketId, string userId)
     {
-        var order = await _service.CreateOrder(basketId, userId, shippingAddress);
+        var order = await _service.CreateOrder(basketId, userId);
         if (order is null) throw new Exception("Error while creating order");
 
         return Ok(order);

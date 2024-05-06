@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.OrderAggregate;
 using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 using WebStore.Domain.Pagination;
@@ -12,16 +13,18 @@ public class OrderRepository : IOrderRepository
 {
     private readonly IBasketRepository _basketRepo;
     private readonly AppDbContext _context;
+    private readonly IUserRepository _userRepo;
 
-    public OrderRepository(AppDbContext context, IBasketRepository basketRepo)
+    public OrderRepository(AppDbContext context, IBasketRepository basketRepo, IUserRepository userRepo)
     {
         _context = context;
         _basketRepo = basketRepo;
+        _userRepo = userRepo;
     }
 
     public async Task<IEnumerable<Order>> GetAll()
     {
-        var orders = await _context.Orders.ToListAsync();
+        var orders = await _context.Orders!.ToListAsync();
         if (orders == null) throw new Exception("No orders were found.");
 
         return orders;
@@ -29,7 +32,7 @@ public class OrderRepository : IOrderRepository
 
     public async Task<Order> GetById(Guid? id)
     {
-        var orderById = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+        var orderById = await _context.Orders!.FirstOrDefaultAsync(o => o.Id == id);
         if (orderById == null) throw new Exception($"Order with Id {id} was not found.");
 
         return orderById;
@@ -40,9 +43,10 @@ public class OrderRepository : IOrderRepository
         throw new NotImplementedException();
     }
 
-    public async Task<Order> CreateOrder(string basketId, string userId, AddressVO shippingAddress)
+    public async Task<Order> CreateOrder(string basketId, string userId)
     {
         var basket = await _basketRepo.GetBasketAsync(basketId);
+        var user = await _userRepo.GetById(userId);
 
         var orderItems = new List<OrderItemVO>();
         foreach (var item in basket.BasketItems)
@@ -52,9 +56,11 @@ public class OrderRepository : IOrderRepository
             orderItems.Add(orderItem);
         }
 
-        var order = new Order(userId, orderItems);
-        order.ShippingAddress = shippingAddress;
-        
+        var order = new Order(userId, orderItems)
+        {
+            ShippingAddress = user.Address
+        };
+
         foreach (var item in orderItems)
         {
             var subTotal = +item.Price;
@@ -70,7 +76,9 @@ public class OrderRepository : IOrderRepository
 
     public async Task<Order> Update(Guid? id, Order order)
     {
-        var orderToUpdate = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+        var orderToUpdate = await _context.Orders!.FirstOrDefaultAsync(o => o.Id == id);
+        
+        if (orderToUpdate is null) throw new Exception($"Order with ID {id} not found");
 
         order.UpdateOrder(orderToUpdate);
 
@@ -79,7 +87,9 @@ public class OrderRepository : IOrderRepository
 
     public async Task<Order> Delete(Guid? id)
     {
-        var orderToDelete = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+        var orderToDelete = await _context.Orders!.FirstOrDefaultAsync(o => o.Id == id);
+        
+        if (orderToDelete is null) throw new Exception($"Order with ID {id} not found");
 
         _context.Remove(orderToDelete);
 
@@ -90,11 +100,11 @@ public class OrderRepository : IOrderRepository
 
     public async Task<Order> AddItemToOrder(Guid id, OrderItemVO orderItem)
     {
-        var orderSelected = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+        var orderSelected = await _context.Orders!.FirstOrDefaultAsync(o => o.Id == id);
 
         if (orderSelected is null) throw new Exception("Order does not exist");
 
-        orderSelected!.OrderItems.Add(orderItem);
+        orderSelected.OrderItems.Add(orderItem);
 
         await Update(id, orderSelected);
 

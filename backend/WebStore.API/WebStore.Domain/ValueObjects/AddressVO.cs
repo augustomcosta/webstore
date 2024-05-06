@@ -12,30 +12,30 @@ public class AddressVO
     [Required]
     [MinLength(3)]
     [StringLength(100)]
-    public string Street { get; private set; } = "";
+    public string Street { get;  set; } = "";
     
     [Required]
     [MinLength(3)]
     [StringLength(100)]
-    public string Neighborhood { get; private set; } = "";
+    public string Neighborhood { get;  set; } = "";
     
     [Required]
     [MinLength(3)]
     [StringLength(100)]
-    public string City { get; private set; } = "";
+    public string City { get;  set; } = "";
     
     [Required]
     [MinLength(2)]
     [StringLength(100)]
-    public string State { get; private set; } = "";
+    public string State { get;  set; } = "";
     
     [Required]
-    public string ZipCode { get; private set; } = "";
+    public string ZipCode { get;  set; } = "";
     
     [Required]
     [MinLength(1)]
     [StringLength(10)]
-    public string Number { get; private set; } = "";
+    public string Number { get;  set; } = "";
     
     public AddressVO() {}
 

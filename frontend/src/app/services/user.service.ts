@@ -18,4 +18,9 @@ export class UserService {
       address,
     );
   }
+
+  getUserAddress() {
+    const id = localStorage.getItem('userId');
+    return this.http.get<AddressVO>(this.apiUrl + `/User/${id}`);
+  }
 }

@@ -59,6 +59,13 @@ public class DomainToDtoMappingProfiles : Profile
             src.Category
         )).ReverseMap();
         CreateMap<DeliveryMethod, DeliveryMethodDto>().ReverseMap();
-        CreateMap<AddressVO, AddressVoDto>().ReverseMap();
+        CreateMap<AddressVO, AddressVoDto>().ConstructUsing(src => new AddressVoDto(
+            src.Street,
+            src.Neighborhood,
+            src.City,
+            src.State,
+            src.ZipCode,
+            src.Number
+            )).ReverseMap();
     }
 }

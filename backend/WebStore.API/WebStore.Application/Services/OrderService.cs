@@ -54,9 +54,9 @@ public class OrderService : IOrderService
         await _repository.AddItemToOrder(id, orderItem);
     }
 
-    public async Task<OrderDto> CreateOrder(string basketId, string userId, AddressVO shippingAddress)
+    public async Task<OrderDto> CreateOrder(string basketId, string userId)
     {
-        var order = await _repository.CreateOrder(basketId, userId, shippingAddress);
+        var order = await _repository.CreateOrder(basketId, userId);
         if (string.IsNullOrEmpty(userId) || string.IsNullOrWhiteSpace(userId)) throw new Exception("User not found");
         return _mapper.Map<OrderDto>(order);
     }

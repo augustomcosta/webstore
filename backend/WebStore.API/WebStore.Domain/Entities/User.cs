@@ -201,4 +201,14 @@ public class User
     {
         Id = id;
     }
+
+    public void UpdateUserAddress(AddressVO address)
+    {
+         Address.City = address.City;
+         Address.Street = address.Street;
+         Address.Neighborhood = address.Neighborhood;
+         Address.Number = address.Number;
+         Address.State = address.State;
+         Address.ZipCode = address.ZipCode;
+    }
 }

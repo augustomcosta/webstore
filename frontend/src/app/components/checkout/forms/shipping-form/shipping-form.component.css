@@ -1,0 +1,130 @@
+.checkout-container {
+  @apply
+  flex
+  flex-row
+  max-h-[70vh]
+  items-start
+  justify-between
+  gap-24
+  px-20
+  py-10
+  mx-20
+  shadow-lg
+  bg-white
+  rounded-lg
+  overflow-hidden;
+}
+
+.checkout {
+  @apply
+  flex
+  flex-col
+  mx-10;
+}
+
+.cart-summary {
+  @apply
+  flex
+  flex-col
+  justify-between
+  min-w-[30%]
+  max-w-[30%]
+  h-full;
+
+  h1 {
+    @apply
+    text-teal-800
+  }
+}
+
+.stepper-container {
+  @apply
+  min-w-[60%]
+  max-w-[60%]
+  min-h-full
+  max-h-full
+}
+
+.form-input {
+  @apply
+  shadow
+  appearance-none
+  border
+  rounded-md
+  w-full
+  py-2 px-3
+  text-gray-700
+  leading-tight
+  focus:border-teal-700
+  focus:scale-[105%]
+  transition
+}
+
+.form-control {
+  @apply
+  shadow
+  rounded-md
+  border
+  transition
+  w-full
+  text-gray-700
+  py-2 px-3
+  focus:border-teal-700
+}
+
+.city, .state {
+  @apply
+  w-full
+}
+
+.cart-item {
+  @apply
+  flex
+  w-full
+  justify-between
+  text-slate-700
+}
+
+.payment-button {
+  @apply
+  mt-10
+  max-w-[10rem]
+  self-end
+  p-2
+  rounded-lg
+  text-white
+  bg-slate-300;
+
+  &.active {
+    @apply
+    bg-teal-800
+    hover:bg-teal-900;
+  }
+;
+
+  p {
+    @apply
+    m-0
+  }
+}
+
+.order-totals {
+  @apply
+  flex
+  flex-col
+  w-full
+  justify-self-end
+  justify-between
+  text-slate-700
+  border-t
+  border-solid
+  border-t-slate-300
+  pt-5
+}
+
+.total, .subtotal, .shipping {
+  @apply
+  flex
+  justify-between
+  w-full
+}

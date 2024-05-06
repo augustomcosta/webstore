@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Repositories;
 using WebStore.Domain.ValueObjects;
@@ -72,9 +73,12 @@ public class UserRepository : IUserRepository
         {
             throw new Exception($"User with Id {id} was not found");
         }
-        
+
         userToUpdate.Address = address!;
+
+        await _context.SaveChangesAsync();
         
         return userToUpdate;
     }
+    
 }
