@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.OrderAggregate;
 using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 using WebStore.Domain.Pagination;
 using WebStore.Domain.Repositories;
-using WebStore.Domain.ValueObjects;
 using WebStore.Infra.Context;
 
 namespace WebStore.Data.RepositoriesImpl;

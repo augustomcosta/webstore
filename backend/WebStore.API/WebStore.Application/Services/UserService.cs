@@ -64,4 +64,11 @@ public class UserService : IUserService
         
         return _mapper.Map<AddressVoDto>(userAddress);
     }
+
+    public async Task<AddressVoDto> GetUserAddress(string? id)
+    {
+        var userAddress = await _repository.GetUserAddress(id);
+        
+        return _mapper.Map<AddressVoDto>(userAddress);
+    }
 }

@@ -1,6 +1,4 @@
 import { createReducer, on } from '@ngrx/store';
-import { AppState } from '../../../../../index';
-import * as ShippingActions from './shipping.actions';
 import { AddressVO } from '../../../../../core/models/address-vo';
 import {
   submitForm,

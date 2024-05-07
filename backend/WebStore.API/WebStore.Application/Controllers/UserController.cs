@@ -71,4 +71,12 @@ public class UserController : ControllerBase
         var address = await _service.GetUserAddress(id);
         return Ok(address);
     }
+
+    [HttpGet("get-user-address")]
+    public async Task<IActionResult> GetUserAddress([FromQuery] string id)
+    {
+        var userAddress = await _service.GetUserAddress(id);
+        
+        return Ok(userAddress);
+    }
 }

@@ -88,5 +88,13 @@ public class UserRepository : IUserRepository
 
         return user.Address;
     }
+
+    public async Task<AddressVO> GetUserAddress([FromQuery] string? id)
+    {
+        var user = await _context.Users!.FirstOrDefaultAsync(u => u.Id == id);
+        if (user is null) throw new Exception($"User with Id {id} was not found");
+
+        return user.Address;
+    }
     
 }

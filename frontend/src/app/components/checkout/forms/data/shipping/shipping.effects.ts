@@ -8,10 +8,12 @@ import {
 import { catchError, of, switchMap } from 'rxjs';
 import { UserService } from '../../../../../services/user.service';
 import { map } from 'rxjs/operators';
+import { AddressVO } from '../../../../../core/models/address-vo';
 
 @Injectable()
 export class ShippingEffects {
   userService = inject(UserService);
+  address = new AddressVO();
 
   submitShippingForm$ = createEffect(() =>
     this.actions$.pipe(

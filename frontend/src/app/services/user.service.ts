@@ -12,11 +12,15 @@ export class UserService {
 
   constructor() {}
 
-  updateUserAddress(id: string, address: AddressVO) {
-    return this.http.put<AddressVO>(
-      this.apiUrl + `/User/update-user-address?id=${id}`,
-      address,
-    );
+  updateUserAddress(address: AddressVO) {
+    const id = localStorage.getItem('userId');
+
+    return this.http
+      .put<AddressVO>(
+        this.apiUrl + `/User/update-user-address?id=${id}`,
+        address,
+      )
+      .subscribe();
   }
 
   getUserAddress() {
