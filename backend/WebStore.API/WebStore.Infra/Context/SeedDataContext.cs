@@ -7,18 +7,20 @@ namespace WebStore.Infra.Context;
 
 public class SeedDataContext
 {
-    public static void SeedData(string brandsData, string categoriesData, string productsData, IServiceProvider serviceProvider)
+    public static void SeedData(string brandsData, string categoriesData, string productsData, string paymentMethodsData, IServiceProvider serviceProvider)
     {
         var settings = new JsonSerializerSettings
         {
             ContractResolver = new PrivateSetterContractResolver()
         };
         
-        List<ProductBrand> brands = JsonConvert.DeserializeObject<List<ProductBrand>>(brandsData, settings)!;
+        var brands = JsonConvert.DeserializeObject<List<ProductBrand>>(brandsData, settings)!;
         
-        List<ProductCategory> categories = JsonConvert.DeserializeObject<List<ProductCategory>>(categoriesData, settings)!;
+        var categories = JsonConvert.DeserializeObject<List<ProductCategory>>(categoriesData, settings)!;
         
-        List<Product> products = JsonConvert.DeserializeObject<List<Product>>(productsData, settings)!;
+        var products = JsonConvert.DeserializeObject<List<Product>>(productsData, settings)!;
+        
+        var paymentMethods = JsonConvert.DeserializeObject<List<PaymentMethod>>(paymentMethodsData, settings)!;
         
         using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {
@@ -38,6 +40,12 @@ public class SeedDataContext
             if (!context.Products!.Any())
             {
                 context.AddRange(products);
+                context.SaveChanges();
+            }
+            
+            if (!context.PaymentMethods!.Any())
+            {
+                context.AddRange(paymentMethods);
                 context.SaveChanges();
             }
         }

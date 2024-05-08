@@ -2,9 +2,9 @@
 
 namespace WebStore.Domain.Entities;
 
-public class PaymentIntent : BaseEntity
+public class PaymentMethod : BaseEntity
 {
     public string? Name { get; set; }
 
-    public PaymentIntent(Guid id) : base(id) { }
+    public PaymentMethod(Guid id) : base(id) { }
 }

@@ -67,5 +67,6 @@ public class DomainToDtoMappingProfiles : Profile
             src.ZipCode,
             src.Number
             )).ReverseMap();
+        CreateMap<PaymentMethod, PaymentMethodDto>().ReverseMap();
     }
 }

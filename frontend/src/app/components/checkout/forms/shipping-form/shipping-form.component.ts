@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { BasketService } from '../../../../services/basket.service';
-import { catchError, Observable, of, Subscription } from 'rxjs';
+import { catchError, of } from 'rxjs';
 import {
   FormBuilder,
   FormGroup,
@@ -14,6 +14,8 @@ import { UserService } from '../../../../services/user.service';
 import { AddressVO } from '../../../../core/models/address-vo';
 import { CepResponse } from '../../../../interfaces/cep-response';
 import { submitForm } from '../data/shipping/shipping.actions';
+import * as CheckoutActions from '../../data/checkout.actions';
+import { selectFormData } from '../data/shipping/shipping.selectors';
 
 @Component({
   selector: 'app-shipping-form',
@@ -33,6 +35,15 @@ export class ShippingFormComponent implements OnInit {
 
   constructor() {
     this.address = new AddressVO();
+
+    this.shippingForm = this.fb.group({
+      street: [this.address.street, Validators.required],
+      neighborhood: [this.address.neighborhood, Validators.required],
+      city: [this.address.city, Validators.required],
+      state: [this.address.state, Validators.required],
+      cep: [this.address.zipCode, Validators.required],
+      number: [this.address.number, Validators.required],
+    });
   }
 
   searchCep(cep: string): void {
@@ -82,13 +93,9 @@ export class ShippingFormComponent implements OnInit {
   updateUserAddress() {
     this.address.number = this.shippingForm.get('number')!.value;
 
-    this.userService.updateUserAddress(
-      localStorage.getItem('userId')!,
-      this.address,
-    );
-
-    this.store.dispatch(submitForm());
-    console.log(this.address);
+    return this.userService
+      .updateUserAddress(localStorage.getItem('userId')!, this.address)
+      .subscribe();
   }
 
   private updateAddressEntity(response: CepResponse) {
@@ -109,14 +116,23 @@ export class ShippingFormComponent implements OnInit {
     });
   }
 
+  goToNextStep() {
+    this.store.dispatch(CheckoutActions.nextStep());
+    this.store.dispatch(submitForm());
+  }
+
   ngOnInit(): void {
-    this.shippingForm = this.fb.group({
-      street: [this.address.street, Validators.required],
-      neighborhood: [this.address.neighborhood, Validators.required],
-      city: [this.address.city, Validators.required],
-      state: [this.address.state, Validators.required],
-      cep: [this.address.zipCode, Validators.required],
-      number: [this.address.number, Validators.required],
+    this.store.pipe(select(selectFormData)).subscribe((address) => {
+      if (address) {
+        this.shippingForm.patchValue({
+          street: address.street,
+          neighborhood: address.neighborhood,
+          city: address.city,
+          state: address.state,
+          cep: address.zipCode,
+          number: address.number,
+        });
+      }
     });
   }
 }

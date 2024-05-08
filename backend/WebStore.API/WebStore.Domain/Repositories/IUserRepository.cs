@@ -11,5 +11,6 @@ public interface IUserRepository
     Task<User> Create(User user);
     Task<User> Update(string? id, User user);
     Task<User> Delete(string? id);
-    Task<User> UpdateUserAddress(string? id,AddressVO address);
+    Task<AddressVO> UpdateUserAddress(string? id,AddressVO address);
+    Task<AddressVO> GetUserAddress(string? id);
 }

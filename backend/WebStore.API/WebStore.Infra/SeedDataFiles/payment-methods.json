@@ -1,0 +1,14 @@
+﻿[
+  {
+    "Id": "3923b74c-ce9b-4647-9b5a-f780cbe55135",
+    "Name": "Credit Card"
+  },
+  {
+    "Id": "e10dd0d1-4017-40c0-a183-35bcba5306df",
+    "Name": "PayPal"
+  },
+  {
+    "id": "9cca783c-39fd-4080-8aaa-1d3c6946c2a6",
+    "name": "PIX"
+  }
+]

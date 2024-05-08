@@ -87,13 +87,14 @@
 
 .payment-button {
   @apply
-  mt-10
   max-w-[10rem]
   self-end
   p-2
   rounded-lg
   text-white
-  bg-slate-300;
+  bg-slate-300
+  flex items-center gap-2
+  ;
 
   &.active {
     @apply
@@ -127,4 +128,34 @@
   flex
   justify-between
   w-full
+}
+
+.stepper-buttons {
+  @apply
+  flex
+  justify-between
+  items-center
+  mt-10
+}
+
+.address-button{
+  @apply
+  max-w-[10rem]
+  self-end
+  p-2
+  rounded-lg
+  text-white
+  bg-slate-300;
+
+  &.active {
+    @apply
+    bg-teal-800
+    hover:bg-teal-900;
+  }
+;
+
+  p {
+    @apply
+    m-0
+  }
 }

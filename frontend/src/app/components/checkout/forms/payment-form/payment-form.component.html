@@ -1,1 +1,24 @@
-<p>payment-form works!</p>
+
+<form class="payment-form" action="." [formGroup]="paymentForm">
+  <h1 class="text-teal-800">Payment</h1>
+  <div class="dropdown">
+    <div class="payment-method-input">
+      <label class="block text-teal-900 text-sm font-bold mb-2">Payment Method</label>
+      <select name="payment-method" id="payment-method" formControlName="paymentMethod">
+        <option value="" disabled selected>Select your payment method</option>
+        @for(paymentMethod of paymentMethods$ | async; track paymentMethod.name){
+          <option value="{{paymentMethod.name}}">{{paymentMethod.name}}</option>
+        }
+      </select>
+    </div>
+  </div>
+    <div class="stepper-buttons">
+      <button class="address-button" type="submit" [disabled]="!paymentForm.valid" [class.active]="paymentForm.valid">
+        <p class="!m-0">Save Address</p>
+      </button>
+      <button class="payment-button" (click)="goToNextStep()" [disabled]="!paymentForm.valid" [class.active]="paymentForm.valid">
+        <p class="!m-0">Go to Payment</p>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+</form>

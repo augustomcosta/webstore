@@ -1,5 +1,9 @@
 import { createSelector } from '@ngrx/store';
-import { selectShippingState, ShippingState } from './shipping.reducer';
+
+import { AppState } from '../../../../../index';
+import { ShippingState } from './shipping.reducer';
+
+export const selectShippingState = (state: AppState) => state.shipping;
 
 export const selectFormData = createSelector(
   selectShippingState,

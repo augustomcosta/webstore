@@ -12,5 +12,6 @@ public interface IUserService
     Task<UserDto> Create(UserDto userDto);
     Task Update(string? id, UserDto userDto);
     Task Delete(string? id);
-    Task<UserDto> UpdateUserAddress(string id, AddressVoDto addressVoDto);
+    Task<AddressVoDto> UpdateUserAddress(string id, AddressVoDto addressVoDto);
+    Task<AddressVoDto> GetUserAddress(string? id);
 }

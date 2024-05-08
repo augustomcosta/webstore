@@ -46,10 +46,6 @@ export class CheckoutComponent {
     this.basketTotal$ = this.basketService.basketTotal$;
   }
 
-  goToNextStep() {
-    this.store.dispatch(CheckoutActions.nextStep());
-  }
-
   goToPreviousStep() {
     this.store.dispatch(CheckoutActions.previousStep());
   }

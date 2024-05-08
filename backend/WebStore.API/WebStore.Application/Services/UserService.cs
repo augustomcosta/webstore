@@ -49,12 +49,19 @@ public class UserService : IUserService
         await _repository.Delete(id);
     }
 
-    public async Task<UserDto> UpdateUserAddress(string id, AddressVoDto addressVoDto)
+    public async Task<AddressVoDto> UpdateUserAddress(string id, AddressVoDto addressVoDto)
     {
         var userAddress = _mapper.Map<AddressVO>(addressVoDto);
         
-        var user = await _repository.UpdateUserAddress(id, userAddress);
+        var address = await _repository.UpdateUserAddress(id, userAddress);
         
-        return _mapper.Map<UserDto>(user);
+        return _mapper.Map<AddressVoDto>(address);
+    }
+    
+    public async Task<AddressVoDto> GetUserAddress(string? id)
+    {
+        var userAddress = await _repository.GetUserAddress(id);
+        
+        return _mapper.Map<AddressVoDto>(userAddress);
     }
 }

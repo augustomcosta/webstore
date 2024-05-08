@@ -12,6 +12,7 @@ using WebStore.API.Interfaces;
 using WebStore.API.Mappings;
 using WebStore.API.Services;
 using WebStore.Data.RepositoriesImpl;
+using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Repositories;
 using WebStore.Infra.Context;
@@ -178,6 +179,7 @@ public class DependencyInjection
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IWishlistRepository, WishlistRepository>();
         services.AddScoped<IDeliveryMethodRepository, DeliveryMethodRepository>();
+        services.AddScoped<IPaymentMethodRepository<PaymentMethod>, PaymentMethodRepository>();
     }
 
     private static void AddServices(IServiceCollection services)
@@ -192,6 +194,7 @@ public class DependencyInjection
         services.AddScoped<IWishlistService, WishlistService>();
         services.AddScoped<WishlistController>();
         services.AddScoped<IDeliveryMethodService<DeliveryMethodDto>, DeliveryMethodService>();
+        services.AddScoped<IPaymentMethodService<PaymentMethodDto>, PaymentMethodService>();
     }
 
     private static void AddAutoMapper(IServiceCollection services)

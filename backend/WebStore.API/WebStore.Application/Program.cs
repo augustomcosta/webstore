@@ -68,7 +68,8 @@ app.UseStaticFiles(new StaticFileOptions
 var brandsJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/brands.json");
 var categoriesJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/categories.json");
 var productsJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/products.json");
-SeedDataContext.SeedData(brandsJson, categoriesJson, productsJson, app.Services);
+var paymentMethodsJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/payment-methods.json");
+SeedDataContext.SeedData(brandsJson, categoriesJson, productsJson, paymentMethodsJson, app.Services);
 
 app.UseRateLimiter();
 app.UseHttpsRedirection();

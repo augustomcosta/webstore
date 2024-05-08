@@ -61,7 +61,14 @@ public class UserController : ControllerBase
     [HttpPut("update-user-address")]
     public async Task<IActionResult> UpdateUserAddress([FromQuery]string id, [FromBody]AddressVoDto addressVoDto)
     {
-        var updatedUser = await _service.UpdateUserAddress(id, addressVoDto);
-        return Ok(updatedUser);
+        var updatedAddress = await _service.UpdateUserAddress(id, addressVoDto);
+        return Ok(updatedAddress);
+    }
+
+    [HttpGet("get-user-address")]
+    public async Task<IActionResult> GetUserAddress([FromQuery]string? id)
+    {
+        var address = await _service.GetUserAddress(id);
+        return Ok(address);
     }
 }

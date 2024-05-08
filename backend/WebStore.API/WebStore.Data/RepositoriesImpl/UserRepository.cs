@@ -66,7 +66,7 @@ public class UserRepository : IUserRepository
         return userToDelete;
     }
 
-    public async Task<User> UpdateUserAddress([FromQuery]string? id, [FromBody]AddressVO? address)
+    public async Task<AddressVO> UpdateUserAddress([FromQuery]string? id, [FromBody]AddressVO? address)
     {
         var userToUpdate = await _context.Users!.FirstOrDefaultAsync(u => u.Id == id);
         if (userToUpdate is null)
@@ -78,7 +78,15 @@ public class UserRepository : IUserRepository
 
         await _context.SaveChangesAsync();
         
-        return userToUpdate;
+        return userToUpdate.Address;
+    }
+
+    public async Task<AddressVO> GetUserAddress([FromQuery] string? id)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        if ( user is null) throw new Exception("User doesn't exist");
+
+        return user.Address;
     }
     
 }

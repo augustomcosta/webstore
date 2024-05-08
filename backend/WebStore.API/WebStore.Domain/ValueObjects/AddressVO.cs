@@ -59,7 +59,7 @@ public class AddressVO
     {
         DomainValidationException.When(string.IsNullOrEmpty(zipCode),"Zip Code is required");
         DomainValidationException.When(string.IsNullOrWhiteSpace(zipCode),"Zip Code is required");
-        zipCode = ZipCode;
+        ZipCode = zipCode;
     }
     
     private void ValidateState(string state)

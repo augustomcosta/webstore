@@ -9,7 +9,6 @@
   </div>
   <div class="checkout-container">
     <div class="stepper-container">
-      <h1 class="text-teal-800">Mailing Address</h1>
       @if ((stepperStep$ | async) === 1) {
         <app-shipping-form/>
       } @else if ((stepperStep$ | async) === 2) {
@@ -44,12 +43,6 @@
           </div>
         }
       </div>
-      Step:
-      @if (stepperStep$ | async; as stepperStep) {
-        <p>{{ stepperStep }}</p>
-      }
-      <button class="p-2 mb-2 bg-gradientColor-darkAugusteal" (click)="goToNextStep()">Next</button>
-      <button class="p-2 bg-gradientColor-darkAugusteal" (click)="goToPreviousStep()">Previous</button>
     </div>
   </div>
 </div>

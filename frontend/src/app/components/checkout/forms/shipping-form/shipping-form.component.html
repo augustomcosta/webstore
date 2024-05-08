@@ -1,4 +1,5 @@
 <form action="." [formGroup]="shippingForm" (ngSubmit)="updateUserAddress()">
+  <h1 class="text-teal-800">Mailing Address</h1>
   <span id="message"></span>
   <div class="cep !mb-6">
     <label class="block text-teal-900 text-sm font-bold mb-2">
@@ -47,8 +48,14 @@
                formControlName="number">
       </div>
     </div>
-    <button class="payment-button" type="submit" [disabled]="!shippingForm.valid" [class.active]="shippingForm.valid">
-      <p>Go to Payment -></p>
-    </button>
+    <div class="stepper-buttons">
+      <button class="address-button" type="submit" [disabled]="!shippingForm.valid" [class.active]="shippingForm.valid">
+        <p class="!m-0">Save Address</p>
+      </button>
+      <button class="payment-button" (click)="goToNextStep()" [disabled]="!shippingForm.valid" [class.active]="shippingForm.valid">
+        <p class="!m-0">Go to Payment</p>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
   </div>
 </form>

@@ -38,7 +38,6 @@ import { RouterLinkActive } from '@angular/router';
 export class ImageSliderComponent implements OnInit {
   @Output() categorySelected = new EventEmitter<string>();
   activeCategory: string | undefined;
-
   categoryService = inject(CategoryService);
   categories: ICategory[] = [];
   categories$: Observable<ICategory[]> | undefined;
