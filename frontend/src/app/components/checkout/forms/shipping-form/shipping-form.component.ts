@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { BasketService } from '../../../../services/basket.service';
-import { catchError, of } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import {
   FormBuilder,
   FormGroup,
@@ -16,6 +16,7 @@ import { CepResponse } from '../../../../interfaces/cep-response';
 import { submitForm } from '../data/shipping/shipping.actions';
 import * as CheckoutActions from '../../data/checkout.actions';
 import { selectFormData } from '../data/shipping/shipping.selectors';
+import { selectStepperStep } from '../../data/checkout.selectors';
 
 @Component({
   selector: 'app-shipping-form',
@@ -32,9 +33,13 @@ export class ShippingFormComponent implements OnInit {
   userService = inject(UserService);
   address!: AddressVO;
   store = inject(Store);
+  stepperStep$: Observable<number>;
+  stepperStep!: number;
 
   constructor() {
     this.address = new AddressVO();
+
+    this.stepperStep$ = this.store.pipe(select(selectStepperStep));
 
     this.shippingForm = this.fb.group({
       street: [this.address.street, Validators.required],
@@ -56,7 +61,7 @@ export class ShippingFormComponent implements OnInit {
       .pipe(
         catchError(() => {
           if (!onlyNumbers.test(cep) || !validCep.test(cep)) {
-            err = 'CEP inválido.';
+            err = 'Invalid CEP';
             return of(null);
           }
 
@@ -76,7 +81,7 @@ export class ShippingFormComponent implements OnInit {
 
   handleError(error: string): void {
     const message = document.querySelector('#message') as HTMLInputElement;
-    message.textContent = error || 'Erro ao buscar o CEP';
+    message.textContent = error || 'Error searching CEP';
   }
 
   fillAddressFields(response: CepResponse): void {
@@ -93,9 +98,7 @@ export class ShippingFormComponent implements OnInit {
   updateUserAddress() {
     this.address.number = this.shippingForm.get('number')!.value;
 
-    return this.userService
-      .updateUserAddress(localStorage.getItem('userId')!, this.address)
-      .subscribe();
+    return this.userService.updateUserAddress(this.address);
   }
 
   private updateAddressEntity(response: CepResponse) {

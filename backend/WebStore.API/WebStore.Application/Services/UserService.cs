@@ -52,17 +52,10 @@ public class UserService : IUserService
     public async Task<AddressVoDto> UpdateUserAddress(string id, AddressVoDto addressVoDto)
     {
         var userAddress = _mapper.Map<AddressVO>(addressVoDto);
-        
+
         var address = await _repository.UpdateUserAddress(id, userAddress);
-        
+
         return _mapper.Map<AddressVoDto>(address);
-    }
-    
-    public async Task<AddressVoDto> GetUserAddress(string? id)
-    {
-        var userAddress = await _repository.GetUserAddress(id);
-        
-        return _mapper.Map<AddressVoDto>(userAddress);
     }
 
     public async Task<AddressVoDto> GetUserAddress(string? id)

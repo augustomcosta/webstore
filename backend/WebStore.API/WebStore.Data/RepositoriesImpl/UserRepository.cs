@@ -80,15 +80,6 @@ public class UserRepository : IUserRepository
         
         return userToUpdate.Address;
     }
-
-    public async Task<AddressVO> GetUserAddress([FromQuery] string? id)
-    {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
-        if ( user is null) throw new Exception("User doesn't exist");
-
-        return user.Address;
-    }
-
     public async Task<AddressVO> GetUserAddress([FromQuery] string? id)
     {
         var user = await _context.Users!.FirstOrDefaultAsync(u => u.Id == id);

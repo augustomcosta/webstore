@@ -19,4 +19,12 @@ export const reducers: ActionReducerMap<AppState> = {
   shipping: shippingReducer,
 };
 
+export function getInitialAppState() {
+  const previousSettings = localStorage.getItem('checkout');
+  if (previousSettings != null) {
+    return JSON.parse(previousSettings);
+  }
+  return {};
+}
+
 export const effects = [ShippingEffects];

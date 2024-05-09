@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BasketService } from '../../services/basket.service';
 import { IBasket, IBasketTotals } from '../../core/models/basket';
@@ -8,7 +8,6 @@ import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { select, Store } from '@ngrx/store';
 import { selectStepperStep } from './data/checkout.selectors';
-import * as CheckoutActions from './data/checkout.actions';
 import { ShippingFormComponent } from './forms/shipping-form/shipping-form.component';
 import { PaymentFormComponent } from './forms/payment-form/payment-form.component';
 
@@ -27,7 +26,7 @@ import { PaymentFormComponent } from './forms/payment-form/payment-form.componen
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',
 })
-export class CheckoutComponent {
+export class CheckoutComponent implements OnInit {
   basketService = inject(BasketService);
   basket: IBasket | undefined;
   basket$: Observable<IBasket> | undefined;
@@ -46,7 +45,5 @@ export class CheckoutComponent {
     this.basketTotal$ = this.basketService.basketTotal$;
   }
 
-  goToPreviousStep() {
-    this.store.dispatch(CheckoutActions.previousStep());
-  }
+  ngOnInit(): void {}
 }

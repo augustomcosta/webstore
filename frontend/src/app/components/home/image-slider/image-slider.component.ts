@@ -15,7 +15,6 @@ import {
 } from '@angular/common';
 import { CategoryService } from '../../../services/category.service';
 import { ICategory } from '../../../core/models/category';
-import { SwiperDirective } from '../../../directives/swiper-directive';
 import { Observable } from 'rxjs';
 import { RouterLinkActive } from '@angular/router';
 
@@ -26,7 +25,6 @@ import { RouterLinkActive } from '@angular/router';
     NgOptimizedImage,
     NgForOf,
     NgStyle,
-    SwiperDirective,
     NgIf,
     NgClass,
     RouterLinkActive,

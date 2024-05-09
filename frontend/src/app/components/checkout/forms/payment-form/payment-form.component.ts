@@ -36,16 +36,6 @@ export class PaymentFormComponent implements OnInit {
     });
   }
 
-  toggleDropdown() {
-    const dropUp = document.getElementById('drop-up-content');
-
-    if (dropUp!.style.display === 'block') {
-      dropUp!.style.display = 'none';
-    }
-
-    dropUp!.style.display = 'block';
-  }
-
   getPaymentMethods() {
     return this.paymentMethodService
       .getPaymentMethods()
