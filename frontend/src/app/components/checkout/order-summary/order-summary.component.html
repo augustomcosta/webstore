@@ -1,0 +1,11 @@
+<div class="order-items">
+  @for (item of basket.basketItems; track item) {
+    <div class="order-item">
+      <img src="{{item.productImgUrl}}" alt="{{item.productName}}">
+      <h2>{{ item.productName }}</h2>
+    </div>
+  }
+</div>
+<button (click)="previousStep()">
+  <p>Previous</p>
+</button>

@@ -10,6 +10,7 @@ import { select, Store } from '@ngrx/store';
 import { selectStepperStep } from './data/checkout.selectors';
 import { ShippingFormComponent } from './forms/shipping-form/shipping-form.component';
 import { PaymentFormComponent } from './forms/payment-form/payment-form.component';
+import { OrderSummaryComponent } from './order-summary/order-summary.component';
 
 @Component({
   selector: 'app-checkout',
@@ -22,6 +23,7 @@ import { PaymentFormComponent } from './forms/payment-form/payment-form.componen
     CurrencyPipe,
     ShippingFormComponent,
     PaymentFormComponent,
+    OrderSummaryComponent,
   ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',

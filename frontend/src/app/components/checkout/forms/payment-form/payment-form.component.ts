@@ -48,6 +48,10 @@ export class PaymentFormComponent implements OnInit {
     this.store.dispatch(CheckoutActions.nextStep());
   }
 
+  goToPreviousStep() {
+    this.store.dispatch(CheckoutActions.previousStep());
+  }
+
   ngOnInit(): void {
     this.getPaymentMethods();
   }

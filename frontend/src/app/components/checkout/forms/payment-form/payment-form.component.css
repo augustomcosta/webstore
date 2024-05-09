@@ -10,3 +10,47 @@ select {
   color: #000;
   cursor: pointer;
 }
+
+.stepper-buttons {
+  @apply
+  flex
+  justify-between
+  items-center
+  mt-10
+}
+
+.summary-button {
+  @apply
+  max-w-[10rem]
+  self-end
+  p-2
+  rounded-lg
+  text-white
+  bg-slate-300
+  flex items-center gap-2;
+
+  &.active {
+    @apply
+    bg-teal-800
+    hover:bg-teal-900;
+  }
+;
+
+  p {
+    @apply
+    m-0
+  }
+}
+
+.mailing-button {
+  @apply
+  max-w-[10rem]
+  self-end
+  p-2
+  rounded-lg
+  text-white
+  bg-teal-800
+  hover:bg-teal-900
+  flex items-center gap-2;
+}
+
