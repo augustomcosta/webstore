@@ -1,0 +1,56 @@
+.credit-card-container {
+  @apply
+  flex
+  flex-row
+  max-h-[70vh]
+  items-start
+  justify-between
+  min-w-full
+  max-w-full
+  py-5;
+}
+
+.card-control {
+  @apply
+  flex
+  flex-col
+  w-full
+  py-2
+}
+
+label {
+  @apply
+  block
+  text-teal-900
+  text-sm
+  font-bold
+  mb-2
+}
+
+.form-input {
+  @apply
+  shadow
+  appearance-none
+  border
+  rounded-md
+  w-full
+  py-2 px-3
+  text-gray-700
+  leading-tight
+  focus:border-teal-700
+  focus:scale-[102%]
+  transition
+}
+
+.payment-form {
+  @apply
+  w-full
+}
+
+.card-image {
+  @apply
+  min-h-[50px]
+  max-h-[50px]
+  min-w-[50px]
+  max-w-[50px]
+}

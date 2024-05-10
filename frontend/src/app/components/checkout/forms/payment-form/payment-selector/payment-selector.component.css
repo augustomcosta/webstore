@@ -1,0 +1,18 @@
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0.675em 6em 0.675em 1em;
+  background-color: #fff;
+  border: 1px solid #caced1;
+  @apply
+  text-slate-700
+  text-sm
+  cursor-pointer
+  w-full
+  rounded-lg
+}
+
+option:hover {
+  @apply
+  bg-slate-300
+}

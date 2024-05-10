@@ -1,0 +1,26 @@
+<form action="" [formGroup]="paymentMethodForm">
+  <div class="dropdown">
+    <div class="payment-method-input">
+      <label class="block text-teal-900 text-sm font-bold mb-2">Payment Method</label>
+      <select name="payment-method" id="payment-method" formControlName="paymentMethod">
+        <option value="" disabled selected class="!text-slate-300">Select your payment method</option>
+        @for (paymentMethod of paymentMethods$ | async; track paymentMethod.name) {
+          <option class="!focus:bg-slate-300" value="{{paymentMethod.name}}">{{ paymentMethod.name }}
+          </option>
+        }
+      </select>
+      @if (paymentMethodForm.get('paymentMethod')?.value) {
+        <div>
+          @if (paymentMethodForm.get('paymentMethod')?.value === 'Credit Card') {
+            <app-credit-card-form (formValidityChanged)="updateFormValidity($event)"/>
+          } @else if (paymentMethodForm.get('paymentMethod')?.value === 'PayPal') {
+            <app-paypal-form/>
+          } @else {
+            <app-pix-form/>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</form>
+

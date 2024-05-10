@@ -2,7 +2,7 @@
   <h1 class="text-teal-800">Mailing Address</h1>
   <span id="message"></span>
   <div class="cep !mb-6">
-    <label class="block text-teal-900 text-sm font-bold mb-2">
+    <label>
       CEP
     </label>
     <input class="form-input" id="cep" type="text" placeholder="CEP"
@@ -11,14 +11,14 @@
   <div class="flex flex-col">
     <div class="flex justify-between items-center gap-3 w-full mb-4">
       <div class="state">
-        <label class="block text-teal-900 text-sm font-bold mb-2">
+        <label>
           State
         </label>
         <input class="form-input" id="state" type="text" placeholder="State"
                formControlName="state">
       </div>
       <div class="city">
-        <label class="block text-teal-900 text-sm font-bold mb-2">
+        <label>
           City
         </label>
         <input class="form-input" id="city" type="text" placeholder="City"
@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="neighborhood !mb-6">
-      <label class="block text-teal-900 text-sm font-bold mb-2">
+      <label>
         Neighborhood
       </label>
       <input class="form-input" id="neighborhood" type="text" placeholder="Neighborhood"
@@ -34,14 +34,14 @@
     </div>
     <div class="flex  items-center gap-3 w-full">
       <div class="street w-[70%]">
-        <label class="block text-teal-900 text-sm font-bold mb-2">
+        <label>
           Street
         </label>
         <input class="form-input" id="street" type="text" placeholder="Street"
                formControlName="street">
       </div>
       <div class="number w-[30%]">
-        <label class="block text-teal-900 text-sm font-bold mb-2">
+        <label>
           Number
         </label>
         <input class="form-input" id="number" type="text" placeholder="Number"
@@ -52,7 +52,8 @@
       <button class="address-button" type="submit" [disabled]="!shippingForm.valid" [class.active]="shippingForm.valid">
         <p class="!m-0">Save Address</p>
       </button>
-      <button class="payment-button" (click)="goToNextStep()" [disabled]="!shippingForm.valid" [class.active]="shippingForm.valid">
+      <button class="payment-button" (click)="goToNextStep()" [disabled]="!shippingForm.valid"
+              [class.active]="shippingForm.valid">
         <p class="!m-0">Go to Payment</p>
         <i class="fa-solid fa-arrow-right"></i>
       </button>

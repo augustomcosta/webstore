@@ -1,0 +1,29 @@
+<div class="credit-card-container">
+  <form class="payment-form" action="." [formGroup]="creditCardForm">
+    <div class="card-control">
+      <label>Card Number</label>
+      <input class="form-input" id="cardNumber" type="text" placeholder="Card Number"
+             formControlName="cardNumber" required pattern="[0-9]*">
+      @if (cardBrand) {
+        <img [src]="cardBrandImages[cardBrand]" alt="" class="card-image">
+      }
+    </div>
+    <div class="card-control">
+      <label>Name on Card</label>
+      <input class="form-input" id="nameOnCard" type="text" placeholder="Name on Card"
+             formControlName="nameOnCard">
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="card-control">
+        <label>CVC</label>
+        <input class="form-input" id="expiryDate" type="text" placeholder="CVC"
+               formControlName="CVC">
+      </div>
+      <div class="card-control">
+        <label>Expiry Date</label>
+        <input class="form-input" id="cvc" type="text" placeholder="Expiry Date"
+               formControlName="expiryDate">
+      </div>
+    </div>
+  </form>
+</div>

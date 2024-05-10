@@ -7,8 +7,9 @@ select {
   background-color: #fff;
   border: 1px solid #caced1;
   border-radius: 0.25rem;
-  color: #000;
   cursor: pointer;
+  @apply
+  text-slate-700
 }
 
 .stepper-buttons {
@@ -16,7 +17,7 @@ select {
   flex
   justify-between
   items-center
-  mt-10
+  mt-2
 }
 
 .summary-button {
@@ -54,3 +55,11 @@ select {
   flex items-center gap-2;
 }
 
+.payment-form {
+  @apply
+  flex
+  flex-col
+  justify-between
+  min-h-full
+  min-w-full
+}

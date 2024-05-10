@@ -56,6 +56,8 @@
       <Compile Remove="Migrations\20240429163719_create update user address endpoint.cs" />
       <Compile Remove="Migrations\20240429163719_create update user address endpoint.Designer.cs" />
       <Compile Remove="Migrations\AppDbContextModelSnapshot.cs" />
+      <Compile Remove="Migrations\20240509115946_add payment method.cs" />
+      <Compile Remove="Migrations\20240509115946_add payment method.Designer.cs" />
     </ItemGroup>
 
 </Project>
