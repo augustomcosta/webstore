@@ -49,8 +49,27 @@ label {
 
 .card-image {
   @apply
-  min-h-[50px]
-  max-h-[50px]
-  min-w-[50px]
-  max-w-[50px]
+  min-h-[30px]
+  max-h-[30px]
+}
+
+.card-input {
+  @apply
+  flex
+  items-center
+  max-h-full
+  min-h-full
+  w-full
+  gap-2
+}
+
+input:focus:invalid {
+  @apply
+  border-red-300
+  bg-red-100
+}
+
+input:valid {
+  @apply
+  border-teal-700
 }

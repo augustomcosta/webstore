@@ -1,4 +1,11 @@
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,6 +15,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { CreditCardBrand } from '../../../../../../shared/enum/credit-card-brands';
 import { NgOptimizedImage } from '@angular/common';
+import { IPaymentMethod } from '../../../../../../core/models/payment-method';
 
 @Component({
   selector: 'app-credit-card-form',
@@ -24,6 +32,7 @@ export class CreditCardFormComponent implements OnInit {
     new EventEmitter<boolean>();
   cardBrand: CreditCardBrand | undefined;
   cardBrandImages: { [key in CreditCardBrand]: string };
+  @Input() paymentMethodSelected!: IPaymentMethod;
 
   constructor() {
     this.cardBrandImages = {
@@ -56,9 +65,51 @@ export class CreditCardFormComponent implements OnInit {
       this.formValidityChanged.emit(this.creditCardForm.valid);
     });
 
+    const expiryDateControl = this.creditCardForm.get('expiryDate');
+    expiryDateControl!.valueChanges.subscribe((value) => {
+      if (value) {
+        const formattedValue = this.formatExpiryDate(value);
+        expiryDateControl!.setValue(formattedValue, { emitEvent: false });
+      }
+    });
+
     this.creditCardForm.get('cardNumber')!.valueChanges.subscribe(() => {
       this.cardSelection();
     });
+
+    this.creditCardForm.get('cardNumber')!.valueChanges.subscribe((value) => {
+      if (value) {
+        const formattedValue = this.formatCardNumber(value);
+        this.creditCardForm
+          .get('cardNumber')!
+          .setValue(formattedValue, { emitEvent: false });
+      }
+    });
+  }
+
+  formatCardNumber(value: string): string {
+    const numericValue = value.replace(/\s+/g, '');
+    let formattedValue = '';
+    for (let i = 0; i < numericValue.length; i++) {
+      if (i > 0 && i % 4 === 0) {
+        formattedValue += ' ';
+      }
+      formattedValue += numericValue[i];
+    }
+    return formattedValue;
+  }
+
+  formatExpiryDate(value: string): string {
+    const numericValue = value.replace(/\D/g, '');
+    let formattedValue = '';
+
+    if (numericValue.length > 0) {
+      formattedValue = numericValue.slice(0, 2);
+    }
+    if (numericValue.length > 2) {
+      formattedValue += '/' + numericValue.slice(2, 6);
+    }
+    return formattedValue;
   }
 
   cardSelection() {
