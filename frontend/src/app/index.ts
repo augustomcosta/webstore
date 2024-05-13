@@ -9,15 +9,21 @@ import {
 } from './components/checkout/forms/data/shipping/shipping.reducer';
 import { ShippingEffects } from './components/checkout/forms/data/shipping/shipping.effects';
 import { localStorageSync } from 'ngrx-store-localstorage';
+import {
+  paymentReducer,
+  PaymentState,
+} from './components/checkout/forms/payment-form/data/payment.reducer';
 
 export interface AppState {
   checkout: CheckoutState;
   shipping: ShippingState;
+  payment: PaymentState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   checkout: checkoutReducer,
   shipping: shippingReducer,
+  payment: paymentReducer,
 };
 
 export function getInitialAppState() {
@@ -35,6 +41,7 @@ export function localStorageSyncReducer(
     keys: [
       { checkout: ['stepperStep'] },
       { shipping: ['formData', 'submitting', 'error'] },
+      { payment: ['formData', 'submitting', 'error'] },
     ],
     rehydrate: true,
   })(reducer);
