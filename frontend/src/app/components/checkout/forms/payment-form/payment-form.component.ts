@@ -11,7 +11,7 @@ import { PaymentMethodService } from '../../../../services/payment-method.servic
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import * as CheckoutActions from '../../data/checkout.actions';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { CreditCardFormComponent } from './payment-form-options/credit-card-form/credit-card-form.component';
 import { PaypalFormComponent } from './payment-form-options/paypal-form/paypal-form.component';
 import { PixFormComponent } from './payment-form-options/pix-form/pix-form.component';

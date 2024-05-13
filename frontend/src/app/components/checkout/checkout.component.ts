@@ -11,6 +11,7 @@ import { selectStepperStep } from './data/checkout.selectors';
 import { ShippingFormComponent } from './forms/shipping-form/shipping-form.component';
 import { PaymentFormComponent } from './forms/payment-form/payment-form.component';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
+import { CartSummaryComponent } from './cart-summary/cart-summary.component';
 
 @Component({
   selector: 'app-checkout',
@@ -24,27 +25,18 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
     ShippingFormComponent,
     PaymentFormComponent,
     OrderSummaryComponent,
+    CartSummaryComponent,
   ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',
 })
 export class CheckoutComponent implements OnInit {
-  basketService = inject(BasketService);
-  basket: IBasket | undefined;
-  basket$: Observable<IBasket> | undefined;
-  basketTotal$: Observable<IBasketTotals> | undefined;
   http = inject(HttpClient);
   store = inject(Store);
   stepperStep$: Observable<number>;
 
   constructor() {
-    this.basketTotal$ = this.basketService.basketTotal$;
     this.stepperStep$ = this.store.pipe(select(selectStepperStep));
-    this.basket$ = this.basketService.basket$;
-    this.basketService.getBasketFromLoggedUser().subscribe((basket) => {
-      this.basket = basket;
-    });
-    this.basketTotal$ = this.basketService.basketTotal$;
   }
 
   ngOnInit(): void {}
