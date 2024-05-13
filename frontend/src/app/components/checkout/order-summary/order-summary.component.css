@@ -8,11 +8,19 @@
 
 .order-item {
   @apply
-  flex;
+  flex
+  flex-row;
+}
+
+.image-container {
+  @apply
+  min-h-[70px]
+  max-h-[70px]
+  min-w-[70px]
+  max-w-[70px];
 
   img {
     @apply
-    min-h-[75px]
-    max-h-[75px]
+    object-contain
   }
 }

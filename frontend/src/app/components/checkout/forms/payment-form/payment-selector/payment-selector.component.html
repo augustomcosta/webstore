@@ -12,7 +12,8 @@
       @if (paymentMethodForm.get('paymentMethod')?.value) {
         <div>
           @if (paymentMethodForm.get('paymentMethod')?.value === 'Credit Card') {
-            <app-credit-card-form (formValidityChanged)="updateFormValidity($event)"/>
+            <app-credit-card-form [paymentMethodSelected]="paymentMethodSelected"
+                                  (formValidityChanged)="updateFormValidity($event)"/>
           } @else if (paymentMethodForm.get('paymentMethod')?.value === 'PayPal') {
             <app-paypal-form/>
           } @else {

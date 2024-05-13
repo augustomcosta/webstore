@@ -17,33 +17,10 @@
         <app-order-summary/>
       }
     </div>
-    <div class="cart-summary">
-      <div class="cart-items-container">
-        <h1>Cart Summary</h1>
-        @for (item of basket?.basketItems; track $index) {
-          <div class="cart-item">
-            <p>{{ item.quantity }}x {{ item.productName }}</p>
-            <p>{{ item.price * item.quantity | currency }}</p>
-          </div>
-        }
-      </div>
-      <div class="order-totals">
-        @if ((basketTotal$ | async); as basketTotal) {
-          <div class="subtotal">
-            <p>Subtotal:</p>
-            <p>{{ basketTotal.subTotal | currency }}</p>
-          </div>
-          <div class="shipping">
-            <p>Shipping:</p>
-            <p>{{ basketTotal.shipping | currency }}</p>
-          </div>
-          <div class="total">
-            <p class="!m-0">Total:</p>
-            <p class="!m-0">{{ basketTotal.total | currency }}</p>
-          </div>
-        }
-      </div>
+    <div class="cart-container">
+      <app-cart-summary/>
     </div>
   </div>
 </div>
+
 

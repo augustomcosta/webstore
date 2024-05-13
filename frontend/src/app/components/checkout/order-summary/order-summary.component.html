@@ -1,11 +1,17 @@
 <div class="order-items">
   @for (item of basket.basketItems; track item) {
     <div class="order-item">
-      <img src="{{item.productImgUrl}}" alt="{{item.productName}}">
+      <div class="image-container">
+        <img src="{{item.productImgUrl}}" alt="{{item.productName}}">
+      </div>
       <h2>{{ item.productName }}</h2>
     </div>
   }
 </div>
 <button (click)="previousStep()">
-  <p>Previous</p>
+  <p>Back to Payment</p>
 </button>
+<button>
+  <p>Place Order</p>
+</button>
+
