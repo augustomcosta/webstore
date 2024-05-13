@@ -1,0 +1,23 @@
+﻿[
+  {
+    "id": "25d92a99-ff7f-4e3e-a931-40d56008ba19",
+    "name": "FedEx Express",
+    "deliveryTime": "3 days",
+    "description": "FedEx ultra fast delivery",
+    "price": 15
+  },
+  {
+    "id": "477fab45-5dfe-4045-aa94-933fae45279b",
+    "name": "JadLog",
+    "deliveryTime": "9 days",
+    "description": "JadLog normal delivery",
+    "price": 10
+  },
+  {
+    "id": "54b1f0c9-c950-45aa-9db9-70cefa18c89f",
+    "name": "Correios",
+    "deliveryTime": "12 days",
+    "description": "Correios normal delivery",
+    "price": 5
+  }
+]
