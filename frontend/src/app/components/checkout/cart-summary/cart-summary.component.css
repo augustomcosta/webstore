@@ -1,0 +1,65 @@
+.order-totals {
+  @apply
+  flex
+  flex-col
+  w-full
+  justify-self-end
+  justify-between
+  text-slate-700
+  border-t
+  border-solid
+  border-t-slate-300
+  pt-5
+}
+
+.total, .subtotal, .shipping {
+  @apply
+  flex
+  justify-between
+  w-full
+}
+
+.cart-item {
+  @apply
+  flex
+  w-full
+  justify-between
+  text-slate-700
+}
+
+.cart-summary {
+  @apply
+  flex
+  flex-col
+  justify-between
+  h-full
+  w-full;
+
+  h1 {
+    @apply
+    text-teal-800
+  }
+}
+
+.cart-items-container {
+  @apply
+  flex
+  flex-col
+  justify-between
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0.675em 1em 0.675em 1em;
+  background-color: #fff;
+  border: 1px solid #caced1;
+  @apply
+  text-slate-700
+  text-sm
+  cursor-pointer
+  w-full
+  rounded-lg
+}
+
+
