@@ -11,11 +11,14 @@ import { PaymentMethodService } from '../../../../services/payment-method.servic
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import * as CheckoutActions from '../../data/checkout.actions';
+import * as PaymentActions from './data/payment.actions';
 import { select, Store } from '@ngrx/store';
 import { CreditCardFormComponent } from './payment-form-options/credit-card-form/credit-card-form.component';
 import { PaypalFormComponent } from './payment-form-options/paypal-form/paypal-form.component';
 import { PixFormComponent } from './payment-form-options/pix-form/pix-form.component';
 import { PaymentSelectorComponent } from './payment-selector/payment-selector.component';
+import { selectFormData } from '../data/shipping/shipping.selectors';
+import { selectPaymentData } from './data/payment.selectors';
 
 @Component({
   selector: 'app-payment-form',
@@ -42,6 +45,13 @@ export class PaymentFormComponent implements OnInit {
 
   updateOverallFormValidity(isValid: boolean) {
     this.isFormValid = isValid;
+  }
+
+  selectPaymentMethod(payment: string) {
+    this.paymentForm.patchValue({
+      paymentMethod: payment,
+    });
+    this.store.dispatch(PaymentActions.submitPayment({ payment }));
   }
 
   constructor() {

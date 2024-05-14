@@ -13,9 +13,7 @@ import {
 import { IPaymentMethod } from '../../../../../core/models/payment-method';
 import { PaymentMethodService } from '../../../../../services/payment-method.service';
 import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
-import { selectPaymentData } from '../data/payment.selectors';
-import { submitForm } from '../data/payment.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-payment-selector',
@@ -41,7 +39,8 @@ export class PaymentSelectorComponent implements OnInit {
     new EventEmitter<boolean>();
   activeFormValidity = false;
   store = inject(Store);
-  paymentMethodSelected!: IPaymentMethod;
+  @Output() paymentMethodOutput: EventEmitter<string> =
+    new EventEmitter<string>();
 
   updateFormValidity(isValid: boolean) {
     this.activeFormValidity = isValid;
@@ -66,18 +65,10 @@ export class PaymentSelectorComponent implements OnInit {
       paymentMethod: ['', Validators.required],
     });
 
-    this.paymentMethodSelected =
-      this.paymentMethodForm.get('paymentMethod')?.value;
-
-    this.store.pipe(select(selectPaymentData)).subscribe((paymentMethod) => {
-      if (paymentMethod) {
-        this.paymentMethodForm.patchValue({
-          paymentMethod: paymentMethod.name,
-        });
-      }
+    console.log(localStorage.getItem('payment'));
+    
+    this.paymentMethodForm.valueChanges.subscribe((payment: string) => {
+      this.paymentMethodOutput.emit(payment);
     });
   }
-
-  protected readonly submitForm = submitForm;
-  protected readonly onchange = onchange;
 }
