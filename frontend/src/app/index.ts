@@ -27,10 +27,24 @@ export const reducers: ActionReducerMap<AppState> = {
 };
 
 export function getInitialAppState() {
-  const previousSettings = localStorage.getItem('checkout');
-  if (previousSettings != null) {
-    return JSON.parse(previousSettings);
+  const previousCheckoutSettings = localStorage.getItem('checkout');
+
+  const previousShippingSettings = localStorage.getItem('shipping');
+
+  const previousPaymentSettings = localStorage.getItem('payment');
+
+  if (previousCheckoutSettings != null) {
+    return JSON.parse(previousCheckoutSettings);
   }
+
+  if (previousShippingSettings != null) {
+    return JSON.parse(previousShippingSettings);
+  }
+
+  if (previousPaymentSettings != null) {
+    return JSON.parse(previousPaymentSettings);
+  }
+
   return {};
 }
 
@@ -41,7 +55,7 @@ export function localStorageSyncReducer(
     keys: [
       { checkout: ['stepperStep'] },
       { shipping: ['formData', 'submitting', 'error'] },
-      { payment: ['formData', 'submitting', 'error'] },
+      { payment: ['value'] },
     ],
     rehydrate: true,
   })(reducer);
