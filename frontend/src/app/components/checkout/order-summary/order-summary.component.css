@@ -4,23 +4,125 @@
   flex-col
   justify-between
   items-center
+  gap-2;
 }
 
 .order-item {
   @apply
   flex
-  flex-row;
+  items-center
+  justify-start
+  gap-6
+  bg-slate-200
+  text-teal-800
+  w-full
+  py-2
+  pl-2
+  pr-4
+  rounded-lg
+  border border-solid border-slate-100;
+
+  p {
+    @apply
+    m-0
+    text-slate-500
+  }
+
+  h3 {
+    @apply
+    text-sm
+    m-0
+  }
 }
 
 .image-container {
   @apply
-  min-h-[70px]
-  max-h-[70px]
-  min-w-[70px]
-  max-w-[70px];
+  min-h-[50px]
+  max-h-[50px]
+  min-w-[50px]
+  max-w-[50px]
+  bg-white
+  rounded-md;
 
   img {
     @apply
     object-contain
+    h-[50px]
+    w-[50px]
+    overflow-hidden
+    rounded-md;
   }
+}
+
+.buttons-container {
+  @apply
+  flex
+  w-full
+  justify-between
+  items-center;
+}
+
+.order-summary {
+  @apply
+  flex
+  flex-col
+  gap-10
+}
+
+.stepper-button-previous {
+  @apply
+  max-w-[10rem]
+  self-end
+  p-2
+  transition
+  rounded-lg
+  text-white
+  bg-teal-800
+  hover:bg-teal-900;
+
+  p {
+    @apply
+    m-0
+  }
+}
+
+.item-info {
+  @apply
+  flex
+  justify-between
+  w-full
+  items-center
+}
+
+.order-submit-button {
+  @apply
+  max-w-[10rem]
+  self-end
+  p-2
+  transition
+  rounded-lg
+  text-white
+  bg-teal-800
+  hover:bg-teal-900;
+
+  p {
+    @apply
+    m-0
+  }
+}
+
+.totals-container {
+  @apply
+  flex
+  w-full
+  justify-between
+  items-center
+  text-center
+}
+
+.item-button {
+  @apply
+  hover:border-b
+  hover:border-b-teal-800
+  transition
 }
