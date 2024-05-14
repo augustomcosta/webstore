@@ -1,7 +1,8 @@
 <form class="payment-form" action="." [formGroup]="paymentForm">
   <h1 class="text-teal-800">Payment</h1>
   <div class="payment-form-container">
-    <app-payment-selector (formValidityChanged)="updateOverallFormValidity($event)"/>
+    <app-payment-selector (formValidityChanged)="updateOverallFormValidity($event)"
+                          (paymentMethodOutput)="selectPaymentMethod($event)"/>
   </div>
   <div class="stepper-buttons">
     <button class="mailing-button" (click)="goToPreviousStep()">
