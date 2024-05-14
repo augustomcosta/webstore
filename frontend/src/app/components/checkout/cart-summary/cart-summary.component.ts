@@ -58,6 +58,11 @@ export class CartSummaryComponent implements OnInit {
     });
   }
 
+  setBasketShippingPrice() {
+    this.basket!.shippingPrice = this.deliveryPrice;
+    this.basketService.setBasket(this.basket!);
+  }
+
   getDeliveryMethods() {
     return this.deliveryMethodService
       .getDeliveryMethods()

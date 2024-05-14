@@ -62,4 +62,33 @@ select {
   rounded-lg
 }
 
+.save-shipping {
+  @apply
+  max-w-[15rem]
+  self-end
+  p-2
+  transition
+  rounded-lg
+  text-white
+  text-sm
+  bg-slate-300;
 
+  &.active {
+    @apply
+    bg-teal-800
+    hover:bg-teal-900;
+  }
+
+  p {
+    @apply
+    m-0
+  }
+}
+
+.shipping-form-container {
+  @apply
+  flex
+  flex-col
+  justify-between
+  gap-3
+}

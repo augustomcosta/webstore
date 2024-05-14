@@ -32,7 +32,6 @@ export class CreditCardFormComponent implements OnInit {
     new EventEmitter<boolean>();
   cardBrand: CreditCardBrand | undefined;
   cardBrandImages: { [key in CreditCardBrand]: string };
-  @Input() paymentMethodSelected!: IPaymentMethod;
 
   constructor() {
     this.cardBrandImages = {
