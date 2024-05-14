@@ -26,6 +26,7 @@ select {
   self-end
   p-2
   rounded-lg
+  transition
   text-white
   bg-slate-300
   flex items-center gap-2;
@@ -49,6 +50,7 @@ select {
   self-end
   p-2
   rounded-lg
+  transition
   text-white
   bg-teal-800
   hover:bg-teal-900
