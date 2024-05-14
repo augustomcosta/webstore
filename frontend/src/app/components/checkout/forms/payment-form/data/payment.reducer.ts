@@ -1,35 +1,18 @@
 import { createReducer, on } from '@ngrx/store';
-
-import { PaymentMethod } from '../../../../../core/models/payment-method';
-import {
-  submitForm,
-  submitFormFailure,
-  submitFormSuccess,
-} from './payment.actions';
+import { submitPayment } from './payment.actions';
 
 export interface PaymentState {
-  formData: PaymentMethod;
-  submitting: boolean;
-  error: any;
+  value: string;
 }
 
 const initialState: PaymentState = {
-  formData: new PaymentMethod(),
-  submitting: false,
-  error: null,
+  value: '',
 };
 
 export const paymentReducer = createReducer(
   initialState,
-  on(submitForm, (state) => ({ ...state, submitting: true })),
-  on(submitFormSuccess, (state, { formData }) => ({
+  on(submitPayment, (state, { payment }) => ({
     ...state,
-    formData,
-    submitting: false,
-  })),
-  on(submitFormFailure, (state, { error }) => ({
-    ...state,
-    submitting: false,
-    error,
+    value: payment,
   })),
 );

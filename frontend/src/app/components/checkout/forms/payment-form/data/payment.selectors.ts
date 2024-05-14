@@ -6,5 +6,5 @@ export const selectPaymentState = (state: AppState) => state.payment;
 
 export const selectPaymentData = createSelector(
   selectPaymentState,
-  (state: PaymentState) => state.formData,
+  (state: PaymentState) => state.value,
 );
