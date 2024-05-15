@@ -1,44 +1,47 @@
-<div class="order-summary">
-  <div class="order-items">
-    @for (item of basket.basketItems; track item) {
-      <div class="order-item">
-        <div class="image-container">
-          <img src="{{item.productImgUrl}}" alt="{{item.productName}}">
+@if (basket) {
+  <div class="order-summary">
+    <div class="order-items">
+      @for (item of basket.basketItems; track item) {
+        <div class="order-item">
+          <div class="image-container">
+            <img src="{{item.productImgUrl}}" alt="{{item.productName}}">
+          </div>
+          <div class="item-info">
+            <button class="item-button" [routerLink]="['/items', item.id]">
+              <h3>{{ item.productName }}</h3>
+            </button>
+            <p>{{ item.price * item.quantity | currency }}</p>
+            <p>x{{ item.quantity }}</p>
+          </div>
         </div>
-        <div class="item-info">
-          <button class="item-button" [routerLink]="['/items', item.id]">
-            <h3>{{ item.productName }}</h3>
-          </button>
-          <p>{{ item.price * item.quantity | currency }}</p>
-          <p>x{{ item.quantity }}</p>
+      }
+    </div>
+    <div class="totals-container">
+      @if ((basketTotal$ | async); as basketTotal) {
+        <div class="subtotal">
+          <p class="text-teal-800">Subtotal</p>
+          <p class="text-slate-700">{{ basketTotal.subTotal | currency }}</p>
         </div>
-      </div>
-    }
+        <div class="shipping">
+          <p class="text-teal-800">Shipping</p>
+          <p class="text-slate-700">{{ basketTotal.shipping | currency }}</p>
+        </div>
+        <div class="total">
+          <p class="text-teal-800">Total</p>
+          <p class="text-slate-700">{{ basketTotal.total | currency }}</p>
+        </div>
+      }
+    </div>
+    <div class="buttons-container">
+      <button class="stepper-button-previous" (click)="previousStep()">
+        <p>Back to Payment</p>
+      </button>
+      <button class="order-submit-button">
+        <p>Place Order</p>
+      </button>
+    </div>
   </div>
-  <div class="totals-container">
-    @if ((basketTotal$ | async); as basketTotal) {
-      <div class="subtotal">
-        <p class="text-teal-800">Subtotal</p>
-        <p class="text-slate-700">{{ basketTotal.subTotal | currency }}</p>
-      </div>
-      <div class="shipping">
-        <p class="text-teal-800">Shipping</p>
-        <p class="text-slate-700">{{ basketTotal.shipping | currency }}</p>
-      </div>
-      <div class="total">
-        <p class="text-teal-800">Total</p>
-        <p class="text-slate-700">{{ basketTotal.total | currency }}</p>
-      </div>
-    }
-  </div>
-  <div class="buttons-container">
-    <button class="stepper-button-previous" (click)="previousStep()">
-      <p>Back to Payment</p>
-    </button>
-    <button class="order-submit-button">
-      <p>Place Order</p>
-    </button>
-  </div>
-</div>
+}
+
 
 

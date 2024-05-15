@@ -58,7 +58,12 @@ public class DomainToDtoMappingProfiles : Profile
             src.Brand,
             src.Category
         )).ReverseMap();
-        CreateMap<DeliveryMethod, DeliveryMethodDto>().ReverseMap();
+        CreateMap<DeliveryMethod, DeliveryMethodDto>().ConstructUsing(src => new DeliveryMethodDto(
+            src.Id,
+            src.Name,
+            src.DeliveryTime,
+            src.Description,
+            src.Price)).ReverseMap();
         CreateMap<AddressVO, AddressVoDto>().ConstructUsing(src => new AddressVoDto(
             src.Street,
             src.Neighborhood,

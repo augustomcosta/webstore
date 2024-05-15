@@ -10,18 +10,18 @@
     <div>
       <form action="" [formGroup]="deliveryMethodForm">
         <div class="shipping-form-container">
-          <select name="delivery-method" id="delivery-method" formControlName="deliveryMethod"
-                  (change)="getShippingPrice()">
+          <select name="deliveryMethod" id="deliveryMethod" formControlName="deliveryMethod"
+                  (change)="getShippingPrice();">
             <option value="" disabled selected>
               <p>Select your delivery method</p>
             </option>
-            @for (deliveryMethod of deliveryMethods$ | async; track deliveryMethod) {
-              <option value="{{deliveryMethod.price}}" class="w-full">
-                <p>{{ deliveryMethod.name }}  {{ deliveryMethod.price | currency }} {{ deliveryMethod.deliveryTime }}</p>
+            @for (deliveryMethod of deliveryMethods; track $index) {
+              <option [ngValue]="deliveryMethod" class="w-full">
+                <p>{{ deliveryMethod.name }} {{ deliveryMethod.price | currency }} {{ deliveryMethod.deliveryTime }}</p>
               </option>
             }
           </select>
-          <button class="save-shipping" (click)="setBasketShippingPrice()" type="submit"
+          <button class="save-shipping" (click)="setBasketShippingPrice();" type="submit"
                   [disabled]="!this.deliveryMethodForm.valid" [class.active]="this.deliveryMethodForm.valid">
             <p>Save option</p>
           </button>

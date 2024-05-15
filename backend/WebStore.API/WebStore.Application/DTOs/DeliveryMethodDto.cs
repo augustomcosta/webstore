@@ -5,6 +5,7 @@ namespace WebStore.API.DTOs;
 
 [DataContract]
 public record DeliveryMethodDto(
+    Guid Id,
     [Required]string Name,
     
     [Required] string DeliveryTime,

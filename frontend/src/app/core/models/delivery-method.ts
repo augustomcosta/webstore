@@ -5,3 +5,13 @@ export interface IDeliveryMethod {
   description: string;
   price: number;
 }
+
+export class DeliveryMethod implements IDeliveryMethod {
+  deliveryTime = '';
+  description = '';
+  id = '';
+  name = '';
+  price = 0;
+
+  constructor() {}
+}

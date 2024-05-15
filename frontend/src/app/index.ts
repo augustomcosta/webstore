@@ -4,6 +4,8 @@ import {
 } from './components/checkout/data/checkout.reducer';
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import {
+  shippingMethodReducer,
+  ShippingMethodSelectedState,
   shippingReducer,
   ShippingState,
 } from './components/checkout/forms/data/shipping/shipping.reducer';
@@ -18,12 +20,14 @@ export interface AppState {
   checkout: CheckoutState;
   shipping: ShippingState;
   payment: PaymentState;
+  shippingMethod: ShippingMethodSelectedState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   checkout: checkoutReducer,
   shipping: shippingReducer,
   payment: paymentReducer,
+  shippingMethod: shippingMethodReducer,
 };
 
 export function getInitialAppState() {
@@ -32,6 +36,8 @@ export function getInitialAppState() {
   const previousShippingSettings = localStorage.getItem('shipping');
 
   const previousPaymentSettings = localStorage.getItem('payment');
+
+  const previousShippingMethodSettings = localStorage.getItem('shippingMethod');
 
   if (previousCheckoutSettings != null) {
     return JSON.parse(previousCheckoutSettings);
@@ -45,6 +51,10 @@ export function getInitialAppState() {
     return JSON.parse(previousPaymentSettings);
   }
 
+  if (previousShippingMethodSettings != null) {
+    return JSON.parse(previousShippingMethodSettings);
+  }
+
   return {};
 }
 
@@ -56,6 +66,7 @@ export function localStorageSyncReducer(
       { checkout: ['stepperStep'] },
       { shipping: ['formData', 'submitting', 'error'] },
       { payment: ['value'] },
+      { shippingMethod: ['shippingMethod'] },
     ],
     rehydrate: true,
   })(reducer);

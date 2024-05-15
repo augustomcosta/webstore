@@ -11,6 +11,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import * as CheckoutActions from '../forms/data/shipping/shipping.actions';
 
 @Component({
   selector: 'app-cart-summary',
@@ -29,7 +31,9 @@ export class CartSummaryComponent implements OnInit {
   deliveryMethods$!: Observable<IDeliveryMethod[]>;
   deliveryMethodForm!: FormGroup;
   deliveryPrice!: number;
+  deliveryMethodSelected!: IDeliveryMethod;
   fb = inject(FormBuilder);
+  store = inject(Store);
 
   ngOnInit(): void {
     this.basket$ = this.basketService.basket$;
@@ -41,21 +45,34 @@ export class CartSummaryComponent implements OnInit {
     this.basketTotal$ = this.basketService.basketTotal$;
 
     this.deliveryMethods$ = this.deliveryMethodService.deliveryMethods$;
-
-    this.getDeliveryMethods();
   }
 
   constructor() {
     this.deliveryMethodForm = this.fb.group({
       deliveryMethod: ['', Validators.required],
     });
+
+    this.getDeliveryMethods().subscribe((deliveryMethods) => {
+      this.deliveryMethods = deliveryMethods;
+      console.log(this.deliveryMethods);
+    });
   }
 
   getShippingPrice() {
-    this.deliveryPrice = this.deliveryMethodForm.get('deliveryMethod')?.value;
+    this.deliveryMethodSelected =
+      this.deliveryMethodForm.get('deliveryMethod')?.value;
+
+    this.deliveryPrice = this.deliveryMethodSelected.price;
+
     this.basketTotal$?.subscribe((basket) => {
       basket.shipping = this.deliveryPrice;
     });
+
+    this.store.dispatch(
+      CheckoutActions.saveShippingMethod({
+        shippingMethod: this.deliveryMethodForm.get('deliveryMethod')?.value,
+      }),
+    );
   }
 
   setBasketShippingPrice() {
@@ -64,10 +81,6 @@ export class CartSummaryComponent implements OnInit {
   }
 
   getDeliveryMethods() {
-    return this.deliveryMethodService
-      .getDeliveryMethods()
-      .subscribe((deliveryMethods) => {
-        this.deliveryMethods = deliveryMethods;
-      });
+    return this.deliveryMethodService.getDeliveryMethods();
   }
 }

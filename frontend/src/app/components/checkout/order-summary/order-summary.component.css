@@ -46,7 +46,7 @@
 
   img {
     @apply
-    object-contain
+    object-cover
     h-[50px]
     w-[50px]
     overflow-hidden

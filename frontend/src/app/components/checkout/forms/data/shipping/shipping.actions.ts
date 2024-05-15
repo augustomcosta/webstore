@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { AddressVO } from '../../../../../core/models/address-vo';
+import { DeliveryMethod } from '../../../../../core/models/delivery-method';
 
 export const submitForm = createAction('[Form] Submit Form');
 
@@ -11,4 +12,9 @@ export const submitFormSuccess = createAction(
 export const submitFormFailure = createAction(
   '[Form] Submit Failure',
   props<{ error: AddressVO }>(),
+);
+
+export const saveShippingMethod = createAction(
+  '[Shipping] Save Method',
+  props<{ shippingMethod: DeliveryMethod }>(),
 );
