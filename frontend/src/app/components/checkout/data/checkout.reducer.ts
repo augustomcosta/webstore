@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as CheckoutActions from './checkout.actions';
+import { create } from '@mui/material/styles/createTransitions';
 
 export interface CheckoutState {
   stepperStep: number;
@@ -7,6 +8,14 @@ export interface CheckoutState {
 
 const initialState: CheckoutState = {
   stepperStep: 1,
+};
+
+export interface OrderSubmitState {
+  isOrderSubmitted: boolean;
+}
+
+const orderInitialState: OrderSubmitState = {
+  isOrderSubmitted: false,
 };
 
 export const checkoutReducer = createReducer(
@@ -20,5 +29,13 @@ export const checkoutReducer = createReducer(
     ...state,
     stepperStep:
       state.stepperStep > 1 ? state.stepperStep - 1 : state.stepperStep,
+  })),
+);
+
+export const orderReducer = createReducer(
+  orderInitialState,
+  on(CheckoutActions.placeOrderSuccess, (state) => ({
+    ...state,
+    isOrderSubmitted: true,
   })),
 );

@@ -18,3 +18,9 @@ export const saveShippingMethod = createAction(
   '[Shipping] Save Method',
   props<{ shippingMethod: DeliveryMethod }>(),
 );
+
+export const resetShippingState = createAction('[Shipping] Reset State');
+
+export const resetShippingMethodState = createAction(
+  '[ShippingMethod] Reset State',
+);

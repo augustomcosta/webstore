@@ -14,7 +14,7 @@ import {
   NgStyle,
 } from '@angular/common';
 import { CategoryService } from '../../../services/category.service';
-import { ICategory } from '../../../core/models/category';
+import { Category } from '../../../core/models/category';
 import { Observable } from 'rxjs';
 import { RouterLinkActive } from '@angular/router';
 
@@ -37,8 +37,8 @@ export class ImageSliderComponent implements OnInit {
   @Output() categorySelected = new EventEmitter<string>();
   activeCategory: string | undefined;
   categoryService = inject(CategoryService);
-  categories: ICategory[] = [];
-  categories$: Observable<ICategory[]> | undefined;
+  categories: Category[] = [];
+  categories$: Observable<Category[]> | undefined;
 
   getCategories() {
     this.categoryService.getCategories().subscribe((categories) => {

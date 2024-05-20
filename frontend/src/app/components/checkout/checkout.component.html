@@ -7,20 +7,25 @@
     </div>
     <h2 class="text-start !m-0">Checkout</h2>
   </div>
-  <div class="checkout-container">
-    <div class="stepper-container">
-      @if ((stepperStep$ | async) === 1) {
-        <app-shipping-form/>
-      } @else if ((stepperStep$ | async) === 2) {
-        <app-payment-form/>
-      } @else {
-        <app-order-summary/>
-      }
+
+  @if ((stepperStep$ | async) != 3) {
+    <div class="checkout-container">
+      <div class="stepper-container">
+        @if ((stepperStep$ | async) === 1) {
+          <app-shipping-form/>
+        } @else if ((stepperStep$ | async) === 2) {
+          <app-payment-form/>
+        }
+      </div>
+      <div class="cart-container">
+        <app-cart-summary/>
+      </div>
     </div>
-    <div class="cart-container">
-      <app-cart-summary/>
+  } @else {
+    <div class="checkout-container-last-step">
+      <app-order-summary/>
     </div>
-  </div>
+  }
 </div>
 
 

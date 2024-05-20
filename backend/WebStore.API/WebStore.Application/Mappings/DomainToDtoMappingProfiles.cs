@@ -27,7 +27,7 @@ public class DomainToDtoMappingProfiles : Profile
         CreateMap<ProductBrand, BrandDto>().ReverseMap();
         CreateMap<ProductCategory, CategoryDto>().ReverseMap();
         CreateMap<User, UserDto>().ReverseMap();
-        CreateMap<Order, UserDto>().ReverseMap();
+        CreateMap<Order, OrderDto>().ReverseMap();
         CreateMap<Basket, BasketDto>().ReverseMap();
         CreateMap<Basket, BasketUpdateDto>()
             .ForMember(dest => dest.BasketItems, opt => opt.MapFrom(src => src.BasketItems))

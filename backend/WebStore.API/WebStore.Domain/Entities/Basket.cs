@@ -12,7 +12,7 @@ public sealed class Basket
 
     public string? Id { get; set; } = Guid.NewGuid().ToString();
     public string? UserId { get; set; }
-    public Guid? DeliveryMethodId { get; set; }
+    public string? DeliveryMethodId { get; set; }
     public string? PaymentIntentId { get; set; } 
     public decimal ShippingPrice { get; set; }
     public DateTime? CreatedAt {get; set;}

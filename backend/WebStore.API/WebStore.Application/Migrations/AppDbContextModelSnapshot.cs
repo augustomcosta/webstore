@@ -167,8 +167,8 @@ namespace WebStore.API.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("DeliveryMethodId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("DeliveryMethodId")
+                        .HasColumnType("text");
 
                     b.Property<string>("PaymentIntentId")
                         .HasColumnType("text");
@@ -265,9 +265,8 @@ namespace WebStore.API.Migrations
 
             modelBuilder.Entity("WebStore.Domain.Entities.OrderAggregate.DeliveryMethod", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<string>("DeliveryTime")
                         .IsRequired()
@@ -299,8 +298,9 @@ namespace WebStore.API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("DeliveryMethodId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("DeliveryMethodId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("timestamp with time zone");

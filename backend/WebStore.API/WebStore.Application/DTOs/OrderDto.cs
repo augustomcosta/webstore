@@ -20,7 +20,7 @@ public record OrderDto(
 
     [Required] AddressVO ShippingAddress,
 
-    [Required] Guid DeliveryMethodId,
+    [Required] string DeliveryMethodId,
 
     [Required] decimal Total,
 

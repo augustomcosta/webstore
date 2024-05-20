@@ -1,47 +1,83 @@
 @if (basket) {
-  <div class="order-summary">
-    <div class="order-items">
-      @for (item of basket.basketItems; track item) {
-        <div class="order-item">
-          <div class="image-container">
-            <img src="{{item.productImgUrl}}" alt="{{item.productName}}">
+  @if (!isOrderSuccess) {
+    <h2 class="self-start text-teal-900">Order Items</h2>
+    <div class="order-summary">
+      <div class="order-items">
+        @for (item of basket.basketItems; track item) {
+          <div class="order-item">
+            <div class="flex  min-w-[70%]
+  max-w-[70%]">
+              <div class="item-info">
+                <div class="image-container">
+                  <img src="{{item.productImgUrl}}" alt="{{item.productName}}">
+                </div>
+                <button class="item-button" [routerLink]="['/items', item.id]">
+                  <h3>{{ item.productName }}</h3>
+                </button>
+              </div>
+              <div class="item-category">
+                <h3>{{ item.category }}</h3>
+              </div>
+            </div>
+            <div class="flex gap-6  min-w-[29%]
+  max-w-[29%] justify-end pr-4">
+              <p>{{ item.price * item.quantity | currency }}</p>
+              <p>x{{ item.quantity }}</p>
+            </div>
           </div>
-          <div class="item-info">
-            <button class="item-button" [routerLink]="['/items', item.id]">
-              <h3>{{ item.productName }}</h3>
-            </button>
-            <p>{{ item.price * item.quantity | currency }}</p>
-            <p>x{{ item.quantity }}</p>
-          </div>
+        }
+      </div>
+      <div class="totals-payment-container">
+        <div class="payment-container">
+          <h2>Payment Method</h2>
+          <p>{{ paymentSelected }}</p>
         </div>
-      }
+        <div class="order-shipping-container">
+          <h2>Shipping Method</h2>
+          <p>{{ shippingSelected.description }}</p>
+          <p>Estimated delivery time: {{ shippingSelected.deliveryTime }}</p>
+        </div>
+        <div class="flex flex-col
+   text-center">
+          <h2>Order totals</h2>
+          @if ((basketTotal$ | async); as basketTotal) {
+            <div class="totals-container">
+              <div class="subtotal">
+                <p class="!text-teal-800">Subtotal</p>
+                <p>{{ basketTotal.subTotal | currency }}</p>
+              </div>
+              <div class="shipping">
+                <p class="!text-teal-800">Shipping</p>
+                <p>{{ basketTotal.shipping | currency }}</p>
+              </div>
+              <div class="total">
+                <p class="!text-teal-800">Total</p>
+                <p>{{ basketTotal.total | currency }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="buttons-container">
+        <button class="stepper-button-previous" (click)="previousStep()">
+          <p>Back to Payment</p>
+        </button>
+        <button class="order-submit-button" (click)="placeOrder()">
+          <p>Place Order</p>
+        </button>
+      </div>
     </div>
-    <div class="totals-container">
-      @if ((basketTotal$ | async); as basketTotal) {
-        <div class="subtotal">
-          <p class="text-teal-800">Subtotal</p>
-          <p class="text-slate-700">{{ basketTotal.subTotal | currency }}</p>
-        </div>
-        <div class="shipping">
-          <p class="text-teal-800">Shipping</p>
-          <p class="text-slate-700">{{ basketTotal.shipping | currency }}</p>
-        </div>
-        <div class="total">
-          <p class="text-teal-800">Total</p>
-          <p class="text-slate-700">{{ basketTotal.total | currency }}</p>
-        </div>
-      }
-    </div>
-    <div class="buttons-container">
-      <button class="stepper-button-previous" (click)="previousStep()">
-        <p>Back to Payment</p>
+  } @else {
+    <div class="order-success-container">
+      <h2>Order Created Successfully</h2>
+      <button>
+        <p>Go to your orders</p>
       </button>
-      <button class="order-submit-button">
-        <p>Place Order</p>
-      </button>
     </div>
-  </div>
+  }
 }
+
+
 
 
 

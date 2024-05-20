@@ -13,6 +13,21 @@
   overflow-hidden;
 }
 
+.checkout-container-last-step {
+  @apply
+  flex
+  flex-row
+  h-[600px]
+  items-start
+  justify-between
+  p-14
+  mx-20
+  shadow-lg
+  bg-white
+  rounded-lg
+  overflow-hidden;
+}
+
 .checkout {
   @apply
   flex

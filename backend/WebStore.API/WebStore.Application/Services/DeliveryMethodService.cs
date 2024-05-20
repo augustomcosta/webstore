@@ -24,7 +24,7 @@ public class DeliveryMethodService : IDeliveryMethodService<DeliveryMethodDto>
         return _mapper.Map<IEnumerable<DeliveryMethodDto>>(deliveryMethods);
     }
 
-    public async Task<DeliveryMethodDto> GetById(Guid? id)
+    public async Task<DeliveryMethodDto> GetById(string? id)
     {
         var deliveryMethod = await _repository.GetById(id);
 
@@ -41,7 +41,7 @@ public class DeliveryMethodService : IDeliveryMethodService<DeliveryMethodDto>
 
     }
 
-    public async Task Delete(Guid? id)
+    public async Task Delete(string? id)
     {
         await _repository.Delete(id);
     }

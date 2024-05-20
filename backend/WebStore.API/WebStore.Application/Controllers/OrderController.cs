@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebStore.API.DTOs;
 using WebStore.API.Interfaces;
 using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
-using WebStore.Domain.ValueObjects;
 
 namespace WebStore.API.Controllers;
 
@@ -63,9 +61,9 @@ public class OrderController : ControllerBase
     }
 
     [HttpPost("create-order")]
-    public async Task<IActionResult> CreateOrder([FromQuery] string basketId, string userId)
+    public async Task<IActionResult> CreateOrder([FromQuery] string basketId, string userId,string deliveryMethodId)
     {
-        var order = await _service.CreateOrder(basketId, userId);
+        var order = await _service.CreateOrder(basketId, userId, deliveryMethodId);
         if (order is null) throw new Exception("Error while creating order");
 
         return Ok(order);

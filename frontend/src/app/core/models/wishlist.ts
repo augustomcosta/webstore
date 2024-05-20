@@ -1,17 +1,16 @@
-import { IProduct } from './IProduct';
 import { v4 as uuid } from 'uuid';
-import { IWishlistItem } from './wishlistItem';
+import { WishlistItem } from './wishlist-item';
 
 export interface IWishlist {
   id: string;
   userId: string;
-  wishlistItems: IWishlistItem[];
+  wishlistItems: WishlistItem[];
 }
 
 export class Wishlist implements IWishlist {
   id: string;
   userId: string;
-  wishlistItems: IWishlistItem[];
+  wishlistItems: WishlistItem[];
 
   constructor() {
     this.id = uuid();

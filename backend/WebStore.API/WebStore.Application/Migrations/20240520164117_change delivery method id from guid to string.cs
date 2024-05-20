@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WebStore.API.Migrations
 {
     /// <inheritdoc />
-    public partial class regeneratedb : Migration
+    public partial class changedeliverymethodidfromguidtostring : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -83,7 +83,7 @@ namespace WebStore.API.Migrations
                 name: "DeliveryMethods",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     DeliveryTime = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
@@ -274,7 +274,7 @@ namespace WebStore.API.Migrations
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    DeliveryMethodId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeliveryMethodId = table.Column<string>(type: "text", nullable: true),
                     PaymentIntentId = table.Column<string>(type: "text", nullable: true),
                     ShippingPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -306,7 +306,7 @@ namespace WebStore.API.Migrations
                     BuyerEmail = table.Column<string>(type: "text", nullable: false),
                     OrderItems = table.Column<string>(type: "text", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeliveryMethodId = table.Column<Guid>(type: "uuid", nullable: false),
+                    DeliveryMethodId = table.Column<string>(type: "text", nullable: false),
                     Total = table.Column<decimal>(type: "numeric", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     ShippingAddress_City = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),

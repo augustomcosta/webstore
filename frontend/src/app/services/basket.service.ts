@@ -3,8 +3,8 @@ import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { IBasket, IBasketTotals } from '../core/models/basket';
 import { BehaviorSubject, tap } from 'rxjs';
-import { IProduct } from '../core/models/IProduct';
-import { IBasketItem } from '../core/models/basketItem';
+import { Product } from '../core/models/product';
+import { BasketItem } from '../core/models/basket-item';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +37,7 @@ export class BasketService {
     return this.basketSource.value;
   }
 
-  addItemToBasket(item: IProduct, quantity = 1) {
+  addItemToBasket(item: Product, quantity = 1) {
     let basket = this.getCurrentBasketValue();
     console.log(basket);
     const itemToAdd = this.mapProductToBasketItem(item);
@@ -88,10 +88,10 @@ export class BasketService {
   }
 
   private addOrUpdateItem(
-    items: IBasketItem[],
-    itemToAdd: IBasketItem,
+    items: BasketItem[],
+    itemToAdd: BasketItem,
     quantity: number,
-  ): IBasketItem[] {
+  ): BasketItem[] {
     items = items || [];
 
     const item = items.find((x) => x.id === itemToAdd.id);
@@ -103,7 +103,7 @@ export class BasketService {
     return items;
   }
 
-  private mapProductToBasketItem(item: IProduct): IBasketItem {
+  private mapProductToBasketItem(item: Product): BasketItem {
     return {
       id: item.id,
       productName: item.name,

@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterLink } from '@angular/router';
-import { IProduct } from '../../../core/models/IProduct';
+import { Product } from '../../../core/models/product';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { BasketService } from '../../../services/basket.service';
 import { Input } from '@angular/core';
@@ -34,7 +34,7 @@ export class ItemCardComponent implements OnInit {
   protected router = inject(Router);
 
   @Input()
-  product!: IProduct;
+  product!: Product;
 
   protected readonly Math = Math;
 

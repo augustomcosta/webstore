@@ -21,7 +21,7 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { BasketService } from '../../../services/basket.service';
 import { IBasket } from '../../../core/models/basket';
-import { IBasketItem } from '../../../core/models/basketItem';
+import { BasketItem } from '../../../core/models/basket-item';
 
 @Component({
   selector: 'app-sidebar',
@@ -61,7 +61,7 @@ export class SideBarComponent implements OnInit {
 
   constructor() {}
 
-  getCount(items: IBasketItem[]) {
+  getCount(items: BasketItem[]) {
     return items.reduce((total, item) => total + item.quantity, 0);
   }
 

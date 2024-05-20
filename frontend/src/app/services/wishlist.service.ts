@@ -2,9 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { IWishlist, Wishlist } from '../core/models/wishlist';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { IProduct } from '../core/models/IProduct';
+import { Product } from '../core/models/product';
 import { BehaviorSubject, tap } from 'rxjs';
-import { IWishlistItem } from '../core/models/wishlistItem';
+import { WishlistItem } from '../core/models/wishlist-item';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +33,7 @@ export class WishlistService {
     return wishlist;
   }
 
-  addItemToWishlist(item: IProduct) {
+  addItemToWishlist(item: Product) {
     let wishlist = this.getCurrentWishlistValue();
     const itemToAdd = this.mapProductToWishlistItem(item);
 
@@ -67,9 +67,9 @@ export class WishlistService {
   }
 
   private addItem(
-    items: IWishlistItem[],
-    itemToAdd: IWishlistItem,
-  ): IWishlistItem[] {
+    items: WishlistItem[],
+    itemToAdd: WishlistItem,
+  ): WishlistItem[] {
     const updatedItems = items;
     const existingItemIndex = updatedItems.findIndex(
       (x) => x.id === itemToAdd.id,
@@ -85,7 +85,7 @@ export class WishlistService {
     return updatedItems;
   }
 
-  mapWishlistItemToProduct(item: IWishlistItem): IProduct {
+  mapWishlistItemToProduct(item: WishlistItem): Product {
     return {
       id: item.id,
       name: item.productName,
@@ -97,7 +97,7 @@ export class WishlistService {
     };
   }
 
-  private mapProductToWishlistItem(item: IProduct): IWishlistItem {
+  private mapProductToWishlistItem(item: Product): WishlistItem {
     return {
       id: item.id,
       productName: item.name,

@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IProduct } from '../../core/models/IProduct';
+import { Product } from '../../core/models/product';
 import { Router, RouterLink } from '@angular/router';
 import { BasketSummaryComponent } from '../basket/basket-summary/basket-summary.component';
 import { BasketTotalsComponent } from '../basket/basket-totals/basket-totals.component';
@@ -31,7 +31,7 @@ import { IBasket } from '../../core/models/basket';
   styleUrl: './item-details.component.css',
 })
 export class ItemDetailsComponent implements OnInit {
-  @Input() product!: IProduct;
+  @Input() product!: Product;
   wishlist!: IWishlist;
   basketService = inject(BasketService);
   wishlistService = inject(WishlistService);
@@ -61,7 +61,7 @@ export class ItemDetailsComponent implements OnInit {
     });
   }
 
-  addItemToWishlist(item: IProduct) {
+  addItemToWishlist(item: Product) {
     this.wishlistService.addItemToWishlist(item);
   }
 

@@ -15,17 +15,17 @@ public sealed class Order : BaseEntity
         UserId = userId;
     }
 
-    public Order(Guid id, decimal subTotal, ICollection<OrderItemVO> orderItems, DeliveryMethod deliveryMethod
+    public Order(Guid id, ICollection<OrderItemVO> orderItems, DeliveryMethod deliveryMethod
         ) : base(id)
     {
         DeliveryMethod = deliveryMethod;
         OrderItems = orderItems;
-        Total = GetTotal(subTotal);
+        Total = GetTotal();
     }
 
     [Required] public decimal SubTotal { get; set; }
 
-    [Required] public string BuyerEmail { get; private set; }
+    [Required] public string BuyerEmail { get; set; }
     
     [Required] public ICollection<OrderItemVO> OrderItems { get; private set; }
     
@@ -34,9 +34,9 @@ public sealed class Order : BaseEntity
 
     public DeliveryMethod DeliveryMethod { get; private set; }
 
-    [Required] public Guid DeliveryMethodId { get; private set; }
+    [Required] public string DeliveryMethodId { get; set; }
 
-    [Required] public decimal Total { get; private set; }
+    [Required] public decimal Total { get; set; }
 
     [Required] public string UserId { get; private set; }
 
@@ -49,13 +49,12 @@ public sealed class Order : BaseEntity
         SubTotal = subTotal;
     }
 
-    private decimal GetTotal(decimal subTotal)
+    private decimal GetTotal()
     {
-        var total = subTotal + DeliveryMethod.Price;
+        var total = SubTotal + DeliveryMethod.Price;
         if (total < 0) throw new Exception("Order total should be positive.");
         return total;
     }
-
     public void UpdateOrder(Order order)
     {
         Total = order.Total;

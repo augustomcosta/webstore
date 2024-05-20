@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { IBasketItem } from './basketItem';
+import { BasketItem } from './basket-item';
 
 export interface IBasket {
   id: string;
@@ -8,7 +8,7 @@ export interface IBasket {
   createdAt: Date;
   paymentIntentId: string;
   shippingPrice: number;
-  basketItems: IBasketItem[];
+  basketItems: BasketItem[];
 }
 
 export class Basket implements IBasket {
@@ -16,7 +16,7 @@ export class Basket implements IBasket {
   deliveryMethodId!: string;
   paymentIntentId!: string;
   shippingPrice!: number;
-  basketItems: IBasketItem[];
+  basketItems: BasketItem[];
   userId: string;
   createdAt: Date;
 

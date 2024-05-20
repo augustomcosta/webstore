@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { ItemCardComponent } from './item-card/item-card.component';
 import { ImageSliderComponent } from './image-slider/image-slider.component';
 import { ProductService } from '../../services/product.service';
-import { IProduct } from '../../core/models/IProduct';
+import { Product } from '../../core/models/product';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -22,10 +22,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
   productService = inject(ProductService);
-  products: IProduct[] = [];
-  originalProducts: IProduct[] = [];
-  filteredProducts: IProduct[] = [];
-  products$: BehaviorSubject<IProduct[]> = new BehaviorSubject<IProduct[]>([]);
+  products: Product[] = [];
+  originalProducts: Product[] = [];
+  filteredProducts: Product[] = [];
+  products$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
 
   getProducts() {
     this.productService.getProducts().subscribe((products) => {

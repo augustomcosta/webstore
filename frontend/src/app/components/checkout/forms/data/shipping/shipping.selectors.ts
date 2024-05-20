@@ -14,5 +14,5 @@ export const selectFormData = createSelector(
 
 export const selectShippingMethod = createSelector(
   selectShippingMethodState,
-  (state: ShippingMethodSelectedState) => state.value,
+  (state: ShippingMethodSelectedState) => state.shippingMethod,
 );

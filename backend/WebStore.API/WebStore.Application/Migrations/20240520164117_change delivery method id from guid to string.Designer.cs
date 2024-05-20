@@ -13,8 +13,8 @@ using WebStore.Infra.Context;
 namespace WebStore.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240510125000_regenerate db")]
-    partial class regeneratedb
+    [Migration("20240520164117_change delivery method id from guid to string")]
+    partial class changedeliverymethodidfromguidtostring
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -170,8 +170,8 @@ namespace WebStore.API.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("DeliveryMethodId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("DeliveryMethodId")
+                        .HasColumnType("text");
 
                     b.Property<string>("PaymentIntentId")
                         .HasColumnType("text");
@@ -268,9 +268,8 @@ namespace WebStore.API.Migrations
 
             modelBuilder.Entity("WebStore.Domain.Entities.OrderAggregate.DeliveryMethod", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<string>("DeliveryTime")
                         .IsRequired()
@@ -302,8 +301,9 @@ namespace WebStore.API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("DeliveryMethodId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("DeliveryMethodId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("timestamp with time zone");

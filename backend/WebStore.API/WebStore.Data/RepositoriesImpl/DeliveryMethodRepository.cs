@@ -24,7 +24,7 @@ public class DeliveryMethodRepository : IDeliveryMethodRepository
         return deliveryMethods;
     }
 
-    public async Task<DeliveryMethod> GetById(Guid? id)
+    public async Task<DeliveryMethod> GetById(string? id)
     {
         var deliveryMethod = await _context.DeliveryMethods!.FirstOrDefaultAsync(d => d.Id == id);
         if (deliveryMethod is null)
@@ -45,7 +45,7 @@ public class DeliveryMethodRepository : IDeliveryMethodRepository
         return deliveryMethod;
     }
     
-    public async Task<DeliveryMethod> Delete(Guid? id)
+    public async Task<DeliveryMethod> Delete(string? id)
     {
        var deliveryMethod = await _context.DeliveryMethods!.FirstOrDefaultAsync(d => d.Id == id);
        if (deliveryMethod is null)

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { IProduct } from '../core/models/IProduct';
+import { Product } from '../core/models/product';
 import { ProductParams } from '../shared/models/productParams';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
@@ -11,24 +11,24 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 export class ProductService {
   http = inject(HttpClient);
   apiUrl = environment.apiUrl;
-  products: IProduct[] = [];
+  products: Product[] = [];
   productParams = new ProductParams();
 
   constructor() {}
 
   getProducts() {
-    return this.http.get<IProduct[]>(
+    return this.http.get<Product[]>(
       this.apiUrl +
         `/Product/pagination?PageNumber=${this.productParams.pageNumber}&PageSize=${this.productParams.pageSize}&api-version=1`,
     );
   }
 
   getAllProducts() {
-    return this.http.get<IProduct[]>(this.apiUrl + `/Product`);
+    return this.http.get<Product[]>(this.apiUrl + `/Product`);
   }
 
   filterByCategory(category: string) {
-    return this.http.get<IProduct[]>(
+    return this.http.get<Product[]>(
       `${this.apiUrl}/Product/filter/category/pagination?PageNumber=${this.productParams.pageNumber}&PageSize=${this.productParams.pageSize}&categoryName=${category}`,
     );
   }
@@ -39,6 +39,6 @@ export class ProductService {
       return of(product);
     }
 
-    return this.http.get<IProduct>(this.apiUrl + `/Product/${id}`);
+    return this.http.get<Product>(this.apiUrl + `/Product/${id}`);
   }
 }

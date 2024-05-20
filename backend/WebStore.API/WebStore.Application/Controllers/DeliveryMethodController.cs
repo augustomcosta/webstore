@@ -35,14 +35,14 @@ public class DeliveryMethodController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> GetById(string id)
     {
         var deliveryMethod = await _service.GetById(id);
         return Ok(deliveryMethod);
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> Delete(string id)
     {
         await _service.Delete(id);
         return Ok();

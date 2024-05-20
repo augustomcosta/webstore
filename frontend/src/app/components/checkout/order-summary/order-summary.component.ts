@@ -1,5 +1,5 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import * as CheckoutActions from '../data/checkout.actions';
 import { BasketService } from '../../../services/basket.service';
 import { Observable } from 'rxjs';
@@ -7,6 +7,11 @@ import { IBasket, IBasketTotals } from '../../../core/models/basket';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { IPaymentMethod } from '../../../core/models/payment-method';
 import { RouterLink } from '@angular/router';
+import { selectShippingMethod } from '../forms/data/shipping/shipping.selectors';
+import { IDeliveryMethod } from '../../../core/models/delivery-method';
+import { OrderService } from '../../../services/order.service';
+import { Order } from '../../../core/models/order';
+import { placeOrderSuccess } from '../data/checkout.actions';
 
 @Component({
   selector: 'app-order-summary',
@@ -22,6 +27,11 @@ export class OrderSummaryComponent implements OnInit {
   basket!: IBasket;
   basketTotal$: Observable<IBasketTotals> | undefined;
   @Input() paymentMethod!: IPaymentMethod;
+  paymentSelected!: string;
+  shippingSelected!: IDeliveryMethod;
+  orderService = inject(OrderService);
+  createdOrder!: Order;
+  isOrderSuccess: boolean = false;
 
   constructor() {}
 
@@ -35,9 +45,35 @@ export class OrderSummaryComponent implements OnInit {
     this.store.dispatch(CheckoutActions.previousStep());
   }
 
+  getCurrentPaymentMethod() {
+    const jsonString = localStorage.getItem('payment')!;
+    const jsonObject = JSON.parse(jsonString);
+    this.paymentSelected = jsonObject.value.paymentMethod;
+  }
+
+  getCurrentShippingMethod() {
+    this.store.pipe(select(selectShippingMethod)).subscribe((shipping) => {
+      if (shipping) {
+        this.shippingSelected = shipping;
+      }
+    });
+  }
+
+  placeOrder() {
+    this.orderService
+      .placeOrder(this.shippingSelected.id)
+      .subscribe((order) => {
+        this.createdOrder = order;
+        this.isOrderSuccess = true;
+      });
+    this.store.dispatch(placeOrderSuccess());
+  }
+
   ngOnInit(): void {
     this.basket$ = this.basketService.basket$;
     this.basketTotal$ = this.basketService.basketTotal$;
     this.getBasket();
+    this.getCurrentPaymentMethod();
+    this.getCurrentShippingMethod();
   }
 }

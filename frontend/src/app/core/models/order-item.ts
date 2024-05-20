@@ -1,7 +1,8 @@
-export interface IWishlistItem {
+export interface OrderItemVO {
   id: string;
-  productName: string;
+  quantity: number;
   price: number;
+  productName: string;
   productImgUrl: string;
   brand: string;
   category: string;

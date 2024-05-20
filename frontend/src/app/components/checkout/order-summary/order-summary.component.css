@@ -4,14 +4,37 @@
   flex-col
   justify-between
   items-center
-  gap-2;
+  gap-2
+  max-h-[200px]
+  overflow-y-scroll;
+
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+
+  &::-webkit-scrollbar-thumb {
+    @apply
+    bg-gradientColor-darkAugusteal;
+  }
+
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+;
 }
 
 .order-item {
   @apply
   flex
   items-center
-  justify-start
   gap-6
   bg-slate-200
   text-teal-800
@@ -67,6 +90,7 @@
   flex
   flex-col
   gap-10
+  w-full
 }
 
 .stepper-button-previous {
@@ -89,9 +113,10 @@
 .item-info {
   @apply
   flex
-  justify-between
-  w-full
+  gap-6
   items-center
+  min-w-[50%]
+  max-w-[50%]
 }
 
 .order-submit-button {
@@ -114,8 +139,8 @@
 .totals-container {
   @apply
   flex
-  w-full
-  justify-between
+  justify-center
+  gap-10
   items-center
   text-center
 }
@@ -125,4 +150,56 @@
   hover:border-b
   hover:border-b-teal-800
   transition
+}
+
+:host {
+  @apply
+  w-full
+}
+
+.totals-payment-container {
+  @apply
+  flex
+  items-start
+  justify-between;
+
+  h2 {
+    @apply
+    text-teal-900;
+  }
+
+  p {
+    @apply
+    text-slate-600;
+  }
+}
+
+.payment-container {
+  @apply
+  flex
+  flex-col
+  items-center;
+}
+
+.item-category {
+  @apply
+  flex
+  items-center
+  justify-center
+  min-w-[50%]
+  max-w-[50%]
+}
+
+.order-shipping-container {
+  @apply
+  text-center
+}
+
+.order-success-container {
+  @apply
+  flex
+  flex-col
+  items-center
+  justify-center
+  align-middle
 }

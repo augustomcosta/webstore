@@ -1,6 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 import { AddressVO } from '../../../../../core/models/address-vo';
 import {
+  resetShippingMethodState,
+  resetShippingState,
   saveShippingMethod,
   submitForm,
   submitFormFailure,
@@ -24,11 +26,11 @@ const initialState: ShippingState = {
 };
 
 export interface ShippingMethodSelectedState {
-  value: IDeliveryMethod;
+  shippingMethod: IDeliveryMethod;
 }
 
 const shippingMethodInitialState: ShippingMethodSelectedState = {
-  value: new DeliveryMethod(),
+  shippingMethod: new DeliveryMethod(),
 };
 
 export const shippingMethodReducer = createReducer(
@@ -54,5 +56,15 @@ export const shippingReducer = createReducer(
     ...state,
     submitting: false,
     error,
+  })),
+  on(resetShippingState, (state) => ({
+    ...state,
+    state: initialState,
+    formData: initialState.formData,
+  })),
+  on(resetShippingMethodState, (state) => ({
+    ...state,
+    state: shippingMethodInitialState,
+    shippingMethod: shippingMethodInitialState.shippingMethod,
   })),
 );

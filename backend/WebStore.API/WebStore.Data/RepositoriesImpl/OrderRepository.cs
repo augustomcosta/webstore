@@ -41,7 +41,7 @@ public class OrderRepository : IOrderRepository
         throw new NotImplementedException();
     }
 
-    public async Task<Order> CreateOrder(string basketId, string userId)
+    public async Task<Order> CreateOrder(string basketId, string userId,string deliveryMethodId)
     {
         var basket = await _basketRepo.GetBasketAsync(basketId);
         var user = await _userRepo.GetById(userId);
@@ -59,11 +59,21 @@ public class OrderRepository : IOrderRepository
             ShippingAddress = user.Address
         };
 
+        order.DeliveryMethodId = deliveryMethodId;
+        var deliveryMethod = await _context.DeliveryMethods.FirstOrDefaultAsync(d => d.Id == deliveryMethodId);
+        if (deliveryMethod is null)
+        {
+            throw new Exception("Delivery method not found while creating Order");
+        }
+        
+        order.BuyerEmail = user.Email;
+
         foreach (var item in orderItems)
         {
-            var subTotal = +item.Price;
-            order.SubTotal = subTotal;
+            order.SubTotal += item.Price;
         }
+
+        order.Total = order.SubTotal + deliveryMethod.Price;
 
         await _context.Orders!.AddAsync(order);
 

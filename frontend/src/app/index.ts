@@ -30,32 +30,33 @@ export const reducers: ActionReducerMap<AppState> = {
   shippingMethod: shippingMethodReducer,
 };
 
-export function getInitialAppState() {
+type PartialAppState = Partial<AppState>;
+
+export function getInitialAppState(): PartialAppState {
   const previousCheckoutSettings = localStorage.getItem('checkout');
-
   const previousShippingSettings = localStorage.getItem('shipping');
-
   const previousPaymentSettings = localStorage.getItem('payment');
-
   const previousShippingMethodSettings = localStorage.getItem('shippingMethod');
 
+  const initialState: PartialAppState = {};
+
   if (previousCheckoutSettings != null) {
-    return JSON.parse(previousCheckoutSettings);
+    initialState.checkout = JSON.parse(previousCheckoutSettings);
   }
 
   if (previousShippingSettings != null) {
-    return JSON.parse(previousShippingSettings);
+    initialState.shipping = JSON.parse(previousShippingSettings);
   }
 
   if (previousPaymentSettings != null) {
-    return JSON.parse(previousPaymentSettings);
+    initialState.payment = JSON.parse(previousPaymentSettings);
   }
 
   if (previousShippingMethodSettings != null) {
-    return JSON.parse(previousShippingMethodSettings);
+    initialState.shippingMethod = JSON.parse(previousShippingMethodSettings);
   }
 
-  return {};
+  return initialState;
 }
 
 export function localStorageSyncReducer(

@@ -4,9 +4,9 @@ import { RouterLink } from '@angular/router';
 import { IWishlist } from '../../../core/models/wishlist';
 import { Observable } from 'rxjs';
 import { WishlistService } from '../../../services/wishlist.service';
-import { IProduct } from '../../../core/models/IProduct';
+import { Product } from '../../../core/models/product';
 import { BasketService } from '../../../services/basket.service';
-import { IWishlistItem } from '../../../core/models/wishlistItem';
+import { WishlistItem } from '../../../core/models/wishlist-item';
 
 @Component({
   selector: 'app-wishlist-items',
@@ -25,7 +25,7 @@ export class WishlistItemsComponent implements OnInit {
     return this.wishlistService.removeItemFromWishlist(itemId);
   }
 
-  addItemToBasket(product: IWishlistItem) {
+  addItemToBasket(product: WishlistItem) {
     const item = this.wishlistService.mapWishlistItemToProduct(product);
     this.basketService.addItemToBasket(item);
   }

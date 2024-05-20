@@ -3,6 +3,7 @@
   <component name="UserContentModel">
     <attachedFolders>
       <Path>../../../../web-store</Path>
+      <Path>../../backend</Path>
     </attachedFolders>
     <explicitIncludes />
     <explicitExcludes />
