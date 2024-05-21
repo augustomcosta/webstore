@@ -7,7 +7,7 @@ import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { BasketService } from '../../../services/basket.service';
 import { Input } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { IBasket, IBasketTotals } from '../../../core/models/basket';
+import { Basket, BasketTotals } from '../../../core/models/basket';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -25,11 +25,11 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class ItemCardComponent implements OnInit {
   basketService = inject(BasketService);
-  basket$: Observable<IBasket> | undefined;
-  basketTotals$: Observable<IBasketTotals> | undefined;
+  basket$: Observable<Basket> | undefined;
+  basketTotals$: Observable<BasketTotals> | undefined;
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean | undefined;
-  basket: IBasket | undefined;
+  basket: Basket | undefined;
   protected authService = inject(AuthService);
   protected router = inject(Router);
 

@@ -8,15 +8,17 @@
     <h2 class="text-start !m-0">My Orders</h2>
   </div>
   <div class="orders-container">
-    @if(false){
-      <div class="basket-summary">
-      </div>
-      <div class="basket-totals">
+    @if (userOrders$ | async) {
+      @for (order of userOrders$ | async; track order) {
+        @for (orderItem of order.orderItems; track orderItem) {
+          <h2>{{ orderItem.productName }}</h2>
+        }
+      }
+    } @else {
+      <div class="empty-orders-message">
+        <h2>You have no orders</h2>
+        <button class="shop-button" routerLink="/home">Go to the Shop</button>
       </div>
     }
-        <div class="empty-orders-message">
-          <h2>You have no orders</h2>
-          <button class="shop-button" routerLink="/home">Go to the Shop</button>
-        </div>
   </div>
 </div>

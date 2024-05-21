@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { BasketSummaryComponent } from './basket-summary/basket-summary.component';
 import { BasketTotalsComponent } from './basket-totals/basket-totals.component';
-import { IBasket, IBasketTotals } from '../../core/models/basket';
+import { Basket, BasketTotals } from '../../core/models/basket';
 import { Observable } from 'rxjs';
 import { BasketService } from '../../services/basket.service';
 
@@ -22,10 +22,10 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './basket.component.css',
 })
 export class BasketComponent implements OnInit {
-  basket$: Observable<IBasket> | undefined;
-  basketTotals$: Observable<IBasketTotals> | undefined;
+  basket$: Observable<Basket> | undefined;
+  basketTotals$: Observable<BasketTotals> | undefined;
   basketService = inject(BasketService);
-  basket!: IBasket;
+  basket!: Basket;
   isLoggedIn$: Observable<boolean> | undefined;
   authService = inject(AuthService);
 

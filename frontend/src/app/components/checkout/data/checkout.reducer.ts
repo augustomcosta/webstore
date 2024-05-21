@@ -30,6 +30,10 @@ export const checkoutReducer = createReducer(
     stepperStep:
       state.stepperStep > 1 ? state.stepperStep - 1 : state.stepperStep,
   })),
+  on(CheckoutActions.resetCheckoutState, (state) => ({
+    ...state,
+    stepperStep: initialState.stepperStep,
+  })),
 );
 
 export const orderReducer = createReducer(

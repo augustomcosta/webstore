@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BasketService } from '../../services/basket.service';
-import { IBasket, IBasketTotals } from '../../core/models/basket';
+import { Basket, BasketTotals } from '../../core/models/basket';
 import { Observable } from 'rxjs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';

@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { IBasket } from '../core/models/basket';
+import { Basket } from '../core/models/basket';
 import { BasketService } from './basket.service';
 import { Order } from '../core/models/order';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,9 @@ export class OrderService {
   http = inject(HttpClient);
   apiUrl = environment.apiUrl;
   basketService = inject(BasketService);
-  basket: IBasket | undefined;
+  basket: Basket | undefined;
+  userOrdersSource = new BehaviorSubject<Order[]>([]);
+  userOrders$ = this.userOrdersSource.asObservable();
 
   placeOrder(deliveryMethodId: string): Observable<Order> {
     return this.http.post<Order>(
@@ -21,6 +23,17 @@ export class OrderService {
         `/Order/create-order?basketId=${this.basket?.id}&userId=${localStorage.getItem('userId')}&deliveryMethodId=${deliveryMethodId}`,
       {},
     );
+  }
+
+  getAllOrdersForUser() {
+    return this.http
+      .get<
+        Order[]
+      >(this.apiUrl + `/Order/get-all-orders-for-user?userId=${localStorage.getItem('userId')}`)
+      .subscribe((orders) => {
+        this.userOrdersSource.next(orders);
+        console.log(orders);
+      });
   }
 
   constructor() {

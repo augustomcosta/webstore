@@ -1,8 +1,15 @@
 import {
   checkoutReducer,
   CheckoutState,
+  orderReducer,
+  OrderSubmitState,
 } from './components/checkout/data/checkout.reducer';
-import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
+import {
+  ActionReducer,
+  ActionReducerMap,
+  combineReducers,
+  MetaReducer,
+} from '@ngrx/store';
 import {
   shippingMethodReducer,
   ShippingMethodSelectedState,
@@ -21,6 +28,7 @@ export interface AppState {
   shipping: ShippingState;
   payment: PaymentState;
   shippingMethod: ShippingMethodSelectedState;
+  order: OrderSubmitState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -28,6 +36,7 @@ export const reducers: ActionReducerMap<AppState> = {
   shipping: shippingReducer,
   payment: paymentReducer,
   shippingMethod: shippingMethodReducer,
+  order: orderReducer,
 };
 
 type PartialAppState = Partial<AppState>;
@@ -73,8 +82,20 @@ export function localStorageSyncReducer(
   })(reducer);
 }
 
+export function resetStateMetaReducer(
+  reducer: ActionReducer<AppState>,
+): ActionReducer<AppState> {
+  return (state, action) => {
+    if (action.type === '[Order] Place Order Success') {
+      state = undefined;
+    }
+    return reducer(state, action);
+  };
+}
+
 export const metaReducers: MetaReducer<AppState, any>[] = [
   localStorageSyncReducer,
+  resetStateMetaReducer,
 ];
 
 export const effects = [ShippingEffects];

@@ -1,5 +1,5 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { IBasket } from '../../../core/models/basket';
+import { Basket } from '../../../core/models/basket';
 import { BasketService } from '../../../services/basket.service';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
 })
 export class BasketTotalsComponent implements OnInit {
   basketService = inject(BasketService);
-  @Input() basket!: IBasket;
+  @Input() basket!: Basket;
   subTotal = this.calculateSubTotal();
   totals: number = this.calculateTotals();
 

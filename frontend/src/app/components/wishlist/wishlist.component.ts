@@ -5,9 +5,9 @@ import { AuthService } from '../../services/auth.service';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RouterLink } from '@angular/router';
-import {WishlistService} from "../../services/wishlist.service";
-import {IBasket} from "../../core/models/basket";
-import {IWishlist} from "../../core/models/wishlist";
+import { WishlistService } from '../../services/wishlist.service';
+import { Basket } from '../../core/models/basket';
+import { IWishlist } from '../../core/models/wishlist';
 
 @Component({
   selector: 'app-wishlist',
@@ -23,9 +23,10 @@ export class WishlistComponent implements OnInit {
   wishlistService = inject(WishlistService);
   wishlist$!: Observable<IWishlist>;
 
-  getWishlist(){
-    return this.wishlistService.getWishlistFromLoggedUser()?.subscribe((wishlist) =>
-    this.wishlist = wishlist);
+  getWishlist() {
+    return this.wishlistService
+      .getWishlistFromLoggedUser()
+      ?.subscribe((wishlist) => (this.wishlist = wishlist));
   }
 
   ngOnInit(): void {

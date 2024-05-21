@@ -57,9 +57,8 @@ export const shippingReducer = createReducer(
     submitting: false,
     error,
   })),
-  on(resetShippingState, (state) => ({
-    ...state,
-    state: initialState,
+  on(resetShippingState, (initialState) => ({
+    ...initialState,
     formData: initialState.formData,
   })),
   on(resetShippingMethodState, (state) => ({

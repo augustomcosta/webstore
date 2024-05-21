@@ -20,7 +20,7 @@ import { InputClearableExample } from '../search-bar/search-bar.component';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { BasketService } from '../../../services/basket.service';
-import { IBasket } from '../../../core/models/basket';
+import { Basket } from '../../../core/models/basket';
 import { BasketItem } from '../../../core/models/basket-item';
 
 @Component({
@@ -56,8 +56,8 @@ export class SideBarComponent implements OnInit {
   loggedUser$: Observable<string> | undefined;
   userName: string | undefined;
   basketService = inject(BasketService);
-  basket$: Observable<IBasket> | undefined;
-  basket!: IBasket | null;
+  basket$: Observable<Basket> | undefined;
+  basket!: Basket | null;
 
   constructor() {}
 

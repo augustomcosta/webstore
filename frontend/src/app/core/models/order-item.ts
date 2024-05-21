@@ -1,5 +1,4 @@
 export interface OrderItemVO {
-  id: string;
   quantity: number;
   price: number;
   productName: string;

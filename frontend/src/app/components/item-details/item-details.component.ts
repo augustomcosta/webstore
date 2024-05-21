@@ -15,7 +15,7 @@ import { WishlistService } from '../../services/wishlist.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IWishlist } from '../../core/models/wishlist';
 import { AuthService } from '../../services/auth.service';
-import { IBasket } from '../../core/models/basket';
+import { Basket } from '../../core/models/basket';
 
 @Component({
   selector: 'app-item-details',
@@ -41,8 +41,8 @@ export class ItemDetailsComponent implements OnInit {
   cdr = inject(ChangeDetectorRef);
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: Boolean | undefined;
-  basket: IBasket | undefined;
-  basket$: Observable<IBasket> | undefined;
+  basket: Basket | undefined;
+  basket$: Observable<Basket> | undefined;
   isOnWishlist: boolean | undefined;
   isOnWishlist$: Observable<boolean> | undefined;
   isOnWishlistSource = new BehaviorSubject<boolean>(false);

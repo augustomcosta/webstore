@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { AsyncPipe, CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { BasketService } from '../../../services/basket.service';
-import { IBasket } from '../../../core/models/basket';
+import { Basket } from '../../../core/models/basket';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,8 +13,8 @@ import { Observable } from 'rxjs';
 })
 export class BasketSummaryComponent implements OnInit {
   basketService = inject(BasketService);
-  @Input() basket!: IBasket;
-  basket$!: Observable<IBasket>;
+  @Input() basket!: Basket;
+  basket$!: Observable<Basket>;
 
   removeItemFromBasket(itemId: string) {
     return this.basketService.removeItemFromBasket(itemId);

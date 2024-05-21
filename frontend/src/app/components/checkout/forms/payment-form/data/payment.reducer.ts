@@ -16,9 +16,7 @@ export const paymentReducer = createReducer(
     ...state,
     value: payment,
   })),
-  on(resetPaymentState, (state) => ({
-    ...state,
-    state: initialState,
-    value: initialState.value,
+  on(resetPaymentState, (state, action) => ({
+    ...initialState,
   })),
 );

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { BasketService } from '../../../services/basket.service';
-import { IBasket, IBasketTotals } from '../../../core/models/basket';
+import { Basket, BasketTotals } from '../../../core/models/basket';
 import { Observable } from 'rxjs';
 import { DeliveryMethodService } from '../../../services/delivery-method.service';
 import { IDeliveryMethod } from '../../../core/models/delivery-method';
@@ -23,9 +23,9 @@ import * as CheckoutActions from '../forms/data/shipping/shipping.actions';
 })
 export class CartSummaryComponent implements OnInit {
   basketService = inject(BasketService);
-  basket: IBasket | undefined;
-  basket$: Observable<IBasket> | undefined;
-  basketTotal$: Observable<IBasketTotals> | undefined;
+  basket: Basket | undefined;
+  basket$: Observable<Basket> | undefined;
+  basketTotal$: Observable<BasketTotals> | undefined;
   deliveryMethodService = inject(DeliveryMethodService);
   deliveryMethods: IDeliveryMethod[] = [];
   deliveryMethods$!: Observable<IDeliveryMethod[]>;
@@ -77,6 +77,7 @@ export class CartSummaryComponent implements OnInit {
 
   setBasketShippingPrice() {
     this.basket!.shippingPrice = this.deliveryPrice;
+    this.basket!.deliveryMethodId = this.deliveryMethodSelected.id;
     this.basketService.setBasket(this.basket!);
   }
 

@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import * as CheckoutActions from '../data/checkout.actions';
 import { BasketService } from '../../../services/basket.service';
 import { Observable } from 'rxjs';
-import { IBasket, IBasketTotals } from '../../../core/models/basket';
+import { Basket, BasketTotals } from '../../../core/models/basket';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { IPaymentMethod } from '../../../core/models/payment-method';
 import { RouterLink } from '@angular/router';
@@ -23,9 +23,9 @@ import { placeOrderSuccess } from '../data/checkout.actions';
 export class OrderSummaryComponent implements OnInit {
   store = inject(Store);
   basketService = inject(BasketService);
-  basket$: Observable<IBasket> | undefined;
-  basket!: IBasket;
-  basketTotal$: Observable<IBasketTotals> | undefined;
+  basket$: Observable<Basket> | undefined;
+  basket!: Basket;
+  basketTotal$: Observable<BasketTotals> | undefined;
   @Input() paymentMethod!: IPaymentMethod;
   paymentSelected!: string;
   shippingSelected!: IDeliveryMethod;
@@ -66,7 +66,10 @@ export class OrderSummaryComponent implements OnInit {
         this.createdOrder = order;
         this.isOrderSuccess = true;
       });
+
     this.store.dispatch(placeOrderSuccess());
+
+    this.basketService.resetUserBasket();
   }
 
   ngOnInit(): void {
