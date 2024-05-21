@@ -88,4 +88,22 @@ public class BasketRepository : IBasketRepository
         var basket = await _context.Baskets!.FirstOrDefaultAsync(b => b.UserId == userId);
         return basket!;
     }
+
+
+    public async Task<Basket> ResetUserBasket(string userId)
+    {
+        var userBasket = await _context.Baskets!.FirstOrDefaultAsync(b => b.UserId == userId);
+        if (userBasket is null)
+        {
+            throw new Exception($"Basket for user with Id {userId} was not found");
+        }
+
+        var emptyBasket = new Basket();
+        
+        emptyBasket.UpdateBasket(userBasket);
+
+        await _context.SaveChangesAsync();
+
+        return userBasket;
+    }
 }

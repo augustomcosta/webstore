@@ -44,8 +44,17 @@ public class BasketController : ControllerBase
     }
     
     [HttpGet("get-by-user")]
-    public async Task<IActionResult> GetBasketByUserId(string userId){
+    public async Task<IActionResult> GetBasketByUserId(string userId)
+    {
         var basket = await _service.GetBasketByUserId(userId);
+        return Ok(basket);
+    }
+
+    [HttpGet("reset-user-basket")]
+    public async Task<IActionResult> ResetUserBasket(string userId)
+    {
+        var basket = await _service.ResetUserBasket(userId);
+
         return Ok(basket);
     }
 }

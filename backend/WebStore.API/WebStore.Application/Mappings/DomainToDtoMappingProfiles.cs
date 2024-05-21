@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using WebStore.API.DTOs;
+using WebStore.API.DTOs.BasketDto;
 using WebStore.API.DTOs.BasketDtoAggregate;
+using WebStore.API.DTOs.OrderDtoAggregate;
 using WebStore.API.DTOs.UserDto;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.OrderAggregate;
+using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 using WebStore.Domain.ValueObjects;
 
 namespace WebStore.API.Mappings;
@@ -27,7 +30,19 @@ public class DomainToDtoMappingProfiles : Profile
         CreateMap<ProductBrand, BrandDto>().ReverseMap();
         CreateMap<ProductCategory, CategoryDto>().ReverseMap();
         CreateMap<User, UserDto>().ReverseMap();
-        CreateMap<Order, OrderDto>().ReverseMap();
+        CreateMap<Order, OrderDto>().ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems)).
+            ConstructUsing(src => new OrderDto(
+                src.SubTotal,
+                src.BuyerEmail,
+                null!,
+                src.OrderDate,
+                src.DeliveryMethod,
+                src.ShippingAddress,
+                src.DeliveryMethodId,
+                src.Total,
+                src.UserId
+                )).
+        ReverseMap();
         CreateMap<Basket, BasketDto>().ReverseMap();
         CreateMap<Basket, BasketUpdateDto>()
             .ForMember(dest => dest.BasketItems, opt => opt.MapFrom(src => src.BasketItems))
@@ -35,7 +50,6 @@ public class DomainToDtoMappingProfiles : Profile
                 src.Id,
                 null,
                 src.DeliveryMethodId.ToString(),
-                src.PaymentIntentId,
                 src.ShippingPrice,
                 src.TotalPrice)
             )
@@ -73,5 +87,12 @@ public class DomainToDtoMappingProfiles : Profile
             src.Number
             )).ReverseMap();
         CreateMap<PaymentMethod, PaymentMethodDto>().ReverseMap();
+        CreateMap<OrderItemVO, OrderItemVoDto>()
+            .ForMember(dest => dest.Brand, opt => opt.MapFrom(src => src.Brand))
+            .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))
+            .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+            .ForMember(dest => dest.ProductImgUrl, opt => opt.MapFrom(src => src.ProductImgUrl))
+            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductName))
+            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
     }
 }

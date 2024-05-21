@@ -13,14 +13,13 @@ public sealed class Basket
     public string? Id { get; set; } = Guid.NewGuid().ToString();
     public string? UserId { get; set; }
     public string? DeliveryMethodId { get; set; }
-    public string? PaymentIntentId { get; set; } 
     public decimal ShippingPrice { get; set; }
     public DateTime? CreatedAt {get; set;}
 
     [JsonIgnore]
     public User? User {get; set;}
     public DeliveryMethod? DeliveryMethod {get; set;}
-    public List<BasketItem> BasketItems { get; set; } = new List<BasketItem>();
+    public List<BasketItem> BasketItems { get; set; } = [];
     private decimal _totalPrice;
 
     public decimal TotalPrice
@@ -36,10 +35,9 @@ public sealed class Basket
 
     public void UpdateBasket(Basket basket)
     {
-        basket.Id = Id;
         basket.DeliveryMethodId = DeliveryMethodId;
-        basket.PaymentIntentId = PaymentIntentId;
         basket.ShippingPrice = ShippingPrice;
         basket.BasketItems = BasketItems;
+        basket.TotalPrice = TotalPrice;
     }
 }

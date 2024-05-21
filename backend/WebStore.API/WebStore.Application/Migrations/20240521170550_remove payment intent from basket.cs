@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WebStore.API.Migrations
 {
     /// <inheritdoc />
-    public partial class changedeliverymethodidfromguidtostring : Migration
+    public partial class removepaymentintentfrombasket : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -275,7 +275,6 @@ namespace WebStore.API.Migrations
                     Id = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     DeliveryMethodId = table.Column<string>(type: "text", nullable: true),
-                    PaymentIntentId = table.Column<string>(type: "text", nullable: true),
                     ShippingPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     BasketItems = table.Column<string>(type: "text", nullable: false),

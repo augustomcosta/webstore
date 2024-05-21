@@ -9,13 +9,13 @@ namespace WebStore.Domain.Entities.OrderAggregate;
 
 public sealed class Order : BaseEntity
 {
-    public Order(string userId, ICollection<OrderItemVO> orderItems)
+    public Order(string userId, List<OrderItemVO> orderItems)
     {
         OrderItems = orderItems;
         UserId = userId;
     }
 
-    public Order(Guid id, ICollection<OrderItemVO> orderItems, DeliveryMethod deliveryMethod
+    public Order(Guid id, List<OrderItemVO> orderItems, DeliveryMethod deliveryMethod
         ) : base(id)
     {
         DeliveryMethod = deliveryMethod;
@@ -27,7 +27,7 @@ public sealed class Order : BaseEntity
 
     [Required] public string BuyerEmail { get; set; }
     
-    [Required] public ICollection<OrderItemVO> OrderItems { get; private set; }
+    [Required] public List<OrderItemVO> OrderItems { get; private set; }
     
     [Required] public DateTime OrderDate { get; private set; } = DateTime.Now;
     public AddressVO ShippingAddress { get; set; }

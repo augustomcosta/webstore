@@ -10,19 +10,17 @@ public class OrderItemVO
 {
     public int Quantity { get; private set; }
     public decimal Price { get; private set; }
-    public string ProductName { get; private set; } = "";
-    public string Id { get; private set; } = "";
-    public string ProductImgUrl { get; set; } = "";
+    public string ProductName { get; private set; }
+    public string ProductImgUrl { get; set; }
     public string? Brand {get; set;}
     public string? Category {get; set;}
 
     public OrderItemVO() { }
 
-    public OrderItemVO(int quantity, decimal price, string productName, string id, string productImgUrl, string brand, string category)
+    public OrderItemVO(int quantity, decimal price, string productName, string productImgUrl, string brand, string category)
     {
         ValidateOrderItem(quantity,price);
         ProductName = productName;
-        Id = id;
         ProductImgUrl = productImgUrl;
         Brand = brand;
         Category = category;

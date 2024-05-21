@@ -9,4 +9,5 @@ public interface IBasketRepository
     Task<Basket> UpdateBasketAsync(Basket basket);
     Task<Basket> Delete(string basketId);
     Task<Basket> GetBasketByUserId(string userId);
+    Task<Basket> ResetUserBasket(string userId);
 }

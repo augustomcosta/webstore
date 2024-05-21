@@ -13,8 +13,8 @@ using WebStore.Infra.Context;
 namespace WebStore.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240520164117_change delivery method id from guid to string")]
-    partial class changedeliverymethodidfromguidtostring
+    [Migration("20240521170550_remove payment intent from basket")]
+    partial class removepaymentintentfrombasket
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -171,9 +171,6 @@ namespace WebStore.API.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeliveryMethodId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PaymentIntentId")
                         .HasColumnType("text");
 
                     b.Property<decimal>("ShippingPrice")

@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using WebStore.Domain.Entities.OrderAggregate;
-using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 using WebStore.Domain.ValueObjects;
 
-namespace WebStore.API.DTOs;
+namespace WebStore.API.DTOs.OrderDtoAggregate;
 
 [DataContract]
 public record OrderDto(
@@ -12,7 +11,7 @@ public record OrderDto(
 
     [Required] string BuyerEmail,
 
-    [Required] IReadOnlyList<OrderItemVO> OrderItems,
+    [Required] List<OrderItemVoDto> OrderItems,
 
     [Required] DateTime OrderDate,
 
@@ -24,5 +23,5 @@ public record OrderDto(
 
     [Required] decimal Total,
 
-    [Required] Guid UserId
+    [Required] string UserId
 );

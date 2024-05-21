@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
 using WebStore.Domain.Entities.OrderAggregate;
 using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
@@ -18,10 +19,11 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.Property(o => o.BuyerEmail).IsRequired();
         builder.Property(o => o.SubTotal).IsRequired();
         builder.Property(o => o.OrderItems)
+            .IsRequired();
+        builder.Property(o => o.OrderItems)
             .IsRequired()
-            .HasConversion(
+            .HasConversion(new ValueConverter<List<OrderItemVO>, string>(
                 v => JsonConvert.SerializeObject(v),
-                v => JsonConvert.DeserializeObject<List<OrderItemVO>>(v)
-            );
+                v => JsonConvert.DeserializeObject<List<OrderItemVO>>(v)));
     }
 }

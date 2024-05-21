@@ -49,7 +49,7 @@ public class OrderRepository : IOrderRepository
         var orderItems = new List<OrderItemVO>();
         foreach (var item in basket.BasketItems)
         {
-            var orderItem = new OrderItemVO(item.Quantity, item.Price, item.ProductName, item.Id,
+            var orderItem = new OrderItemVO(item.Quantity, item.Price, item.ProductName,
                  item.ProductImgUrl, item.Brand, item.Category);
             orderItems.Add(orderItem);
         }
@@ -132,19 +132,21 @@ public class OrderRepository : IOrderRepository
         return paginatedOrders;
     }
 
-    public async Task<IEnumerable<Order>> GetByBuyerEmail(OrdersEmailFilter emailFilter)
+    public async Task<IEnumerable<Order>> GetAllOrdersForUser(string userId)
     {
-        var orders = await GetAll();
+        var user = await _userRepo.GetById(userId);
+        if (user is null)
+        {
+            throw new Exception($"User with Id {userId} was not found");
+        }
+
+        var orders = await _context.Orders!
+            .Where(o => o.UserId == userId)
+            .ToListAsync();
+        
         if (orders == null) throw new Exception("No orders were found");
-
-        var queryOrders = orders.AsQueryable();
-
-        var filteredOrders = queryOrders.Where(o => o.BuyerEmail == emailFilter.BuyerEmail);
-
-        var paginatedOrders =
-            PagedList<Order>.ToPagedList(filteredOrders, emailFilter.PageNumber, emailFilter.PageSize);
-
-        return paginatedOrders;
+        
+        return orders;
     }
 
     public async Task<IEnumerable<Order>> GetByOrderDate(OrdersDateFilter dateFilter)
@@ -156,7 +158,6 @@ public class OrderRepository : IOrderRepository
         var filteredOrders = queryOrders.Where(o => o.OrderDate == dateFilter.OrderDate);
 
         var paginatedOrders = PagedList<Order>.ToPagedList(filteredOrders, dateFilter.PageNumber, dateFilter.PageSize);
-
         return paginatedOrders;
     }
 }

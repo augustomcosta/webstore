@@ -170,9 +170,6 @@ namespace WebStore.API.Migrations
                     b.Property<string>("DeliveryMethodId")
                         .HasColumnType("text");
 
-                    b.Property<string>("PaymentIntentId")
-                        .HasColumnType("text");
-
                     b.Property<decimal>("ShippingPrice")
                         .HasColumnType("numeric");
 

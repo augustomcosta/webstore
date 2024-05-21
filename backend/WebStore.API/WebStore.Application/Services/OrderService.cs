@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using WebStore.API.DTOs;
+using WebStore.API.DTOs.OrderDtoAggregate;
 using WebStore.API.Interfaces;
 using WebStore.Domain.Entities.OrderAggregate;
 using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
@@ -59,5 +60,12 @@ public class OrderService : IOrderService
         var order = await _repository.CreateOrder(basketId, userId,deliveryMethodId);
         if (string.IsNullOrEmpty(userId) || string.IsNullOrWhiteSpace(userId)) throw new Exception("User not found");
         return _mapper.Map<OrderDto>(order);
+    }
+
+    public async Task<List<OrderDto>> GetAllOrdersForUser(string userId)
+    {
+        var orders = await _repository.GetAllOrdersForUser(userId);
+        
+        return _mapper.Map<List<OrderDto>>(orders);
     }
 }

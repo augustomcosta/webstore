@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using WebStore.API.DTOs;
 using WebStore.API.DTOs.BasketDtoAggregate;
 using WebStore.API.Interfaces;
 using WebStore.Domain.Entities;
@@ -26,12 +25,19 @@ public class BasketService : IBasketService
         return _mapper.Map<BasketDto>(basket);
     }
 
-    public async Task<BasketUpdateDto> UpdateBasketAsync(Basket basket)
+    public async Task<BasketDto> UpdateBasketAsync(Basket basket)
     {
         var updatedBasket = await _basketRepo.UpdateBasketAsync(basket);
         if (updatedBasket is null) throw new Exception("Basket not found");
 
-        return _mapper.Map<BasketUpdateDto>(updatedBasket);
+        return _mapper.Map<BasketDto>(updatedBasket);
+    }
+
+    public async Task<BasketDto> ResetUserBasket(string userId)
+    {
+        var basket = await _basketRepo.ResetUserBasket(userId);
+        
+        return _mapper.Map<BasketDto>(basket);
     }
 
     public async Task DeleteBasketAsync(string id)

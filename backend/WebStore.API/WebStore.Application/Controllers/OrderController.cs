@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using WebStore.API.DTOs;
+using WebStore.API.DTOs.OrderDtoAggregate;
 using WebStore.API.Interfaces;
+using WebStore.Domain.Entities.OrderAggregate;
 using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 
 namespace WebStore.API.Controllers;
@@ -10,10 +13,12 @@ namespace WebStore.API.Controllers;
 public class OrderController : ControllerBase
 {
     private readonly IOrderService _service;
+    private readonly IMapper _mapper;
 
-    public OrderController(IOrderService service)
+    public OrderController(IOrderService service, IMapper mapper)
     {
         _service = service;
+        _mapper = mapper;
     }
 
     [HttpGet]
@@ -67,5 +72,13 @@ public class OrderController : ControllerBase
         if (order is null) throw new Exception("Error while creating order");
 
         return Ok(order);
+    }
+
+    [HttpGet("get-all-orders-for-user")]
+    public async Task<IActionResult> GetAllOrdersForUser(string userId)
+    {
+        var orders = await _service.GetAllOrdersForUser(userId);
+        
+        return Ok(orders);
     }
 }
