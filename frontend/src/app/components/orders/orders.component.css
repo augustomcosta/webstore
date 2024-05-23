@@ -1,74 +1,94 @@
 .orders-container {
   @apply
   flex
-  flex-row
+  flex-col
   h-[70vh]
   items-center
-  justify-center
   mx-20
+  p-10
   shadow-lg
   bg-white
   rounded-lg
 }
 
-.basket-summary {
+.orders {
   @apply
   flex
-  flex-row
-  items-start
-  h-[100%]
-  w-[160%]
-  rounded-l-lg
-  p-10
-  bg-white
-  overflow-y-scroll;
-
+  flex-col
+  mx-10;
 }
-  .basket-totals {
+
+.empty-orders-message {
+  @apply flex flex-col
+  items-center
+  justify-center
+  w-full h-full;
+
+  h2 {
     @apply
-    flex
-    flex-row
-    items-start
-    p-10
-    h-full w-[60%]
-    bg-white
-    rounded-r-lg
-    border-l
-    border-solid
-    border-slate-200;
+    text-slate-500
   }
+}
 
-  .orders {
+.shop-button {
+  @apply
+  bg-teal-800
+  text-white
+  p-3
+  rounded-md
+  transition
+
+  hover:scale-105
+  hover:bg-teal-900;
+}
+
+.orders-header {
+  @apply
+  flex
+  w-full
+  items-center
+  gap-40
+}
+
+.order-details-container {
+  @apply
+  w-full
+}
+
+.table-auto {
+  @apply w-full border-collapse border;
+}
+
+.table-auto th, .table-auto td {
+  @apply border p-2 text-left;
+}
+
+.table-auto-row p {
+  @apply
+  text-slate-500
+}
+
+.table-auto th {
+  @apply
+  bg-slate-200
+  text-teal-800;
+}
+
+.order-detail-button {
+  @apply
+  max-w-[10rem]
+  p-2
+  transition
+  rounded-lg
+  text-white
+  bg-teal-800
+  hover:bg-teal-900;
+
+  p {
     @apply
-    flex
-    flex-col
-    mx-10;
+    m-0
   }
-
-  .empty-orders-message {
-    @apply flex flex-col
-    items-center
-    justify-center
-    w-full h-full;
-
-    h2 {
-      @apply
-      text-slate-500
-    }
-  }
-
-  .shop-button {
-    @apply
-    bg-teal-800
-    text-white
-    p-3
-    rounded-md
-    transition
-
-    hover:scale-105
-    hover:bg-teal-900;
-  }
-
+}
 
 
 

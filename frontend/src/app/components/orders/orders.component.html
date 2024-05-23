@@ -9,11 +9,34 @@
   </div>
   <div class="orders-container">
     @if (userOrders$ | async) {
-      @for (order of userOrders$ | async; track order) {
-        @for (orderItem of order.orderItems; track orderItem) {
-          <h2>{{ orderItem.productName }}</h2>
-        }
-      }
+      <table class="table-auto">
+        <thead>
+        <tr>
+          <th class="border p-2 w-1/6">Date</th>
+          <th class="border p-2 w-1/6">Total</th>
+          <th class="border p-2 w-1/6">Quantity</th>
+          <th class="border p-2 w-1/6">Shipping Method</th>
+          <th class="border p-2 w-1/6">Buyer Email</th>
+          <th class="border p-2 w-1/6"></th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (order of userOrders$ | async; track order) {
+            <tr class="table-auto-row">
+              <td class="border p-2 w-1/6"><p>{{ order.orderDate }}</p></td>
+              <td class="border p-2 w-1/6"><p>{{ order.total | currency }}</p></td>
+              <td class="border p-2 w-1/6"><p>{{ order.totalItemQuantity }} items</p></td>
+              <td class="border p-2 w-1/6"><p>{{ order.deliveryMethod.name }}</p></td>
+              <td class="border p-2 w-1/6"><p>{{ order.buyerEmail }}</p></td>
+              <td class="border p-2 w-1/6">
+                <div class="flex justify-center items-center">
+                  <button [routerLink]="['/order',order.id]" class="order-detail-button">View Order</button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
     } @else {
       <div class="empty-orders-message">
         <h2>You have no orders</h2>
