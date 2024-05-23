@@ -1,10 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  inject,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Product } from '../../core/models/product';
 import { Router, RouterLink } from '@angular/router';
 import { BasketSummaryComponent } from '../basket/basket-summary/basket-summary.component';
@@ -38,7 +32,6 @@ export class ItemDetailsComponent implements OnInit {
   wishlist$!: Observable<IWishlist>;
   protected authService = inject(AuthService);
   protected router = inject(Router);
-  cdr = inject(ChangeDetectorRef);
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: Boolean | undefined;
   basket: Basket | undefined;
