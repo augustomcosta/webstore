@@ -32,8 +32,11 @@ export class OrderService {
       >(this.apiUrl + `/Order/get-all-orders-for-user?userId=${localStorage.getItem('userId')}`)
       .subscribe((orders) => {
         this.userOrdersSource.next(orders);
-        console.log(orders);
       });
+  }
+
+  getOrderById(orderId: string): Observable<Order> {
+    return this.http.get<Order>(this.apiUrl + `/Order/${orderId}`);
   }
 
   constructor() {
