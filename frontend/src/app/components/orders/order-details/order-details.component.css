@@ -1,0 +1,146 @@
+.order-container {
+  @apply
+  flex
+  flex-col
+  h-[70vh]
+  items-center
+  gap-5
+  mx-20
+  p-10
+  shadow-lg
+  bg-white
+  rounded-lg
+}
+
+.order-details {
+  @apply
+  flex
+  flex-col
+  mx-10;
+}
+
+.table-auto {
+  @apply w-full border-collapse border h-[50%];
+
+  img {
+    @apply
+    object-cover
+    h-[60px]
+    w-[60px]
+    overflow-hidden
+    rounded-md
+    border
+    border-solid
+    border-slate-100;
+  }
+}
+
+.table-auto th, .table-auto td {
+  @apply border p-2 text-center;
+}
+
+.table-auto-row p {
+  @apply
+  text-slate-500
+  m-0;
+}
+
+.table-auto th {
+  @apply
+  bg-slate-200
+  text-teal-800
+  sticky
+  top-0;
+}
+
+.table-auto td {
+  vertical-align: middle;
+}
+
+.address-item, .shipping-item, .totals-item {
+  @apply
+  flex
+  items-center
+  gap-5;
+
+  p, h3 {
+    @apply
+    m-0;
+  }
+
+  h3 {
+    @apply
+    text-teal-800;
+  }
+
+  p {
+    @apply
+    text-slate-500;
+  }
+}
+
+.street-number {
+  @apply
+  flex
+  items-center
+  gap-3
+}
+
+.order-info-container {
+  @apply
+  flex
+  items-center
+  justify-center
+  w-full
+  h-[50%];
+}
+
+.delivery-method-container, .order-totals-container, .address-container {
+  @apply
+  flex
+  flex-col
+  justify-center
+  gap-4
+  h-full;
+
+  h2 {
+    @apply
+    text-teal-900;
+  }
+}
+
+.shipping-totals-container {
+  @apply
+  flex
+  items-start
+  justify-between
+  gap-36
+}
+
+.order-table-container {
+  @apply
+  h-[50%]
+  w-full
+  overflow-auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+
+  &::-webkit-scrollbar-thumb {
+    @apply
+    bg-gradientColor-darkAugusteal;
+  }
+
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+

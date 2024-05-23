@@ -1,0 +1,129 @@
+<body class="order-details">
+<div class="flex items-center align-middle pb-[2rem] gap-3">
+  <div class="bg-gradient-to-tr
+from-gradientColor-darkAugusteal
+  to-gradientColor-augusteal rounded-md p-1">
+    <app-whitelabel-icon size="md" color="white" icon="package"/>
+  </div>
+  <h2 class="text-start !m-0">Order Details</h2>
+</div>
+<div class="order-container">
+  @if (order) {
+    <div class="order-table-container">
+      <table class="table-auto">
+        <thead>
+        <tr>
+          <th class="border p-2 w-1/6"></th>
+          <th class="border p-2 w-1/6">Product</th>
+          <th class="border p-2 w-1/6">Price</th>
+          <th class="border p-2 w-1/6">Quantity</th>
+          <th class="border p-2 w-1/6">Category</th>
+          <th class="border p-2 w-1/6">Brand</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (item of order.orderItems; track order) {
+            <tr class="table-auto-row">
+              <td class="border p-2 w-1/6">
+                <div class="flex justify-center">
+                  <img src="{{item.productImgUrl}}" alt="{{item.productName}}">
+                </div>
+              </td>
+              <td class="border p-2 w-1/6">
+                <button class="hover:border-b border-slate-500" [routerLink]="['/items', item.id]">
+                  <p>{{ item.productName }}</p>
+                </button>
+              </td>
+              <td class="border p-2 w-1/6"><p>{{ item.price | currency }}</p></td>
+              <td class="border p-2 w-1/6"><p>{{ item.quantity }}</p></td>
+              <td class="border p-2 w-1/6"><p>{{ item.category }}</p></td>
+              <td class="border p-2 w-1/6"><p>{{ item.brand }}</p></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="order-info-container">
+      <div class="shipping-totals-container">
+        <div class="address-container">
+          <div class="flex gap-3">
+            <div class="bg-gradient-to-tr
+            from-gradientColor-darkAugusteal
+            to-gradientColor-augusteal rounded-md p-1">
+              <app-whitelabel-icon color="white" icon="map-pin"/>
+            </div>
+            <h2 class="!m-0">Shipping Address</h2>
+          </div>
+          <div class="address-item">
+            <h3>City</h3>
+            <p>{{ order.shippingAddress.city }}</p>
+          </div>
+          <div class="address-item">
+            <h3>State</h3>
+            <p>{{ order.shippingAddress.state }}</p>
+          </div>
+          <div class="address-item">
+            <h3>Street</h3>
+            <div class="street-number">
+              <p>{{ order.shippingAddress.street }}</p>
+              <p>{{ order.shippingAddress.number }}</p>
+            </div>
+          </div>
+          <div class="address-item">
+            <h3>Neighborhood</h3>
+            <p>{{ order.shippingAddress.neighborhood }}</p>
+          </div>
+        </div>
+        <div class="delivery-method-container">
+          <div class="flex gap-3">
+            <div class="bg-gradient-to-tr
+            from-gradientColor-darkAugusteal
+            to-gradientColor-augusteal rounded-md p-1">
+              <app-whitelabel-icon color="white" icon="truck"/>
+            </div>
+            <h2 class="!m-0">Delivery Method</h2>
+          </div>
+          <div class="shipping-item">
+            <h3>Shipping option</h3>
+            <p>{{ order.deliveryMethod.name }}</p>
+          </div>
+          <div class="shipping-item">
+            <h3>Description</h3>
+            <p>{{ order.deliveryMethod.description }}</p>
+          </div>
+          <div class="shipping-item">
+            <h3>Delivery Time</h3>
+            <p>{{ order.deliveryMethod.deliveryTime }}</p>
+          </div>
+        </div>
+        <div class="order-totals-container">
+          <div class="flex gap-3">
+            <div class="bg-gradient-to-tr
+            from-gradientColor-darkAugusteal
+            to-gradientColor-augusteal rounded-md p-1">
+              <app-whitelabel-icon color="white" icon="dollar-sign"/>
+            </div>
+            <h2 class="!m-0">Totals</h2>
+          </div>
+          <div class="totals-item">
+            <h3>Total Price</h3>
+            <p>{{ order.total | currency }}</p>
+          </div>
+          <div class="totals-item">
+            <h3>SubTotal</h3>
+            <p>{{ order.subTotal | currency }}</p>
+          </div>
+          <div class="totals-item">
+            <h3>Shipping Price</h3>
+            <p>{{ order.deliveryMethod.price | currency }}</p>
+          </div>
+          <div class="totals-item">
+            <h3>Total Items</h3>
+            <p>{{ order.totalItemQuantity }} items</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+</body>
