@@ -30,11 +30,13 @@ public class DomainToDtoMappingProfiles : Profile
         CreateMap<ProductBrand, BrandDto>().ReverseMap();
         CreateMap<ProductCategory, CategoryDto>().ReverseMap();
         CreateMap<User, UserDto>().ReverseMap();
-        CreateMap<Order, OrderDto>().ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems)).
-            ConstructUsing(src => new OrderDto(
+        CreateMap<Order, OrderDto>().ForMember(dest => dest.orderItems, opt => opt.MapFrom(src => src.OrderItems))
+            .ConstructUsing(src => new OrderDto(
+                src.Id,
                 src.SubTotal,
                 src.BuyerEmail,
                 null!,
+                src.TotalItemQuantity,
                 src.OrderDate,
                 src.DeliveryMethod,
                 src.ShippingAddress,
@@ -87,12 +89,14 @@ public class DomainToDtoMappingProfiles : Profile
             src.Number
             )).ReverseMap();
         CreateMap<PaymentMethod, PaymentMethodDto>().ReverseMap();
-        CreateMap<OrderItemVO, OrderItemVoDto>()
-            .ForMember(dest => dest.Brand, opt => opt.MapFrom(src => src.Brand))
-            .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))
-            .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
-            .ForMember(dest => dest.ProductImgUrl, opt => opt.MapFrom(src => src.ProductImgUrl))
-            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductName))
-            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
+        CreateMap<OrderItemVO, OrderItemVoDto>().ConstructUsing(src => new OrderItemVoDto(
+            src.Id,
+            src.Quantity,
+            src.Price,
+            src.ProductName,
+            src.ProductImgUrl,
+            src.Brand,
+            src.Category
+            )).ReverseMap();
     }
 }

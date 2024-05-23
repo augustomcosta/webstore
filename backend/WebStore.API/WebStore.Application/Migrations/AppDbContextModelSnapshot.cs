@@ -170,11 +170,11 @@ namespace WebStore.API.Migrations
                     b.Property<string>("DeliveryMethodId")
                         .HasColumnType("text");
 
-                    b.Property<decimal>("ShippingPrice")
-                        .HasColumnType("numeric");
+                    b.Property<double>("ShippingPrice")
+                        .HasColumnType("double precision");
 
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("numeric");
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("double precision");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -277,8 +277,8 @@ namespace WebStore.API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
@@ -299,18 +299,22 @@ namespace WebStore.API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("OrderDate")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("OrderItems")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("SubTotal")
-                        .HasColumnType("numeric");
+                    b.Property<double>("SubTotal")
+                        .HasColumnType("double precision");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("numeric");
+                    b.Property<double>("Total")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("TotalItemQuantity")
+                        .HasColumnType("integer");
 
                     b.Property<string>("UserId")
                         .IsRequired()

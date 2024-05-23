@@ -9,5 +9,5 @@ public sealed class DeliveryMethod : BaseEntity
     [Required] public string Name { get; private set; } = "";
     [Required] public string DeliveryTime { get; private set; } = "";
     [Required] public string Description { get; private set; } = "";
-    [Required] public decimal Price { get; set; }
+    [Required] public double Price { get; set; }
 }

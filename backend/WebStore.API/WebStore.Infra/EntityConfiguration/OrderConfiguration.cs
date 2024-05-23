@@ -16,14 +16,17 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .HasForeignKey(o => o.UserId);
         builder.HasOne(o => o.DeliveryMethod).WithMany().HasForeignKey(o => o.DeliveryMethodId);
         builder.Property(o => o.Total).IsRequired();
+        builder.Property(o => o.TotalItemQuantity);
         builder.Property(o => o.BuyerEmail).IsRequired();
         builder.Property(o => o.SubTotal).IsRequired();
         builder.Property(o => o.OrderItems)
             .IsRequired();
         builder.Property(o => o.OrderItems)
             .IsRequired()
-            .HasConversion(new ValueConverter<List<OrderItemVO>, string>(
+            .HasConversion(
                 v => JsonConvert.SerializeObject(v),
-                v => JsonConvert.DeserializeObject<List<OrderItemVO>>(v)));
+                v => JsonConvert.DeserializeObject<List<OrderItemVO>>(v));
+        builder.Navigation(o => o.DeliveryMethod)
+            .UsePropertyAccessMode(PropertyAccessMode.Property);
     }
 }

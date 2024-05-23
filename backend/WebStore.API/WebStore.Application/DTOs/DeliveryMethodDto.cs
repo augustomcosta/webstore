@@ -12,5 +12,5 @@ public record DeliveryMethodDto(
 
     [Required]  string Description,
 
-    [Required]  decimal Price
+    [Required]  double Price
     );

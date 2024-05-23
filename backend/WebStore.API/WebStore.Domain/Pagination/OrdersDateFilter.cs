@@ -2,5 +2,5 @@
 
 public class OrdersDateFilter : QueryStringParams
 {
-    public DateTime OrderDate { get; set; }
+    public string OrderDate { get; set; }
 }

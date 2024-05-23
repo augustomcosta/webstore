@@ -13,16 +13,16 @@ public sealed class Basket
     public string? Id { get; set; } = Guid.NewGuid().ToString();
     public string? UserId { get; set; }
     public string? DeliveryMethodId { get; set; }
-    public decimal ShippingPrice { get; set; }
+    public double ShippingPrice { get; set; }
     public DateTime? CreatedAt {get; set;}
 
     [JsonIgnore]
     public User? User {get; set;}
     public DeliveryMethod? DeliveryMethod {get; set;}
     public List<BasketItem> BasketItems { get; set; } = [];
-    private decimal _totalPrice;
+    private double _totalPrice;
 
-    public decimal TotalPrice
+    public double TotalPrice
     {
         get {return _totalPrice;}
         set {_totalPrice = value;} 

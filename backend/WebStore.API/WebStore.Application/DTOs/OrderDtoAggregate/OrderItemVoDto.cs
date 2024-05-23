@@ -2,12 +2,15 @@
 
 namespace WebStore.API.DTOs.OrderDtoAggregate;
 
+
 [DataContract]
 public record OrderItemVoDto(
+ string Id,
  int Quantity,
- decimal Price,
+ double Price,
  string ProductName,
  string ProductImgUrl,
  string Brand,
- string Category 
+ string Category
 );
+

@@ -30,7 +30,7 @@ public class OrderRepository : IOrderRepository
 
     public async Task<Order> GetById(Guid? id)
     {
-        var orderById = await _context.Orders!.FirstOrDefaultAsync(o => o.Id == id);
+        var orderById = await _context.Orders!.Include(o => o.DeliveryMethod).FirstOrDefaultAsync(o => o.Id == id);
         if (orderById == null) throw new Exception($"Order with Id {id} was not found.");
 
         return orderById;
@@ -49,7 +49,7 @@ public class OrderRepository : IOrderRepository
         var orderItems = new List<OrderItemVO>();
         foreach (var item in basket.BasketItems)
         {
-            var orderItem = new OrderItemVO(item.Quantity, item.Price, item.ProductName,
+            var orderItem = new OrderItemVO(item.Id,item.Quantity, item.Price, item.ProductName,
                  item.ProductImgUrl, item.Brand, item.Category);
             orderItems.Add(orderItem);
         }
@@ -142,6 +142,7 @@ public class OrderRepository : IOrderRepository
 
         var orders = await _context.Orders!
             .Where(o => o.UserId == userId)
+            .Include(o => o.DeliveryMethod)
             .ToListAsync();
         
         if (orders == null) throw new Exception("No orders were found");

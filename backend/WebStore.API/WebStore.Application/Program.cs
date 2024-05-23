@@ -1,7 +1,9 @@
 using System.Web.Http;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using WebStore.API.DependencyInjection;
+using WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 using WebStore.Infra.Context;
 
 var builder = WebApplication.CreateBuilder(args);

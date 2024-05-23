@@ -9,6 +9,6 @@ public record BasketUpdateDto(
     string Id,
     [Required] List<BasketItemDto> BasketItems,
     string DeliveryMethodId,
-    decimal ShippingPrice,
-    decimal TotalPrice
+    double ShippingPrice,
+    double TotalPrice
     );

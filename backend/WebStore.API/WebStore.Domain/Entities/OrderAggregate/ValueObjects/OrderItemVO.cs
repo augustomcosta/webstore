@@ -1,46 +1,38 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using WebStore.Domain.Validation;
 
 namespace WebStore.Domain.Entities.OrderAggregate.ValueObjects;
 
-[Keyless]
+
 [ComplexType]
 public class OrderItemVO
 {
-    public int Quantity { get; private set; }
-    public decimal Price { get; private set; }
-    public string ProductName { get; private set; }
+    public string Id { get; set; }
+    public int Quantity { get; set; }
+    public double Price { get; set; }
+    public string ProductName { get; set; }
     public string ProductImgUrl { get; set; }
-    public string? Brand {get; set;}
-    public string? Category {get; set;}
+    public string Brand { get; set; }
+    public string Category { get; set; }
 
-    public OrderItemVO() { }
-
-    public OrderItemVO(int quantity, decimal price, string productName, string productImgUrl, string brand, string category)
+    public OrderItemVO()
     {
-        ValidateOrderItem(quantity,price);
+    }
+ 
+    public OrderItemVO(
+        string id,
+        int quantity,
+        double price,
+        string productName,
+        string productImgUrl,
+        string brand,
+        string category)
+    {
+        Id = id;
+        Quantity = quantity;
+        Price = price;
         ProductName = productName;
         ProductImgUrl = productImgUrl;
         Brand = brand;
         Category = category;
-    }
-
-    private void ValidateOrderItem(int quantity, decimal price)
-    {
-        ValidateQuantity(quantity);
-        ValidatePrice(price);
-    }
-    
-    private void ValidateQuantity(int quantity)
-    {
-        DomainValidationException.When(int.IsNegative(quantity),"Item quantity should be positive.");
-        Quantity = quantity;
-    }
-
-    private void ValidatePrice(decimal price)
-    {
-        DomainValidationException.When(decimal.IsNegative(price),"Item price should be positive");
-        Price = price;
     }
 }

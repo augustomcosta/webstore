@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WebStore.API.Migrations
 {
     /// <inheritdoc />
-    public partial class removepaymentintentfrombasket : Migration
+    public partial class adddeliverymethodreferencevalues : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -87,7 +87,7 @@ namespace WebStore.API.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     DeliveryTime = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric", nullable: false)
+                    Price = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -275,10 +275,10 @@ namespace WebStore.API.Migrations
                     Id = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     DeliveryMethodId = table.Column<string>(type: "text", nullable: true),
-                    ShippingPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    ShippingPrice = table.Column<double>(type: "double precision", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     BasketItems = table.Column<string>(type: "text", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "numeric", nullable: false)
+                    TotalPrice = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -301,12 +301,13 @@ namespace WebStore.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    SubTotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    SubTotal = table.Column<double>(type: "double precision", nullable: false),
                     BuyerEmail = table.Column<string>(type: "text", nullable: false),
                     OrderItems = table.Column<string>(type: "text", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    TotalItemQuantity = table.Column<int>(type: "integer", nullable: false),
+                    OrderDate = table.Column<string>(type: "text", nullable: false),
                     DeliveryMethodId = table.Column<string>(type: "text", nullable: false),
-                    Total = table.Column<decimal>(type: "numeric", nullable: false),
+                    Total = table.Column<double>(type: "double precision", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     ShippingAddress_City = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     ShippingAddress_Neighborhood = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
