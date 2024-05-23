@@ -1,6 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import * as CheckoutActions from '../data/checkout.actions';
+import { placeOrderSuccess } from '../data/checkout.actions';
 import { BasketService } from '../../../services/basket.service';
 import { Observable } from 'rxjs';
 import { Basket, BasketTotals } from '../../../core/models/basket';
@@ -11,7 +12,6 @@ import { selectShippingMethod } from '../forms/data/shipping/shipping.selectors'
 import { IDeliveryMethod } from '../../../core/models/delivery-method';
 import { OrderService } from '../../../services/order.service';
 import { Order } from '../../../core/models/order';
-import { placeOrderSuccess } from '../data/checkout.actions';
 
 @Component({
   selector: 'app-order-summary',
@@ -65,11 +65,9 @@ export class OrderSummaryComponent implements OnInit {
       .subscribe((order) => {
         this.createdOrder = order;
         this.isOrderSuccess = true;
+        this.store.dispatch(placeOrderSuccess());
+        this.basketService.resetUserBasket();
       });
-
-    this.store.dispatch(placeOrderSuccess());
-
-    this.basketService.resetUserBasket();
   }
 
   ngOnInit(): void {
