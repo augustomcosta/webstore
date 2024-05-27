@@ -1,4 +1,5 @@
 using System.Web.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
@@ -67,11 +68,11 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/images/categories"
 });
 
-var brandsJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/brands.json");
-var categoriesJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/categories.json");
-var productsJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/products.json");
-var paymentMethodsJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/payment-methods.json");
-var deliveryMethodsJson = File.ReadAllText("../WebStore.Infra/SeedDataFiles/delivery-methods.json");
+var brandsJson = File.ReadAllText("./SeedDataFiles/brands.json");
+var categoriesJson = File.ReadAllText("./SeedDataFiles/categories.json");
+var productsJson = File.ReadAllText("./SeedDataFiles/products.json");
+var paymentMethodsJson = File.ReadAllText("./SeedDataFiles/payment-methods.json");
+var deliveryMethodsJson = File.ReadAllText("./SeedDataFiles/delivery-methods.json");
 SeedDataContext.SeedData(brandsJson, categoriesJson, productsJson, paymentMethodsJson, deliveryMethodsJson , app.Services);
 
 app.UseRateLimiter();

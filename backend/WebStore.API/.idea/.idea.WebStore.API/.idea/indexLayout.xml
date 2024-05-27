@@ -2,8 +2,9 @@
 <project version="4">
   <component name="UserContentModel">
     <attachedFolders>
-      <Path>../../../../web-store</Path>
+      <Path>../../../webstore</Path>
       <Path>../../backend</Path>
+      <Path>../../../../web-store</Path>
     </attachedFolders>
     <explicitIncludes />
     <explicitExcludes />
