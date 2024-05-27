@@ -1,11 +1,11 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { IWishlist } from '../../../../../core/models/wishlist';
+import { IWishlist } from '../../../domain/models/wishlist';
 import { Observable } from 'rxjs';
 import { WishlistService } from '../../../data/services/wishlist.service';
 import { BasketService } from '../../../../basket/data/services/basket.service';
-import { WishlistItem } from '../../../../../core/models/wishlist-item';
+import { WishlistItem } from '../../../domain/models/wishlist-item';
 
 @Component({
   selector: 'app-wishlist-items',

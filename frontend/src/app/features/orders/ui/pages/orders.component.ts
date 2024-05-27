@@ -5,7 +5,7 @@ import { BasketTotalsComponent } from '../../../basket/ui/components/basket-tota
 import { RouterLink } from '@angular/router';
 import { OrderService } from '../../data/services/order.service';
 import { Observable } from 'rxjs';
-import { Order } from '../../../../core/models/order';
+import { Order } from '../../domain/models/order';
 import { OrderDetailsComponent } from '../components/order-details/order-details.component';
 
 @Component({

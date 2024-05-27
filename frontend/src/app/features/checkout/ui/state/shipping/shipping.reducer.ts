@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { AddressVO } from '../../../../../core/models/address-vo';
+import { AddressVO } from '../../../../shared/value_objects/address-vo';
 import {
   resetShippingMethodState,
   resetShippingState,
@@ -11,7 +11,7 @@ import {
 import {
   DeliveryMethod,
   IDeliveryMethod,
-} from '../../../../../core/models/delivery-method';
+} from '../../../domain/models/delivery-method';
 
 export interface ShippingState {
   formData: AddressVO;

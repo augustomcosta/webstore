@@ -1,14 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { LoginRequest } from '../../../../interfaces/login-request';
+import { LoginRequest } from '../interfaces/login-request';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AuthResponse } from '../../../../interfaces/auth-response';
+import { AuthResponse } from '../interfaces/auth-response';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { BasketService } from '../../../basket/data/services/basket.service';
-import { RegisterRequest } from '../../../../interfaces/register-request';
-import { RegisterResponse } from '../../../../interfaces/register-response';
+import { RegisterRequest } from '../interfaces/register-request';
+import { RegisterResponse } from '../interfaces/register-response';
 
 @Injectable({
   providedIn: 'root',

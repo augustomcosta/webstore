@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { BehaviorSubject, tap } from 'rxjs';
-import { IDeliveryMethod } from '../core/models/delivery-method';
+import { IDeliveryMethod } from '../../domain/models/delivery-method';
 
 @Injectable({
   providedIn: 'root',

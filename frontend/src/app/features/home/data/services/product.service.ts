@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment';
-import { Product } from '../core/models/product';
-import { ProductParams } from '../features/shared/models/productParams';
+import { environment } from '../../../../environments/environment';
+import { Product } from '../../domain/models/product';
+import { ProductParams } from '../../../shared/models/productParams';
 import { of } from 'rxjs';
 
 @Injectable({

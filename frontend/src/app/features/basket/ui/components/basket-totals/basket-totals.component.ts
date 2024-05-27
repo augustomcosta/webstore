@@ -1,5 +1,5 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { Basket } from '../../../../../core/models/basket';
+import { Basket } from '../../../domain/models/basket';
 import { BasketService } from '../../../data/services/basket.service';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';

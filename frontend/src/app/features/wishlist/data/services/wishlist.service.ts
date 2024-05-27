@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { IWishlist } from '../../../../core/models/wishlist';
+import { IWishlist } from '../../domain/models/wishlist';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { Product } from '../../../../core/models/product';
+import { Product } from '../../../home/domain/models/product';
 import { BehaviorSubject, tap } from 'rxjs';
-import { WishlistItem } from '../../../../core/models/wishlist-item';
+import { WishlistItem } from '../../domain/models/wishlist-item';
 
 @Injectable({
   providedIn: 'root',

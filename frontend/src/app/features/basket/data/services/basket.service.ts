@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Basket, BasketTotals } from '../../../../core/models/basket';
+import { Basket, BasketTotals } from '../../domain/models/basket';
 import { BehaviorSubject, tap } from 'rxjs';
-import { Product } from '../../../../core/models/product';
-import { BasketItem } from '../../../../core/models/basket-item';
+import { Product } from '../../../home/domain/models/product';
+import { BasketItem } from '../../domain/models/basket-item';
 
 @Injectable({
   providedIn: 'root',

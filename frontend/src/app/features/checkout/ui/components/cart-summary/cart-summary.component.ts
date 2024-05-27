@@ -1,10 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { BasketService } from '../../../../basket/data/services/basket.service';
-import { Basket, BasketTotals } from '../../../../../core/models/basket';
+import { Basket, BasketTotals } from '../../../../basket/domain/models/basket';
 import { Observable } from 'rxjs';
-import { DeliveryMethodService } from '../../../../../services/delivery-method.service';
-import { IDeliveryMethod } from '../../../../../core/models/delivery-method';
+import { DeliveryMethodService } from '../../../data/services/delivery-method.service';
+import { IDeliveryMethod } from '../../../domain/models/delivery-method';
 import {
   FormBuilder,
   FormGroup,

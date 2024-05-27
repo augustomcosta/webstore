@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { BasketSummaryComponent } from '../components/basket-summary/basket-summary.component';
 import { BasketTotalsComponent } from '../components/basket-totals/basket-totals.component';
-import { Basket, BasketTotals } from '../../../../core/models/basket';
+import { Basket, BasketTotals } from '../../domain/models/basket';
 import { Observable } from 'rxjs';
 import { BasketService } from '../../data/services/basket.service';
 

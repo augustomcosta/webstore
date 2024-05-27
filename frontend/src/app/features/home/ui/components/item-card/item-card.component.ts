@@ -2,12 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterLink } from '@angular/router';
-import { Product } from '../../../../../core/models/product';
+import { Product } from '../../../domain/models/product';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { BasketService } from '../../../../basket/data/services/basket.service';
 import { Input } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Basket, BasketTotals } from '../../../../../core/models/basket';
+import { Basket, BasketTotals } from '../../../../basket/domain/models/basket';
 import { AuthService } from '../../../../auth/data/services/auth.service';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Order } from '../../../../../core/models/order';
+import { Order } from '../../../domain/models/order';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { WhitelabelIconComponent } from '../../../../shared/ui/components/whitelabel-icon/whitelabel-icon.component';

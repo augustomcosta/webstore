@@ -13,8 +13,8 @@ import {
   NgOptimizedImage,
   NgStyle,
 } from '@angular/common';
-import { CategoryService } from '../../../../../services/category.service';
-import { Category } from '../../../../../core/models/category';
+import { CategoryService } from '../../../data/services/category.service';
+import { Category } from '../../../domain/models/category';
 import { Observable } from 'rxjs';
 import { RouterLinkActive } from '@angular/router';
 

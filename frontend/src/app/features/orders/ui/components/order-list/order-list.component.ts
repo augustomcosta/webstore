@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OrderService } from '../../../data/services/order.service';
 import { ItemDetailsComponent } from '../../../../shared/ui/components/item-details/item-details.component';
 import { OrderDetailsComponent } from '../order-details/order-details.component';
-import { Order } from '../../../../../core/models/order';
+import { Order } from '../../../domain/models/order';
 
 @Component({
   selector: 'app-order-list',

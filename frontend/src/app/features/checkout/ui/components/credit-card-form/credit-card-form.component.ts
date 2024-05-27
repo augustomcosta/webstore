@@ -15,7 +15,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { CreditCardBrand } from '../../../../shared/enum/credit-card-brands';
 import { NgOptimizedImage } from '@angular/common';
-import { IPaymentMethod } from '../../../../../core/models/payment-method';
+import { IPaymentMethod } from '../../../domain/models/payment-method';
 
 @Component({
   selector: 'app-credit-card-form',

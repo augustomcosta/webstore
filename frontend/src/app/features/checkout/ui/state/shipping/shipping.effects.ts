@@ -8,7 +8,7 @@ import {
 import { catchError, of, switchMap, tap } from 'rxjs';
 import { UserService } from '../../../../auth/data/services/user.service';
 import { map } from 'rxjs/operators';
-import { AddressVO } from '../../../../../core/models/address-vo';
+import { AddressVO } from '../../../../shared/value_objects/address-vo';
 
 @Injectable()
 export class ShippingEffects {

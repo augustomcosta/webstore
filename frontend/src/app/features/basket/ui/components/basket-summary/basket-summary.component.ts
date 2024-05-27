@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { AsyncPipe, CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { BasketService } from '../../../data/services/basket.service';
-import { Basket } from '../../../../../core/models/basket';
+import { Basket } from '../../../domain/models/basket';
 import { Observable } from 'rxjs';
 
 @Component({

@@ -4,14 +4,14 @@ import * as CheckoutActions from '../../state/checkout/checkout.actions';
 import { placeOrderSuccess } from '../../state/checkout/checkout.actions';
 import { BasketService } from '../../../../basket/data/services/basket.service';
 import { Observable } from 'rxjs';
-import { Basket, BasketTotals } from '../../../../../core/models/basket';
+import { Basket, BasketTotals } from '../../../../basket/domain/models/basket';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
-import { IPaymentMethod } from '../../../../../core/models/payment-method';
+import { IPaymentMethod } from '../../../domain/models/payment-method';
 import { RouterLink } from '@angular/router';
 import { selectShippingMethod } from '../../state/shipping/shipping.selectors';
-import { IDeliveryMethod } from '../../../../../core/models/delivery-method';
+import { IDeliveryMethod } from '../../../domain/models/delivery-method';
 import { OrderService } from '../../../../orders/data/services/order.service';
-import { Order } from '../../../../../core/models/order';
+import { Order } from '../../../../orders/domain/models/order';
 
 @Component({
   selector: 'app-order-summary',

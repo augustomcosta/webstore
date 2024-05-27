@@ -8,8 +8,8 @@ import { AsyncPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ItemCardComponent } from '../components/item-card/item-card.component';
 import { ImageSliderComponent } from '../components/image-slider/image-slider.component';
-import { ProductService } from '../../../../services/product.service';
-import { Product } from '../../../../core/models/product';
+import { ProductService } from '../../data/services/product.service';
+import { Product } from '../../domain/models/product';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({

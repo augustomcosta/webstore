@@ -1,5 +1,5 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { Product } from '../../../../../core/models/product';
+import { Product } from '../../../../home/domain/models/product';
 import { Router, RouterLink } from '@angular/router';
 import { BasketSummaryComponent } from '../../../../basket/ui/components/basket-summary/basket-summary.component';
 import { BasketTotalsComponent } from '../../../../basket/ui/components/basket-totals/basket-totals.component';
@@ -7,9 +7,9 @@ import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { BasketService } from '../../../../basket/data/services/basket.service';
 import { WishlistService } from '../../../../wishlist/data/services/wishlist.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IWishlist } from '../../../../../core/models/wishlist';
+import { IWishlist } from '../../../../wishlist/domain/models/wishlist';
 import { AuthService } from '../../../../auth/data/services/auth.service';
-import { Basket } from '../../../../../core/models/basket';
+import { Basket } from '../../../../basket/domain/models/basket';
 
 @Component({
   selector: 'app-item-details',

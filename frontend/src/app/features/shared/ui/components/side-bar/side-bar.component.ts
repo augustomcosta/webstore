@@ -20,8 +20,8 @@ import { InputClearableExample } from '../search-bar/search-bar.component';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../../auth/data/services/auth.service';
 import { BasketService } from '../../../../basket/data/services/basket.service';
-import { Basket } from '../../../../../core/models/basket';
-import { BasketItem } from '../../../../../core/models/basket-item';
+import { Basket } from '../../../../basket/domain/models/basket';
+import { BasketItem } from '../../../../basket/domain/models/basket-item';
 
 @Component({
   selector: 'app-sidebar',

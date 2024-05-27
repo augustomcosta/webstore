@@ -6,7 +6,7 @@ import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { WishlistService } from '../../data/services/wishlist.service';
-import { IWishlist } from '../../../../core/models/wishlist';
+import { IWishlist } from '../../domain/models/wishlist';
 
 @Component({
   selector: 'app-wishlist',

@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { IPaymentMethod } from '../../../../../core/models/payment-method';
+import { IPaymentMethod } from '../../../domain/models/payment-method';
 import { PaymentMethodService } from '../../../data/services/payment-method.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
