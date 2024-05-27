@@ -1,6 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
 import * as CheckoutActions from './checkout.actions';
-import { create } from '@mui/material/styles/createTransitions';
 
 export interface CheckoutState {
   stepperStep: number;

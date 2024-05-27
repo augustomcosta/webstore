@@ -4,7 +4,6 @@ import { RouterLink } from '@angular/router';
 import { IWishlist } from '../../../core/models/wishlist';
 import { Observable } from 'rxjs';
 import { WishlistService } from '../../../services/wishlist.service';
-import { Product } from '../../../core/models/product';
 import { BasketService } from '../../../services/basket.service';
 import { WishlistItem } from '../../../core/models/wishlist-item';
 

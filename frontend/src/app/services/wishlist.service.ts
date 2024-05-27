@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { IWishlist, Wishlist } from '../core/models/wishlist';
+import { IWishlist } from '../core/models/wishlist';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Product } from '../core/models/product';

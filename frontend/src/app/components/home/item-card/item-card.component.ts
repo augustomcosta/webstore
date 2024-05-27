@@ -6,7 +6,7 @@ import { Product } from '../../../core/models/product';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { BasketService } from '../../../services/basket.service';
 import { Input } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Basket, BasketTotals } from '../../../core/models/basket';
 import { AuthService } from '../../../services/auth.service';
 
