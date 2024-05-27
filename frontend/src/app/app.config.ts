@@ -5,7 +5,12 @@ import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideStore } from '@ngrx/store';
 import { IMAGE_CONFIG } from '@angular/common';
-import { effects, getInitialAppState, metaReducers, reducers } from './index';
+import {
+  effects,
+  getInitialAppState,
+  metaReducers,
+  reducers,
+} from './app.store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideEffects } from '@ngrx/effects';
 

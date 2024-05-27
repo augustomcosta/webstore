@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
-import { AppState } from '../../../../../index';
+import { AppState } from '../../../../../app.store';
 import { ShippingMethodSelectedState, ShippingState } from './shipping.reducer';
 
 export const selectShippingState = (state: AppState) => state.shipping;

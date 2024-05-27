@@ -1,4 +1,4 @@
-import { AppState } from '../../../../../index';
+import { AppState } from '../../../../../app.store';
 import { createSelector } from '@ngrx/store';
 import { PaymentState } from './payment.reducer';
 
