@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../../../environments/environment';
 import { IPaymentMethod } from '../../domain/models/payment-method';
 import { BehaviorSubject, tap } from 'rxjs';
 
