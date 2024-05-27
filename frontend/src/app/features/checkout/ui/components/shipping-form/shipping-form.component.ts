@@ -11,7 +11,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { select, Store } from '@ngrx/store';
 import { UserService } from '../../../../auth/data/services/user.service';
-import { AddressVO } from '../../../../shared/value_objects/address-vo';
+import { AddressVO } from '../../../../shared/value-objects/address-vo';
 import { CepResponse } from '../../../../shared/interfaces/cep-response';
 import { submitForm } from '../../state/shipping/shipping.actions';
 import * as CheckoutActions from '../../state/checkout/checkout.actions';

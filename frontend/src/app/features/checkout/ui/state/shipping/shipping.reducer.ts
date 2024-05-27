@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { AddressVO } from '../../../../shared/value_objects/address-vo';
+import { AddressVO } from '../../../../shared/value-objects/address-vo';
 import {
   resetShippingMethodState,
   resetShippingState,

@@ -1,6 +1,6 @@
 import { OrderItemVO } from './order-item';
 import { DeliveryMethod } from '../../../checkout/domain/models/delivery-method';
-import { AddressVO } from '../../../shared/value_objects/address-vo';
+import { AddressVO } from '../../../shared/value-objects/address-vo';
 
 export interface Order {
   id: string;

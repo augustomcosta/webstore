@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { AddressVO } from '../../../../shared/value_objects/address-vo';
+import { AddressVO } from '../../../../shared/value-objects/address-vo';
 import { DeliveryMethod } from '../../../domain/models/delivery-method';
 
 export const submitForm = createAction('[Form] Submit Form');

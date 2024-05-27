@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment';
-import { AddressVO } from '../../../shared/value_objects/address-vo';
+import { AddressVO } from '../../../shared/value-objects/address-vo';
 
 @Injectable({
   providedIn: 'root',
