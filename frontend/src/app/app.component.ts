@@ -5,10 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './features/home/ui/pages/home.component';
 import { AsyncPipe } from '@angular/common';
-import { SideBarComponent } from './components/shared/side-bar/side-bar.component';
-import { AuthService } from './services/auth.service';
+import { SideBarComponent } from './features/shared/ui/components/side-bar/side-bar.component';
+import { AuthService } from './features/auth/data/services/auth.service';
 
 @Component({
   selector: 'app-root',

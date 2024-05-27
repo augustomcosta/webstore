@@ -1,0 +1,63 @@
+<div class="credit-card-container">
+  <form [formGroup]="creditCardForm" action="" class="payment-form">
+    <div class="card-control">
+      <label>Card Number</label>
+      <div class="card-input">
+        <input
+          class="form-input"
+          formControlName="cardNumber"
+          id="cardNumber"
+          maxlength="19"
+          minlength="14"
+          pattern="\s*[0-9]{4}\s*[0-9]{4}\s*[0-9]{4}\s*[0-9]{4}\s*"
+          placeholder="Card Number"
+          required
+          type="text"
+        />
+        @if (cardBrand) {
+          <img [src]="cardBrandImages[cardBrand]" alt="" class="card-image" />
+        }
+      </div>
+    </div>
+    <div class="card-control">
+      <label>Name on Card</label>
+      <input
+        class="form-input"
+        formControlName="nameOnCard"
+        id="nameOnCard"
+        maxlength="30"
+        minlength="6"
+        placeholder="Name on Card"
+        required
+        type="text"
+      />
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="card-control">
+        <label>CVC</label>
+        <input
+          class="form-input"
+          formControlName="CVC"
+          id="cvc"
+          maxlength="3"
+          minlength="3"
+          placeholder="CVC"
+          required
+          type="text"
+        />
+      </div>
+      <div class="card-control">
+        <label>Expiry Date</label>
+        <input
+          class="form-input"
+          formControlName="expiryDate"
+          id="expiryDate"
+          pattern="(0[1-9]|1[0-2])\/\d{4}"
+          placeholder="MM/YYYY"
+          required
+          type="text"
+        />
+      </div>
+    </div>
+  </form>
+</div>

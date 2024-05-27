@@ -3,25 +3,20 @@ import {
   CheckoutState,
   orderReducer,
   OrderSubmitState,
-} from './components/checkout/data/checkout.reducer';
-import {
-  ActionReducer,
-  ActionReducerMap,
-  combineReducers,
-  MetaReducer,
-} from '@ngrx/store';
+} from './features/checkout/ui/state/checkout/checkout.reducer';
+import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import {
   shippingMethodReducer,
   ShippingMethodSelectedState,
   shippingReducer,
   ShippingState,
-} from './components/checkout/forms/data/shipping/shipping.reducer';
-import { ShippingEffects } from './components/checkout/forms/data/shipping/shipping.effects';
+} from './features/checkout/ui/state/shipping/shipping.reducer';
+import { ShippingEffects } from './features/checkout/ui/state/shipping/shipping.effects';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import {
   paymentReducer,
   PaymentState,
-} from './components/checkout/forms/payment-form/data/payment.reducer';
+} from './features/checkout/ui/state/payment/payment.reducer';
 
 export interface AppState {
   checkout: CheckoutState;

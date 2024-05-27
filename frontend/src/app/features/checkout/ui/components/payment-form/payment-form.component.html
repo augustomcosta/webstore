@@ -1,0 +1,28 @@
+<form
+  [formGroup]="paymentForm"
+  action="../../../../../components/checkout/forms/payment-form"
+  class="payment-form"
+>
+  <h1 class="text-teal-800">Payment</h1>
+  <div class="payment-form-container">
+    <app-payment-selector
+      (formValidityChanged)="updateOverallFormValidity($event)"
+      (paymentMethodOutput)="selectPaymentMethod($event)"
+    />
+  </div>
+  <div class="stepper-buttons">
+    <button (click)="goToPreviousStep()" class="mailing-button">
+      <p class="!m-0">Go to Mailing</p>
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    <button
+      (click)="goToNextStep()"
+      [class.active]="isFormValid"
+      [disabled]="!isFormValid"
+      class="summary-button"
+    >
+      <p class="!m-0">Go to Summary</p>
+      <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
+</form>

@@ -1,0 +1,94 @@
+<form (ngSubmit)="updateUserAddress()" [formGroup]="shippingForm" action="">
+  <h1 class="text-teal-800">Mailing Address</h1>
+  <span id="message"></span>
+  <div class="cep !mb-6">
+    <label> CEP </label>
+    <input
+      (blur)="onCepBlur($event)"
+      class="form-input"
+      formControlName="cep"
+      id="cep"
+      maxlength="9"
+      name="cep"
+      placeholder="CEP"
+      size="10"
+      type="text"
+      value=""
+    />
+  </div>
+  <div class="flex flex-col">
+    <div class="flex justify-between items-center gap-3 w-full mb-4">
+      <div class="state">
+        <label> State </label>
+        <input
+          class="form-input"
+          formControlName="state"
+          id="state"
+          placeholder="State"
+          type="text"
+        />
+      </div>
+      <div class="city">
+        <label> City </label>
+        <input
+          class="form-input"
+          formControlName="city"
+          id="city"
+          placeholder="City"
+          type="text"
+        />
+      </div>
+    </div>
+    <div class="neighborhood !mb-6">
+      <label> Neighborhood </label>
+      <input
+        class="form-input"
+        formControlName="neighborhood"
+        id="neighborhood"
+        placeholder="Neighborhood"
+        type="text"
+      />
+    </div>
+    <div class="flex items-center gap-3 w-full">
+      <div class="street w-[70%]">
+        <label> Street </label>
+        <input
+          class="form-input"
+          formControlName="street"
+          id="street"
+          placeholder="Street"
+          type="text"
+        />
+      </div>
+      <div class="number w-[30%]">
+        <label> Number </label>
+        <input
+          class="form-input"
+          formControlName="number"
+          id="number"
+          placeholder="Number"
+          type="text"
+        />
+      </div>
+    </div>
+    <div class="stepper-buttons">
+      <button
+        [class.active]="shippingForm.valid"
+        [disabled]="!shippingForm.valid"
+        class="address-button"
+        type="submit"
+      >
+        <p class="!m-0">Save Address</p>
+      </button>
+      <button
+        (click)="goToNextStep()"
+        [class.active]="shippingForm.valid"
+        [disabled]="!shippingForm.valid"
+        class="payment-button"
+      >
+        <p class="!m-0">Go to Payment</p>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</form>

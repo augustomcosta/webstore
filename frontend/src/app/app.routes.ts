@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { BasketComponent } from './components/basket/basket.component';
-import { HomeComponent } from './components/home/home.component';
-import { WishlistComponent } from './components/wishlist/wishlist.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { ProductListComponent } from './components/shared/product-list/product-list.component';
-import { OrdersComponent } from './components/orders/orders.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
-import { OrderListComponent } from './components/orders/order-list/order-list.component';
+import { BasketComponent } from './features/basket/ui/pages/basket.component';
+import { HomeComponent } from './features/home/ui/pages/home.component';
+import { WishlistComponent } from './features/wishlist/ui/pages/wishlist.component';
+import { LoginComponent } from './features/auth/ui/pages/login/login.component';
+import { RegisterComponent } from './features/auth/ui/pages/register/register.component';
+import { ProductListComponent } from './features/shared/ui/components/product-list/product-list.component';
+import { OrdersComponent } from './features/orders/ui/pages/orders.component';
+import { CheckoutComponent } from './features/checkout/ui/pages/checkout.component';
+import { OrderListComponent } from './features/orders/ui/components/order-list/order-list.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
