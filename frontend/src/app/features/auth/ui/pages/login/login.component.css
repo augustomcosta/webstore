@@ -72,3 +72,9 @@ form {
   transition
   text-xs
 }
+
+.error-message {
+  @apply
+  text-red-400
+  mt-[10px];
+}

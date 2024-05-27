@@ -8,6 +8,7 @@ import { ProductListComponent } from './features/shared/ui/components/product-li
 import { OrdersComponent } from './features/orders/ui/pages/orders.component';
 import { CheckoutComponent } from './features/checkout/ui/pages/checkout.component';
 import { OrderListComponent } from './features/orders/ui/components/order-list/order-list.component';
+import {OrderSuccessComponent} from "./features/checkout/ui/components/order-success/order-success.component";
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,4 +21,5 @@ export const routes: Routes = [
   { path: 'orders', component: OrdersComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'order/:id', component: OrderListComponent },
+  { path: 'order-success', component: OrderSuccessComponent },
 ];

@@ -8,7 +8,7 @@
     <h2 class="text-start !m-0">My Orders</h2>
   </div>
   <div class="orders-container">
-    @if (userOrders$ | async) {
+    @if (orders) {
       <table class="table-auto">
         <thead>
         <tr>
@@ -21,7 +21,7 @@
         </tr>
         </thead>
         <tbody>
-          @for (order of userOrders$ | async; track order) {
+          @for (order of orders; track order) {
             <tr class="table-auto-row">
               <td class="border p-2 w-1/6"><p>{{ order.orderDate }}</p></td>
               <td class="border p-2 w-1/6"><p>{{ order.total | currency }}</p></td>

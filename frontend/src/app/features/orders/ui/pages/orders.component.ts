@@ -29,7 +29,9 @@ export class OrdersComponent implements OnInit {
   orders!: Order[];
 
   ngOnInit(): void {
-    this.orderService.getAllOrdersForUser();
+    this.orderService.getAllOrdersForUser().subscribe((orders) => {
+      this.orders = orders;
+    });
     this.userOrders$ = this.orderService.userOrders$;
   }
 }

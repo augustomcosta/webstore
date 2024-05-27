@@ -1,0 +1,75 @@
+.orders {
+  @apply
+  flex
+  flex-col
+  mx-10;
+}
+
+.order-success {
+    @apply
+    flex
+    flex-col
+    h-[70vh]
+    items-center
+    mx-20
+    p-10
+    shadow-lg
+    bg-white
+    rounded-lg
+}
+
+.order-success-message {
+  @apply
+  flex
+  flex-col
+  items-center
+  justify-center
+  gap-3
+  w-full h-full;
+
+  h2 {
+    @apply
+    text-teal-800
+    text-lg
+  }
+
+  i {
+    @apply
+    text-7xl
+    bg-clip-text
+    text-transparent
+    bg-gradient-to-tr
+    from-gradientColor-darkAugusteal
+    to-gradientColor-augusteal
+  }
+}
+
+.orders-button {
+  @apply
+  bg-teal-800
+  hover:bg-teal-900
+  hover:scale-105
+  transition
+  p-2
+  rounded-lg
+  text-white;
+}
+
+.shop-button {
+  @apply
+  bg-slate-200
+  hover:scale-105
+  hover:bg-slate-300
+  transition
+  p-2
+  rounded-lg
+  text-teal-800;
+}
+
+.button-container {
+  @apply
+  flex
+  flex-col
+  justify-between
+  gap-3;
+}

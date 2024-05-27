@@ -20,11 +20,20 @@ export class LoginComponent implements OnInit {
   hide = true;
   form!: FormGroup;
   fb = inject(FormBuilder);
+  errorMessage: string | undefined;
 
-  login() {
-    this.authService.login(this.form.value).subscribe((response) => {
-      console.log(response);
-    });
+  login(): void {
+    if (this.form.valid) {
+      this.authService.login(this.form.value).subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (error) => {
+          this.errorMessage = error;
+          console.log(error);
+        }
+      });
+    }
   }
 
   ngOnInit(): void {

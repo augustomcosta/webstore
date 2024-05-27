@@ -53,49 +53,55 @@ public class AuthController : Controller
     public async Task<IActionResult> Login([FromBody] LoginModel model)
     {
         var user = await _userManager.FindByNameAsync(model.UserName!);
-
-        if (user is not null && await _userManager.CheckPasswordAsync(user, model.Password!))
+        if (user is null)
         {
-            var userRoles = await _userManager.GetRolesAsync(user);
-            var authClaims = new List<Claim>
-            {
-                new(ClaimTypes.Name, user.UserName!),
-                new(ClaimTypes.Email, user.Email!),
-                new("id", user.UserName!),
-                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-            authClaims.AddRange(userRoles.Select(userRole => new Claim(ClaimTypes.Role, userRole)));
-
-            var token = _tokenService.GenerateAccessToken(authClaims, _config);
-            var refreshToken = _tokenService.GenerateRefreshToken();
-
-            _ = int.TryParse(_config["JWT:RefreshTokenValidityInMinutes"], out var refreshTokenValidityInMinutes);
-
-            user.RefreshToken = refreshToken;
-            user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(refreshTokenValidityInMinutes);
-            const bool isSuccess = true;
-            await _userManager.UpdateAsync(user);
-            
-            var userModel = await _userRepo.GetById(user.Id);
-            var name = userModel.FirstName;
-            var userBasket = await _basketRepo.GetBasketByUserId(userModel.Id);
-            var userWishlist = await _wishlistRepo.GetWishlistAsync(userModel.Id);
-
-            return Ok(new
-            {
-                Token = new JwtSecurityTokenHandler().WriteToken(token),
-                RefreshToken = refreshToken,
-                Expiration = token.ValidTo.ToString(CultureInfo.CurrentCulture),
-                IsSuccess = isSuccess,
-                loggedUser = model.UserName,
-                userName = name,
-                userId = userModel.Id,
-                basketId = userBasket.Id,
-                wishlistId = userWishlist.Id
-            });
+            return Unauthorized($"User {model.UserName} doesn't exist");
         }
+        
+        var isPasswordValid = await _userManager.CheckPasswordAsync(user, model.Password!);
+        if (!isPasswordValid)
+        {
+            return Unauthorized("Incorrect Password");
+        }
+            
+        var userRoles = await _userManager.GetRolesAsync(user);
+        var authClaims = new List<Claim>
+        {
+            new(ClaimTypes.Name, user.UserName!),
+            new(ClaimTypes.Email, user.Email!),
+            new("id", user.UserName!),
+            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
+        
+        authClaims.AddRange(userRoles.Select(userRole => new Claim(ClaimTypes.Role, userRole)));
 
-        return Unauthorized();
+        var token = _tokenService.GenerateAccessToken(authClaims, _config);
+        var refreshToken = _tokenService.GenerateRefreshToken();
+
+        _ = int.TryParse(_config["JWT:RefreshTokenValidityInMinutes"], out var refreshTokenValidityInMinutes);
+
+        user.RefreshToken = refreshToken;
+        user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(refreshTokenValidityInMinutes);
+        const bool isSuccess = true;
+        await _userManager.UpdateAsync(user);
+            
+        var userModel = await _userRepo.GetById(user.Id);
+        var name = userModel.FirstName;
+        var userBasket = await _basketRepo.GetBasketByUserId(userModel.Id);
+        var userWishlist = await _wishlistRepo.GetWishlistAsync(userModel.Id);
+            
+        return Ok(new
+        {
+            Token = new JwtSecurityTokenHandler().WriteToken(token),
+            RefreshToken = refreshToken,
+            Expiration = token.ValidTo.ToString(CultureInfo.CurrentCulture),
+            IsSuccess = isSuccess,
+            loggedUser = model.UserName,
+            userName = name,
+            userId = userModel.Id,
+            basketId = userBasket.Id,
+            wishlistId = userWishlist.Id
+        });
     }
 
     [DisableCors]

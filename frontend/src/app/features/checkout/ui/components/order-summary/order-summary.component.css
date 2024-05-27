@@ -195,11 +195,3 @@
   text-center
 }
 
-.order-success-container {
-  @apply
-  flex
-  flex-col
-  items-center
-  justify-center
-  align-middle
-}

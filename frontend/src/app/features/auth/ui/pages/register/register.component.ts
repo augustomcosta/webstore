@@ -1,9 +1,10 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   FormsModule,
-  ReactiveFormsModule,
+  ReactiveFormsModule, ValidationErrors, ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../data/services/auth.service';
@@ -29,13 +30,31 @@ export class RegisterComponent implements OnInit, OnDestroy {
     return this.authService.register(this.form.value).subscribe();
   }
 
+  passwordValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+
+      if (!value) {
+        return null;
+      }
+
+      const hasUppercase = /[A-Z]/.test(value);
+      const hasNumber = /\d/.test(value);
+      const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+
+      const passwordValid = hasUppercase && hasNumber && hasSpecial;
+
+      return !passwordValid ? {passwordStrength: true} : null;
+    };
+  }
+
   ngOnInit(): void {
     this.form = this.fb.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       username: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, this.passwordValidator()]],
     });
     this.register$ = this.authService.register$;
   }

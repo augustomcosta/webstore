@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { Basket, BasketTotals } from '../../../../basket/domain/models/basket';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { IPaymentMethod } from '../../../domain/models/payment-method';
-import { RouterLink } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { selectShippingMethod } from '../../state/shipping/shipping.selectors';
 import { IDeliveryMethod } from '../../../domain/models/delivery-method';
 import { OrderService } from '../../../../orders/data/services/order.service';
@@ -32,6 +32,7 @@ export class OrderSummaryComponent implements OnInit {
   orderService = inject(OrderService);
   createdOrder!: Order;
   isOrderSuccess: boolean = false;
+  router = inject(Router)
 
   constructor() {}
 
@@ -67,6 +68,7 @@ export class OrderSummaryComponent implements OnInit {
         this.isOrderSuccess = true;
         this.store.dispatch(placeOrderSuccess());
         this.basketService.resetUserBasket();
+        this.router.navigateByUrl('order-success').then();
       });
   }
 

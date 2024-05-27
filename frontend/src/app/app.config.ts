@@ -13,12 +13,14 @@ import {
 } from './app.store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideEffects } from '@ngrx/effects';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     importProvidersFrom(HttpClientModule),
     provideAnimationsAsync(),
+    provideToastr(),
     provideStore(reducers, {
       initialState: getInitialAppState(),
       metaReducers,

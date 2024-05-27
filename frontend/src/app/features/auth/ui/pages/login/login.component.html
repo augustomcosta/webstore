@@ -15,6 +15,11 @@
       <input class="password-input" id="password" type="password" placeholder="******************"
              formControlName="password">
     </div>
+    @if(errorMessage){
+      <div class="error-message">
+        <p>{{ errorMessage }}</p>
+      </div>
+    }
     <div class="flex flex-row justify-end">
       <a href="#" class="password-reset-button">Forgot password?</a>
     </div>

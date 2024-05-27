@@ -1,4 +1,5 @@
 @import "@fortawesome/fontawesome-free/css/all.css";
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -90,5 +91,4 @@ h2:not(.mat-icon):not(.icon):not(icon),
 h3:not(.mat-icon):not(.icon):not(icon) {
   font-family: 'Montserrat', sans-serif !important;
 }
-
 

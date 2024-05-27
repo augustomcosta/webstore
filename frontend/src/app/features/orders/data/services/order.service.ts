@@ -36,9 +36,6 @@ export class OrderService {
       .get<
         Order[]
       >(this.apiUrl + `/Order/get-all-orders-for-user?userId=${localStorage.getItem('userId')}`)
-      .subscribe((orders) => {
-        this.userOrdersSource.next(orders);
-      });
   }
 
   getOrderById(orderId: string): Observable<Order> {

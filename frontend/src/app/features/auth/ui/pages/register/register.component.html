@@ -40,8 +40,16 @@
         <label class="block text-teal-900 text-sm font-bold mb-2">
           Password
         </label>
-        <input class="password-input" formControlName="password" id="password" placeholder="******************"
-               type="password">
+        <input class="password-input" formControlName="password" id="password" placeholder="******************" type="password">
+        @if(form.get('password')?.invalid && form.get('password')?.touched){
+          <div>
+            @if(form.get('password')?.errors?.['passwordStrength']){
+              <small class="text-red-600">
+                Password must contain at least one capital letter, one number and one special character.
+              </small>
+              }
+          </div>
+        }
       </div>
       <div class="buttons-container">
         <button [disabled]="!form.valid" class="register-button" type="submit">Sign Up</button>

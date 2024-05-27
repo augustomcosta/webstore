@@ -10,6 +10,7 @@ import { AsyncPipe } from '@angular/common';
 import { SideBarComponent } from './features/shared/ui/components/side-bar/side-bar.component';
 import { AuthService } from './features/auth/data/services/auth.service';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,

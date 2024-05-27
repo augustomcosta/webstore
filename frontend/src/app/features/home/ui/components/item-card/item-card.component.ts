@@ -9,6 +9,7 @@ import { Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Basket, BasketTotals } from '../../../../basket/domain/models/basket';
 import { AuthService } from '../../../../auth/data/services/auth.service';
+import {NotificationService} from "../../../../shared/data/services/notification.service";
 
 @Component({
   selector: 'item-card-app',
@@ -35,6 +36,7 @@ export class ItemCardComponent implements OnInit {
   protected authService = inject(AuthService);
   protected router = inject(Router);
   protected readonly Math = Math;
+  notificationService = inject(NotificationService);
 
   constructor() {
     this.isLoggedIn$?.subscribe((isLogged) => {
@@ -52,6 +54,7 @@ export class ItemCardComponent implements OnInit {
       return;
     }
     this.basketService.addItemToBasket(this.product, 1);
+    this.notificationService.showNotification('Item added to basket');
   }
 
   ngOnInit(): void {

@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../../../environments/environment';
 import { LoginRequest } from '../interfaces/login-request';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {BehaviorSubject, catchError, Observable, throwError} from 'rxjs';
 import { AuthResponse } from '../interfaces/auth-response';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { BasketService } from '../../../basket/data/services/basket.service';
@@ -63,8 +63,14 @@ export class AuthService {
           }
           return response;
         }),
+        catchError(this.handleError)
       );
   }
+
+  private handleError(err: HttpErrorResponse): Observable<never> {
+    return throwError(() => err.error);
+  }
+
 
   getLoggedUser(): Observable<string> {
     const userName = localStorage.getItem('userName');
